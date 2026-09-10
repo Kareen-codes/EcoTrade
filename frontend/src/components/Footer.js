@@ -7,24 +7,24 @@ const Footer = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-gradient-to-br from-gray-800 to-gray-900 text-gray-200 mt-16" dir="rtl">
+        <footer className="bg-gradient-to-br from-gray-800 to-gray-900 text-gray-200 mt-16">
             {/* Main Footer Content */}
             <div className="container mx-auto px-6 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     
                     {/* Company Info Section */}
                     <div className="space-y-4">
-                        <div className="flex items-center space-x-3 space-x-reverse">
+                        <div className="flex items-center space-x-3">
                             <img src={logo} alt="EcoTrade Logo" className="h-12 w-auto" />
                             <div>
                                 <h3 className="text-2xl font-bold text-white">EcoTrade</h3>
-                                <p className="text-sm text-gray-400">إعادة تدوير ذكية</p>
+                                <p className="text-sm text-gray-400">Smart Recycling</p>
                             </div>
                         </div>
                         <p className="text-gray-400 leading-relaxed">
-                            منصتك الموثوقة لإعادة التدوير وبيع الخردة بطريقة مستدامة وصديقة للبيئة.
+                            Your trusted platform for recycling and selling scrap in a sustainable and environmentally friendly way.
                         </p>
-                        <div className="flex space-x-4 space-x-reverse">
+                        <div className="flex space-x-4">
                             <a 
                                 href="https://www.facebook.com" 
                                 target="_blank" 
@@ -74,24 +74,24 @@ const Footer = () => {
 
                     {/* Quick Links */}
                     <div>
-                        <h3 className="text-lg font-bold text-white mb-4">روابط سريعة</h3>
+                        <h3 className="text-lg font-bold text-white mb-4">Quick Links</h3>
                         <ul className="space-y-2">
                             <li>
                                 <Link to="/" className="text-gray-400 hover:text-green-400 transition-colors flex items-center">
-                                    <span className="ml-2">›</span>
-                                    الصفحة الرئيسية
+                                    <span className="mr-2">›</span>
+                                    Home
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/support" className="text-gray-400 hover:text-green-400 transition-colors flex items-center">
-                                    <span className="ml-2">›</span>
-                                    الدعم الفني
+                                    <span className="mr-2">›</span>
+                                    Technical Support
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/contact" className="text-gray-400 hover:text-green-400 transition-colors flex items-center">
-                                    <span className="ml-2">›</span>
-                                    تواصل معنا
+                                    <span className="mr-2">›</span>
+                                    Contact Us
                                 </Link>
                             </li>
                         </ul>
@@ -99,18 +99,18 @@ const Footer = () => {
 
                     {/* Legal Links */}
                     <div>
-                        <h3 className="text-lg font-bold text-white mb-4">السياسات والشروط</h3>
+                        <h3 className="text-lg font-bold text-white mb-4">Policies & Terms</h3>
                         <ul className="space-y-2">
                             <li>
                                 <Link to="/privacy-policy" className="text-gray-400 hover:text-green-400 transition-colors flex items-center">
-                                    <span className="ml-2">›</span>
-                                    سياسة الخصوصية
+                                    <span className="mr-2">›</span>
+                                    Privacy Policy
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/terms-of-service" className="text-gray-400 hover:text-green-400 transition-colors flex items-center">
-                                    <span className="ml-2">›</span>
-                                    شروط الخدمة
+                                    <span className="mr-2">›</span>
+                                    Terms of Service
                                 </Link>
                             </li>
                         </ul>
@@ -118,31 +118,31 @@ const Footer = () => {
 
                     {/* Contact Info */}
                     <div>
-                        <h3 className="text-lg font-bold text-white mb-4">تواصل معنا</h3>
+                        <h3 className="text-lg font-bold text-white mb-4">Contact Us</h3>
                         <ul className="space-y-3">
                             <li className="flex items-start">
-                                <MailIcon className="w-5 h-5 text-green-400 ml-3 mt-1 flex-shrink-0" />
+                                <MailIcon className="w-5 h-5 text-green-400 mr-3 mt-1 flex-shrink-0" />
                                 <div>
-                                    <p className="text-gray-400 text-sm">البريد الإلكتروني</p>
+                                    <p className="text-gray-400 text-sm">Email</p>
                                     <a href="mailto:info@ecotrade.com" className="text-white hover:text-green-400 transition-colors">
                                         info@ecotrade.com
                                     </a>
                                 </div>
                             </li>
                             <li className="flex items-start">
-                                <PhoneIcon className="w-5 h-5 text-green-400 ml-3 mt-1 flex-shrink-0" />
+                                <PhoneIcon className="w-5 h-5 text-green-400 mr-3 mt-1 flex-shrink-0" />
                                 <div>
-                                    <p className="text-gray-400 text-sm">الهاتف</p>
+                                    <p className="text-gray-400 text-sm">Phone</p>
                                     <a href="tel:+963123456789" className="text-white hover:text-green-400 transition-colors">
                                         +963 123 456 789
                                     </a>
                                 </div>
                             </li>
                             <li className="flex items-start">
-                                <LocationMarkerIcon className="w-5 h-5 text-green-400 ml-3 mt-1 flex-shrink-0" />
+                                <LocationMarkerIcon className="w-5 h-5 text-green-400 mr-3 mt-1 flex-shrink-0" />
                                 <div>
-                                    <p className="text-gray-400 text-sm">العنوان</p>
-                                    <p className="text-white">دمشق، سوريا</p>
+                                    <p className="text-gray-400 text-sm">Address</p>
+                                    <p className="text-white">Damascus, Syria</p>
                                 </div>
                             </li>
                         </ul>
@@ -154,13 +154,13 @@ const Footer = () => {
             <div className="border-t border-gray-700">
                 <div className="container mx-auto px-6 py-6">
                     <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                        <p className="text-gray-400 text-sm text-center md:text-right">
-                            © {currentYear} EcoTrade. جميع الحقوق محفوظة.
+                        <p className="text-gray-400 text-sm text-center md:text-left">
+                            © {currentYear} EcoTrade. All rights reserved.
                         </p>
-                        <div className="flex items-center space-x-2 space-x-reverse text-gray-400 text-sm">
-                            <span>تم التطوير بواسطة</span>
+                        <div className="flex items-center space-x-2 text-gray-400 text-sm">
+                            <span>Developed by</span>
                             <span className="text-green-400 font-semibold">
-                                أسامة بيطار
+                                Osama Bitar
                             </span>
                         </div>
                     </div>

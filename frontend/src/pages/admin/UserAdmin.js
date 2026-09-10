@@ -62,10 +62,10 @@ const UserAdmin = () => {
             if (data && Array.isArray(data.users)) {
                 setUsers(data.users);
             } else {
-                setError('البيانات المستلمة غير صالحة');
+                setError('The received data is invalid');
             }
         } catch (err) {
-            setError('حدث خطأ أثناء جلب المستخدمين.');
+            setError('An error occurred while fetching users.');
         } finally {
             setLoading(false);
         }
@@ -81,7 +81,7 @@ const UserAdmin = () => {
             setUsers((prev) => prev.filter((u) => u.id !== userId));
             setDeleteModal({ isOpen: false, user: null });
         } catch (err) {
-            setError(err.response?.data?.message || 'حدث خطأ أثناء حذف المستخدم.');
+            setError(err.response?.data?.message || 'An error occurred while deleting the user.');
         }
     };
 
@@ -92,7 +92,7 @@ const UserAdmin = () => {
         if (data && Array.isArray(data.users)) {
             setUsers(data.users);
         } else {
-            setError('البيانات المستلمة غير صالحة');
+            setError('The received data is invalid');
         }
     };
 
@@ -122,8 +122,8 @@ const UserAdmin = () => {
     // Loading skeleton
     if (loading) {
         return (
-            <div className="space-y-6 animate-fadeIn" dir="rtl">
-                <div className="bg-white rounded-2xl shadow-lg p-6 border-r-4 border-blue-500">
+            <div className="space-y-6 animate-fadeIn">
+                <div className="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-blue-500">
                     <div className="h-10 w-48 bg-gray-200 rounded-lg mb-2 animate-pulse" />
                     <div className="h-5 w-64 bg-gray-100 rounded animate-pulse" />
                 </div>
@@ -156,19 +156,19 @@ const UserAdmin = () => {
     // Error state with retry
     if (error && users.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-[60vh] p-6" dir="rtl">
+            <div className="flex flex-col items-center justify-center min-h-[60vh] p-6">
                 <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md text-center">
                     <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-red-50">
                         <ExclamationCircleIcon className="w-8 h-8 text-red-600" strokeWidth={1.5} />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">حدث خطأ</h3>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">An error occurred</h3>
                     <p className="text-gray-600 mb-6">{error}</p>
                     <button
                         onClick={fetchUsers}
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-white bg-blue-600 hover:bg-blue-700 transition-all duration-200"
                     >
                         <RefreshIcon className="w-5 h-5" strokeWidth={2} />
-                        إعادة المحاولة
+                        Try Again
                     </button>
                 </div>
             </div>
@@ -176,35 +176,35 @@ const UserAdmin = () => {
     }
 
     return (
-        <div className="space-y-6" dir="rtl">
+        <div className="space-y-6">
             {user && user.role === 'admin' ? (
                 <>
                     {/* Page header */}
-                    <div className="bg-white rounded-2xl shadow-lg p-6 border-r-4 border-blue-500 animate-fadeIn">
+                    <div className="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-blue-500 animate-fadeIn">
                         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                             <div>
                                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
-                                    إدارة المستخدمين
+                                    Manage Users
                                 </h1>
                                 <p className="text-gray-600 text-sm sm:text-base">
-                                    عرض وإدارة جميع مستخدمي المنصة
+                                    View and manage all platform users
                                 </p>
                             </div>
                             <div className="flex flex-col sm:flex-row gap-3">
                                 {/* Search */}
                                 <div className="relative flex-1 sm:min-w-[200px]">
-                                    <SearchIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" strokeWidth={2} />
+                                    <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" strokeWidth={2} />
                                     <input
                                         type="text"
-                                        placeholder="ابحث بالاسم أو البريد..."
+                                        placeholder="Search by name or email..."
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
-                                        className="w-full pr-10 pl-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                        className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                                     />
                                     {searchTerm && (
                                         <button
                                             onClick={() => setSearchTerm('')}
-                                            className="absolute left-3 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-gray-100 text-gray-500"
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-gray-100 text-gray-500"
                                             aria-label="Clear search"
                                         >
                                             <XIcon className="w-4 h-4" />
@@ -217,9 +217,9 @@ const UserAdmin = () => {
                                     onChange={(e) => setRoleFilter(e.target.value)}
                                     className="px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white"
                                 >
-                                    <option value="all">جميع الأدوار</option>
-                                    <option value="admin">مدير</option>
-                                    <option value="user">مستخدم</option>
+                                    <option value="all">All Roles</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="user">User</option>
                                 </select>
                                 {/* Add user button */}
                                 <button
@@ -230,7 +230,7 @@ const UserAdmin = () => {
                                     className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl font-medium text-white bg-blue-600 hover:bg-blue-700 transition-all duration-200 shadow-lg shadow-blue-500/30"
                                 >
                                     <UserAddIcon className="w-5 h-5" strokeWidth={2} />
-                                    إضافة مستخدم
+                                    Add User
                                 </button>
                             </div>
                         </div>
@@ -246,35 +246,35 @@ const UserAdmin = () => {
 
                     {/* Stats cards */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div className="bg-white rounded-2xl shadow p-6 border-r-4 border-blue-500 animate-fadeIn">
+                        <div className="bg-white rounded-2xl shadow p-6 border-l-4 border-blue-500 animate-fadeIn">
                             <div className="flex items-center gap-3">
                                 <div className="p-2 rounded-xl bg-blue-50">
                                     <UsersIcon className="w-6 h-6 text-blue-600" strokeWidth={1.5} />
                                 </div>
                                 <div>
-                                    <p className="text-sm text-gray-500 font-medium">إجمالي المستخدمين</p>
+                                    <p className="text-sm text-gray-500 font-medium">Total Users</p>
                                     <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="bg-white rounded-2xl shadow p-6 border-r-4 border-amber-500 animate-fadeIn">
+                        <div className="bg-white rounded-2xl shadow p-6 border-l-4 border-amber-500 animate-fadeIn">
                             <div className="flex items-center gap-3">
                                 <div className="p-2 rounded-xl bg-amber-50">
                                     <ShieldCheckIcon className="w-6 h-6 text-amber-600" strokeWidth={1.5} />
                                 </div>
                                 <div>
-                                    <p className="text-sm text-gray-500 font-medium">المدراء</p>
+                                    <p className="text-sm text-gray-500 font-medium">Admins</p>
                                     <p className="text-2xl font-bold text-gray-900">{stats.admins}</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="bg-white rounded-2xl shadow p-6 border-r-4 border-emerald-500 animate-fadeIn">
+                        <div className="bg-white rounded-2xl shadow p-6 border-l-4 border-emerald-500 animate-fadeIn">
                             <div className="flex items-center gap-3">
                                 <div className="p-2 rounded-xl bg-emerald-50">
                                     <UserCircleIcon className="w-6 h-6 text-emerald-600" strokeWidth={1.5} />
                                 </div>
                                 <div>
-                                    <p className="text-sm text-gray-500 font-medium">المستخدمون</p>
+                                    <p className="text-sm text-gray-500 font-medium">Users</p>
                                     <p className="text-2xl font-bold text-gray-900">{stats.regular}</p>
                                 </div>
                             </div>
@@ -303,11 +303,11 @@ const UserAdmin = () => {
                             <div className="inline-flex items-center justify-center w-20 h-20 mb-4 rounded-full bg-gray-100">
                                 <UsersIcon className="w-10 h-10 text-gray-400" strokeWidth={1.5} />
                             </div>
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2">لا يوجد مستخدمين</h3>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-2">No users found</h3>
                             <p className="text-gray-500 mb-6 max-w-sm mx-auto">
                                 {searchTerm || roleFilter !== 'all'
-                                    ? 'لم يتم العثور على مستخدمين يطابقون البحث أو الفلتر.'
-                                    : 'لم يتم إضافة أي مستخدمين بعد. اضغط على "إضافة مستخدم" للبدء.'}
+                                    ? 'No users match the search or filter.'
+                                    : 'No users have been added yet. Click "Add User" to get started.'}
                             </p>
                             {(searchTerm || roleFilter !== 'all') ? (
                                 <button
@@ -317,7 +317,7 @@ const UserAdmin = () => {
                                     }}
                                     className="text-blue-600 hover:text-blue-700 font-medium"
                                 >
-                                    إعادة تعيين البحث
+                                    Reset Search
                                 </button>
                             ) : (
                                 <button
@@ -325,7 +325,7 @@ const UserAdmin = () => {
                                     className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-white bg-blue-600 hover:bg-blue-700 transition-all"
                                 >
                                     <UserAddIcon className="w-5 h-5" strokeWidth={2} />
-                                    إضافة مستخدم
+                                    Add User
                                 </button>
                             )}
                         </div>
@@ -337,12 +337,12 @@ const UserAdmin = () => {
                                     <table className="min-w-full divide-y divide-gray-200">
                                         <thead>
                                             <tr className="bg-gradient-to-r from-blue-600 to-blue-700">
-                                                <th className="px-6 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider">الصورة</th>
-                                                <th className="px-6 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider">الاسم</th>
-                                                <th className="px-6 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider">البريد</th>
-                                                <th className="px-6 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider">الدور</th>
-                                                <th className="px-6 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider">تاريخ الانضمام</th>
-                                                <th className="px-6 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider">إجراءات</th>
+                                                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Photo</th>
+                                                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Name</th>
+                                                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Email</th>
+                                                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Role</th>
+                                                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Joined</th>
+                                                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody className="bg-white divide-y divide-gray-200">
@@ -378,7 +378,7 @@ const UserAdmin = () => {
                                                                     : 'bg-blue-50 text-blue-700'
                                                             }`}
                                                         >
-                                                            {u.role === 'admin' ? 'مدير' : 'مستخدم'}
+                                                            {u.role === 'admin' ? 'Admin' : 'User'}
                                                         </span>
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-gray-600 text-sm">
@@ -392,14 +392,14 @@ const UserAdmin = () => {
                                                                     setShowForm(true);
                                                                 }}
                                                                 className="p-2 rounded-lg text-amber-600 hover:bg-amber-50 transition-colors"
-                                                                title="تعديل"
+                                                                title="Edit"
                                                             >
                                                                 <PencilIcon className="w-5 h-5" strokeWidth={2} />
                                                             </button>
                                                             <button
                                                                 onClick={() => setDeleteModal({ isOpen: true, user: u })}
                                                                 className="p-2 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
-                                                                title="حذف"
+                                                                title="Delete"
                                                             >
                                                                 <TrashIcon className="w-5 h-5" strokeWidth={2} />
                                                             </button>
@@ -440,7 +440,7 @@ const UserAdmin = () => {
                                                             u.role === 'admin' ? 'bg-amber-100 text-amber-800' : 'bg-blue-50 text-blue-700'
                                                         }`}
                                                     >
-                                                        {u.role === 'admin' ? 'مدير' : 'مستخدم'}
+                                                        {u.role === 'admin' ? 'Admin' : 'User'}
                                                     </span>
                                                     <span className="text-xs text-gray-400">{formatDate(u.createdAt)}</span>
                                                 </div>
@@ -470,13 +470,13 @@ const UserAdmin = () => {
                     )}
                 </>
             ) : (
-                <div className="flex items-center justify-center min-h-[60vh]" dir="rtl">
+                <div className="flex items-center justify-center min-h-[60vh]">
                     <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md text-center animate-fadeIn">
                         <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-red-50">
                             <ExclamationCircleIcon className="w-8 h-8 text-red-600" strokeWidth={1.5} />
                         </div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">ليس لديك صلاحيات كافية</h3>
-                        <p className="text-gray-600">يجب أن تكون مديراً للوصول إلى هذه الصفحة</p>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">Insufficient Permissions</h3>
+                        <p className="text-gray-600">You must be an admin to access this page</p>
                     </div>
                 </div>
             )}

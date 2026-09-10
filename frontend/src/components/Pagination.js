@@ -60,12 +60,12 @@ const Pagination = ({
     const pages = getPageNumbers();
 
     return (
-        <div className="flex flex-col items-center justify-between gap-4 rounded-xl border border-gray-200 bg-white p-4 sm:flex-row" dir="rtl">
+        <div className="flex flex-col items-center justify-between gap-4 rounded-xl border border-gray-200 bg-white p-4 sm:flex-row">
             {/* Items info */}
             <p className="text-sm text-gray-600">
-                عرض <span className="font-medium text-gray-800">{startItem}</span> إلى{' '}
-                <span className="font-medium text-gray-800">{endItem}</span> من أصل{' '}
-                <span className="font-medium text-gray-800">{totalItems}</span> عنصر
+                Showing <span className="font-medium text-gray-800">{startItem}</span> to{' '}
+                <span className="font-medium text-gray-800">{endItem}</span> of{' '}
+                <span className="font-medium text-gray-800">{totalItems}</span> items
             </p>
 
             {/* Page numbers */}
@@ -80,9 +80,9 @@ const Pagination = ({
                             ? 'cursor-not-allowed border-gray-200 bg-gray-50 text-gray-400'
                             : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
                     }`}
-                    aria-label="الصفحة السابقة"
+                    aria-label="Previous page"
                 >
-                    <ChevronRightIcon className="h-4 w-4" />
+                    <ChevronLeftIcon className="h-4 w-4" />
                 </button>
 
                 {/* Page numbers */}
@@ -101,7 +101,7 @@ const Pagination = ({
                                     ? 'border-blue-600 bg-blue-600 text-white'
                                     : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
                             }`}
-                            aria-label={`الصفحة ${page}`}
+                            aria-label={`Page ${page}`}
                             aria-current={currentPage === page ? 'page' : undefined}
                         >
                             {page}
@@ -119,9 +119,9 @@ const Pagination = ({
                             ? 'cursor-not-allowed border-gray-200 bg-gray-50 text-gray-400'
                             : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
                     }`}
-                    aria-label="الصفحة التالية"
+                    aria-label="Next page"
                 >
-                    <ChevronLeftIcon className="h-4 w-4" />
+                    <ChevronRightIcon className="h-4 w-4" />
                 </button>
             </div>
         </div>

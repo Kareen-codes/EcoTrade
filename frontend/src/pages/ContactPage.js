@@ -6,12 +6,12 @@ import UserContact from './user/UserContact';
 const ContactPage = () => {
     const { user } = useContext(UserContext);
 
-    // التحقق من تسجيل الدخول
+    // Check login status
     if (!user) {
         return (<UserContact></UserContact>);
     }
 
-    // التحقق من الدور
+    // Check role
     if (user.role === 'admin') {
         return (<AdminContact></AdminContact>);
     } else {

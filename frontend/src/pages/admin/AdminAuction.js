@@ -73,7 +73,7 @@ const AdminAuction = () => {
             setAuctions(response.data);
         } catch (error) {
             console.error("Error fetching auctions:", error);
-            showToast('فشل تحميل المزادات', 'error');
+            showToast('Failed to load auctions', 'error');
         } finally {
             setLoading(false);
         }
@@ -113,10 +113,10 @@ const AdminAuction = () => {
                 images: []
             });
             closePopup();
-            showToast('تم إنشاء المزاد بنجاح');
+            showToast('Auction created successfully');
         } catch (error) {
             console.error("Error creating auction:", error);
-            showToast('فشل إنشاء المزاد', 'error');
+            showToast('Failed to create the auction', 'error');
         }
     };
 
@@ -132,10 +132,10 @@ const AdminAuction = () => {
 
         try {
             await axios.put(`${process.env.REACT_APP_API_URL}/auction/cancel/${auctionId}`);
-            showToast('تم إلغاء المزاد بنجاح');
+            showToast('Auction canceled successfully');
         } catch (error) {
             console.error("Error cancelling auction:", error);
-            showToast('فشل إلغاء المزاد', 'error');
+            showToast('Failed to cancel the auction', 'error');
             fetchAuctions();
         } finally {
             setActionLoading(null);
@@ -155,10 +155,10 @@ const AdminAuction = () => {
 
         try {
             await axios.put(`${process.env.REACT_APP_API_URL}/auction/close/${auctionId}`);
-            showToast('تم إغلاق المزاد بنجاح');
+            showToast('Auction closed successfully');
         } catch (error) {
             console.error("Error closing auction:", error);
-            showToast('فشل إغلاق المزاد', 'error');
+            showToast('Failed to close the auction', 'error');
             fetchAuctions();
         } finally {
             setActionLoading(null);
@@ -171,10 +171,10 @@ const AdminAuction = () => {
         try {
             await axios.delete(`${process.env.REACT_APP_API_URL}/auction/${auctionId}`);
             fetchAuctions();
-            showToast('تم حذف المزاد بنجاح');
+            showToast('Auction deleted successfully');
         } catch (error) {
             console.error("Error deleting auction:", error);
-            showToast('فشل حذف المزاد', 'error');
+            showToast('Failed to delete the auction', 'error');
         } finally {
             setActionLoading(null);
             closeConfirmModal();
@@ -231,13 +231,13 @@ const AdminAuction = () => {
         const end = new Date(endDate);
         const diff = end - now;
         
-        if (diff <= 0) return 'انتهى';
+        if (diff <= 0) return 'Ended';
         
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         
-        if (days > 0) return `${days} يوم`;
-        return `${hours} ساعة`;
+        if (days > 0) return `${days} day${days > 1 ? 's' : ''}`;
+        return `${hours} hour${hours > 1 ? 's' : ''}`;
     };
 
     const AuctionCard = ({ auction }) => {
@@ -246,14 +246,14 @@ const AdminAuction = () => {
         const isOpen = auction.status === 'open';
         const isLoading = actionLoading === auction._id;
         const timeRemaining = getTimeRemaining(auction.endDate);
-        const isEndingSoon = timeRemaining !== 'انتهى' && new Date(auction.endDate) - new Date() < 86400000;
+        const isEndingSoon = timeRemaining !== 'Ended' && new Date(auction.endDate) - new Date() < 86400000;
 
         return (
             <div className={`relative overflow-hidden rounded-2xl border transition-all duration-300 ${
                 isCanceled ? 'border-red-200 bg-red-50/50' : 
                 isClosed ? 'border-gray-200 bg-gray-50/50' : 
                 'border-gray-200 bg-white hover:shadow-xl'
-            }`} dir='rtl'>
+            }`}>
                 {/* Status badge on top */}
                 <div className="absolute top-3 left-3 z-10">
                     <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-semibold ${
@@ -264,7 +264,7 @@ const AdminAuction = () => {
                         {isCanceled ? <XSolid className="h-3.5 w-3.5" /> : 
                          isClosed ? <CheckSolid className="h-3.5 w-3.5" /> : 
                          <ClockIcon className="h-3.5 w-3.5" />}
-                        {isCanceled ? 'ملغى' : isClosed ? 'مغلق' : 'نشط'}
+                        {isCanceled ? 'Canceled' : isClosed ? 'Closed' : 'Active'}
                     </span>
                 </div>
 
@@ -283,7 +283,7 @@ const AdminAuction = () => {
                     </Slider>
                     {isEndingSoon && isOpen && (
                         <div className="absolute bottom-2 right-2 bg-red-500 text-white px-2 py-1 rounded-lg text-xs font-medium">
-                            ينتهي قريباً!
+                            Ending soon!
                         </div>
                     )}
                 </div>
@@ -296,25 +296,25 @@ const AdminAuction = () => {
                     {/* Info grid */}
                     <div className="grid grid-cols-2 gap-2 mb-4 text-sm">
                         <div className="bg-gray-50 rounded-lg p-2">
-                            <p className="text-gray-500 text-xs">الفئة</p>
+                            <p className="text-gray-500 text-xs">Category</p>
                             <p className="font-semibold text-gray-800">{auction.category}</p>
                         </div>
                         <div className="bg-blue-50 rounded-lg p-2">
-                            <p className="text-gray-500 text-xs">سعر البداية</p>
-                            <p className="font-semibold text-blue-700">{auction.startPrice} ل.س</p>
+                            <p className="text-gray-500 text-xs">Starting Price</p>
+                            <p className="font-semibold text-blue-700">{auction.startPrice} SYP</p>
                         </div>
                         <div className="bg-emerald-50 rounded-lg p-2">
-                            <p className="text-gray-500 text-xs">العطاء الحالي</p>
-                            <p className="font-semibold text-emerald-700">{auction.currentBid || auction.startPrice} ل.س</p>
+                            <p className="text-gray-500 text-xs">Current Bid</p>
+                            <p className="font-semibold text-emerald-700">{auction.currentBid || auction.startPrice} SYP</p>
                         </div>
                         <div className="bg-amber-50 rounded-lg p-2">
-                            <p className="text-gray-500 text-xs">الوقت المتبقي</p>
+                            <p className="text-gray-500 text-xs">Time Remaining</p>
                             <p className="font-semibold text-amber-700">{timeRemaining}</p>
                         </div>
                     </div>
 
                     <div className="text-xs text-gray-500 mb-4">
-                        تاريخ الانتهاء: {new Date(auction.endDate).toLocaleDateString('ar-EG', { 
+                        End date: {new Date(auction.endDate).toLocaleDateString('en-US', { 
                             year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' 
                         })}
                     </div>
@@ -326,7 +326,7 @@ const AdminAuction = () => {
                             className="flex items-center justify-center gap-2 w-full bg-blue-600 text-white px-4 py-2.5 rounded-xl hover:bg-blue-700 transition text-sm font-medium"
                         >
                             <EyeIcon className="h-4 w-4" />
-                            عرض تفاصيل المزاد
+                            View Auction Details
                         </Link>
                         
                         <div className="grid grid-cols-3 gap-2">
@@ -336,15 +336,15 @@ const AdminAuction = () => {
                                 }`}
                                 onClick={() => openConfirmModal(
                                     'cancel',
-                                    'إلغاء المزاد',
-                                    `هل أنت متأكد من إلغاء مزاد "${auction.itemName}"؟`,
+                                    'Cancel Auction',
+                                    `Are you sure you want to cancel the auction "${auction.itemName}"?`,
                                     cancelAuction,
                                     auction._id
                                 )}
                                 disabled={isCanceled || isLoading}
                             >
                                 <XCircleIcon className="h-4 w-4" />
-                                إلغاء
+                                Cancel
                             </button>
                             <button
                                 className={`flex items-center justify-center gap-1 px-3 py-2 rounded-lg text-xs font-medium transition ${
@@ -352,29 +352,29 @@ const AdminAuction = () => {
                                 }`}
                                 onClick={() => openConfirmModal(
                                     'success',
-                                    'إغلاق المزاد',
-                                    `سيتم إغلاق مزاد "${auction.itemName}" وتحديد الفائز. هل تريد المتابعة؟`,
+                                    'Close Auction',
+                                    `The auction "${auction.itemName}" will be closed and the winner determined. Do you want to continue?`,
                                     closeAuction,
                                     auction._id
                                 )}
                                 disabled={isCanceled || isClosed || isLoading}
                             >
                                 <CheckCircleIcon className="h-4 w-4" />
-                                إغلاق
+                                Close
                             </button>
                             <button 
                                 className="flex items-center justify-center gap-1 px-3 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition text-xs font-medium"
                                 onClick={() => openConfirmModal(
                                     'danger',
-                                    'حذف المزاد',
-                                    `سيتم حذف مزاد "${auction.itemName}" نهائياً. هل أنت متأكد؟`,
+                                    'Delete Auction',
+                                    `The auction "${auction.itemName}" will be permanently deleted. Are you sure?`,
                                     deleteAuction,
                                     auction._id
                                 )}
                                 disabled={isLoading}
                             >
                                 <TrashIcon className="h-4 w-4" />
-                                حذف
+                                Delete
                             </button>
                         </div>
                     </div>
@@ -384,7 +384,7 @@ const AdminAuction = () => {
     };
 
     return (
-        <div className="space-y-6" dir="rtl">
+        <div className="space-y-6">
             {/* Toast notification */}
             {toast.show && (
                 <div className={`fixed top-4 right-4 z-50 flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg border animate-fadeIn ${
@@ -405,9 +405,9 @@ const AdminAuction = () => {
 
             {/* Page header */}
             <div className="mb-6">
-                <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">إدارة المزادات</h1>
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">Manage Auctions</h1>
                 <p className="mt-1 text-sm text-gray-500">
-                    إضافة وإدارة وتتبع المزادات في المنصة
+                    Add, manage, and track auctions on the platform
                 </p>
             </div>
 
@@ -420,11 +420,11 @@ const AdminAuction = () => {
                     {/* Search and add button */}
                     <div className="flex flex-col sm:flex-row gap-3">
                         <div className="relative flex-1">
-                            <SearchIcon className="absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+                            <SearchIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
                             <input
                                 type="text"
-                                placeholder="ابحث عن مزاد..."
-                                className="w-full rounded-xl border border-gray-300 py-2.5 pr-10 pl-3 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                                placeholder="Search for an auction..."
+                                className="w-full rounded-xl border border-gray-300 py-2.5 pl-10 pr-3 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
@@ -434,14 +434,14 @@ const AdminAuction = () => {
                             className="flex items-center justify-center gap-2 bg-emerald-600 text-white px-5 py-2.5 rounded-xl hover:bg-emerald-700 transition font-medium text-sm shadow-sm"
                         >
                             <PlusIcon className="h-5 w-5" />
-                            إضافة مزاد جديد
+                            Add New Auction
                         </button>
                     </div>
 
                     {/* Filters */}
                     <div className="flex flex-wrap items-center gap-2">
                         <FilterIcon className="h-4 w-4 text-gray-500" />
-                        <span className="text-sm text-gray-600 font-medium">الحالة:</span>
+                        <span className="text-sm text-gray-600 font-medium">Status:</span>
                         {['all', 'open', 'closed', 'canceled'].map(status => (
                             <button
                                 key={status}
@@ -450,11 +450,11 @@ const AdminAuction = () => {
                                     statusFilter === status ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                 }`}
                             >
-                                {status === 'all' ? 'الكل' : status === 'open' ? 'نشط' : status === 'closed' ? 'مغلق' : 'ملغي'}
+                                {status === 'all' ? 'All' : status === 'open' ? 'Active' : status === 'closed' ? 'Closed' : 'Canceled'}
                             </button>
                         ))}
                         
-                        <span className="text-sm text-gray-600 font-medium ml-3">الفئة:</span>
+                        <span className="text-sm text-gray-600 font-medium ml-3">Category:</span>
                         {['all', 'Metals', 'Plastics', 'Electronics', 'Paper and Cardboard', 'Furniture'].map(cat => (
                             <button
                                 key={cat}
@@ -463,8 +463,8 @@ const AdminAuction = () => {
                                     categoryFilter === cat ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                 }`}
                             >
-                                {cat === 'all' ? 'الكل' : cat === 'Metals' ? 'معادن' : cat === 'Plastics' ? 'بلاستيك' : 
-                                 cat === 'Electronics' ? 'إلكترونيات' : cat === 'Paper and Cardboard' ? 'ورق وكرتون' : 'أثاث'}
+                                {cat === 'all' ? 'All' : cat === 'Metals' ? 'Metals' : cat === 'Plastics' ? 'Plastics' : 
+                                 cat === 'Electronics' ? 'Electronics' : cat === 'Paper and Cardboard' ? 'Paper and Cardboard' : 'Furniture'}
                             </button>
                         ))}
                     </div>
@@ -491,25 +491,25 @@ const AdminAuction = () => {
                 message={confirmModal.message}
                 type={confirmModal.type}
                 loading={!!actionLoading}
-                confirmText={confirmModal.type === 'danger' ? 'حذف' : confirmModal.type === 'cancel' ? 'إلغاء المزاد' : 'إغلاق المزاد'}
+                confirmText={confirmModal.type === 'danger' ? 'Delete' : confirmModal.type === 'cancel' ? 'Cancel Auction' : 'Close Auction'}
             />
 
             {/* Auctions grid */}
             {loading ? (
                 <div className="flex flex-col items-center justify-center py-20 text-gray-500">
                     <div className="w-12 h-12 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mb-4" />
-                    <p className="text-sm font-medium">جاري تحميل المزادات...</p>
+                    <p className="text-sm font-medium">Loading auctions...</p>
                 </div>
             ) : filteredAuctions.length === 0 ? (
                 <div className="text-center p-12 border border-gray-200 rounded-2xl bg-white shadow-sm">
                     <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gray-100 mb-4">
                         <CurrencyDollarIcon className="h-10 w-10 text-gray-400" />
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">لا توجد مزادات</h3>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">No auctions</h3>
                     <p className="text-sm text-gray-500">
                         {searchTerm || statusFilter !== 'all' || categoryFilter !== 'all' 
-                            ? 'لا توجد نتائج تطابق البحث أو التصفية.' 
-                            : 'لم يتم إنشاء أي مزادات بعد.'}
+                            ? 'No results match the search or filters.' 
+                            : 'No auctions have been created yet.'}
                     </p>
                 </div>
             ) : (

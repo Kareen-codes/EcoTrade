@@ -20,48 +20,48 @@ import {
 const FAQ_ITEMS = [
   {
     id: 1,
-    question: 'كيف يمكنني إنشاء طلب بيع خردة؟',
+    question: 'How can I create a scrap selling request?',
     answer:
-      'قم بتسجيل الدخول إلى حسابك، ثم انتقل إلى صفحة الطلبات. ستجد زر "إنشاء طلب جديد" حيث يمكنك إدخال تفاصيل الخردة التي ترغب ببيعها.',
+      'Log in to your account, then go to the requests page. You will find a "Create New Request" button where you can enter the details of the scrap you want to sell.',
   },
   {
     id: 2,
-    question: 'كيف أشارك في المزادات؟',
+    question: 'How do I participate in auctions?',
     answer:
-      'اذهب إلى صفحة المزادات، واختر المزاد الذي يهمك، ثم أدخل غرفة المزاد. يمكنك المزايدة خلال الوقت المحدد للمزاد.',
+      'Go to the auctions page, choose the auction you are interested in, then enter the auction room. You can bid during the auction\'s scheduled time.',
   },
   {
     id: 3,
-    question: 'كيف أتتبع حالة طلبي؟',
+    question: 'How do I track the status of my request?',
     answer:
-      'يمكنك متابعة حالة طلباتك من صفحة الطلبات. ستظهر كل طلباتك مع حالتها الحالية (قيد المراجعة، مقبول، مرفوض، إلخ).',
+      'You can follow the status of your requests from the requests page. All your requests will be displayed with their current status (under review, accepted, rejected, etc.).',
   },
   {
     id: 4,
-    question: 'هل يمكنني تعديل أو إلغاء طلبي؟',
+    question: 'Can I edit or cancel my request?',
     answer:
-      'يعتمد ذلك على حالة الطلب. إذا كان الطلب قيد المراجعة، تواصل معنا عبر صفحة الدعم أو البريد الإلكتروني لطلب التعديل أو الإلغاء.',
+      'It depends on the request status. If the request is under review, contact us via the support page or email to request an edit or cancellation.',
   },
   {
     id: 5,
-    question: 'ما هي طرق الدفع المتاحة؟',
+    question: 'What payment methods are available?',
     answer:
-      'نقبل الدفع باليورو أو الليرة السورية حسب الاتفاق مع إدارة الموقع. سيتم إعلامك بالتفاصيل عند تأكيد الطلب.',
+      'We accept payment in Euros or Syrian Pounds depending on the agreement with the site management. You will be informed of the details when the request is confirmed.',
   },
   {
     id: 6,
-    question: 'كيف أتصل بفريق الدعم؟',
+    question: 'How do I contact the support team?',
     answer:
-      'يمكنك استخدام نموذج الاتصال أدناه، أو التواصل عبر البريد الإلكتروني support@ecotrade.com أو الرقم الموضح في قسم معلومات الاتصال.',
+      'You can use the contact form below, or reach us via email at support@ecotrade.com or the phone number listed in the contact information section.',
   },
 ];
 
 // Quick help links
 const QUICK_LINKS = [
-  { to: '/privacy-policy', label: 'سياسة الخصوصية', icon: ShieldCheckIcon, color: 'emerald' },
-  { to: '/terms-of-service', label: 'شروط الخدمة', icon: DocumentTextIcon, color: 'indigo' },
-  { to: '/developers', label: 'معلومات المطورين', icon: AcademicCapIcon, color: 'violet' },
-  { to: '/contact', label: 'تواصل مع المدراء', icon: UserGroupIcon, color: 'blue' },
+  { to: '/privacy-policy', label: 'Privacy Policy', icon: ShieldCheckIcon, color: 'emerald' },
+  { to: '/terms-of-service', label: 'Terms of Service', icon: DocumentTextIcon, color: 'indigo' },
+  { to: '/developers', label: 'Developer Info', icon: AcademicCapIcon, color: 'violet' },
+  { to: '/contact', label: 'Contact the Managers', icon: UserGroupIcon, color: 'blue' },
 ];
 
 const SupportPage = () => {
@@ -92,7 +92,7 @@ const SupportPage = () => {
       setEmail('');
       setMessage('');
     } catch (err) {
-      setError(err.response?.data?.message || 'حدث خطأ أثناء إرسال الرسالة. يرجى المحاولة لاحقاً.');
+      setError(err.response?.data?.message || 'An error occurred while sending the message. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -106,7 +106,7 @@ const SupportPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white" dir="rtl">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-amber-500 via-orange-500 to-rose-600 text-white">
         <div className="absolute inset-0 bg-black/10" />
@@ -118,10 +118,10 @@ const SupportPage = () => {
             </div>
             <div>
               <h1 className="text-4xl sm:text-5xl font-bold mb-4 animate-fadeIn" style={{ animationDelay: '0.1s' }}>
-                مركز الدعم
+                Support Center
               </h1>
               <p className="text-amber-50 text-lg max-w-2xl animate-fadeIn" style={{ animationDelay: '0.2s' }}>
-                نحن هنا لمساعدتك! تصفح الأسئلة الشائعة أو تواصل معنا مباشرة للحصول على الدعم.
+                We are here to help you! Browse the frequently asked questions or contact us directly for support.
               </p>
             </div>
           </div>
@@ -133,7 +133,7 @@ const SupportPage = () => {
         <section>
           <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
             <DocumentTextIcon className="w-7 h-7 text-amber-500" />
-            روابط سريعة
+            Quick Links
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {QUICK_LINKS.map(({ to, label, icon: Icon, color }) => (
@@ -153,7 +153,7 @@ const SupportPage = () => {
         <section>
           <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
             <SupportIcon className="w-7 h-7 text-amber-500" />
-            الأسئلة الشائعة
+            Frequently Asked Questions
           </h2>
           <div className="space-y-3">
             {FAQ_ITEMS.map((item) => (
@@ -163,7 +163,7 @@ const SupportPage = () => {
               >
                 <button
                   onClick={() => toggleFaq(item.id)}
-                  className="w-full flex items-center justify-between gap-4 p-4 sm:p-5 text-right hover:bg-slate-50/50 transition-colors"
+                  className="w-full flex items-center justify-between gap-4 p-4 sm:p-5 text-left hover:bg-slate-50/50 transition-colors"
                 >
                   <span className="font-semibold text-slate-800">{item.question}</span>
                   {openFaqId === item.id ? (
@@ -192,7 +192,7 @@ const SupportPage = () => {
           <div className="lg:col-span-1 space-y-6">
             <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
               <MailIcon className="w-7 h-7 text-amber-500" />
-              معلومات الاتصال
+              Contact Information
             </h2>
             <div className="space-y-4">
               <a
@@ -201,7 +201,7 @@ const SupportPage = () => {
               >
                 <MailIcon className="w-6 h-6 text-amber-500 flex-shrink-0" />
                 <div>
-                  <p className="text-sm text-slate-500">البريد الإلكتروني</p>
+                  <p className="text-sm text-slate-500">Email</p>
                   <p className="font-medium text-slate-800">support@ecotrade.com</p>
                 </div>
               </a>
@@ -211,15 +211,15 @@ const SupportPage = () => {
               >
                 <PhoneIcon className="w-6 h-6 text-amber-500 flex-shrink-0" />
                 <div>
-                  <p className="text-sm text-slate-500">الهاتف</p>
+                  <p className="text-sm text-slate-500">Phone</p>
                   <p className="font-medium text-slate-800">00963932735606</p>
                 </div>
               </a>
               <div className="flex items-center gap-3 p-4 rounded-xl bg-white shadow-lg border border-slate-200/60">
                 <LocationMarkerIcon className="w-6 h-6 text-amber-500 flex-shrink-0" />
                 <div>
-                  <p className="text-sm text-slate-500">الموقع</p>
-                  <p className="font-medium text-slate-800">سوريا - دمشق</p>
+                  <p className="text-sm text-slate-500">Location</p>
+                  <p className="font-medium text-slate-800">Damascus, Syria</p>
                 </div>
               </div>
             </div>
@@ -228,11 +228,11 @@ const SupportPage = () => {
           {/* Contact Form */}
           <div className="lg:col-span-2">
             <div className="rounded-2xl bg-white p-6 sm:p-8 shadow-xl border border-slate-200/60">
-              <h2 className="text-2xl font-bold text-slate-800 mb-6">أرسل رسالتك</h2>
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">Send us a Message</h2>
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
-                    الاسم
+                    Name
                   </label>
                   <input
                     type="text"
@@ -241,12 +241,12 @@ const SupportPage = () => {
                     onChange={(e) => setName(e.target.value)}
                     required
                     className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all outline-none"
-                    placeholder="أدخل اسمك"
+                    placeholder="Enter your name"
                   />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
-                    البريد الإلكتروني
+                    Email Address
                   </label>
                   <input
                     type="email"
@@ -260,7 +260,7 @@ const SupportPage = () => {
                 </div>
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
-                    الرسالة
+                    Message
                   </label>
                   <textarea
                     id="message"
@@ -269,12 +269,12 @@ const SupportPage = () => {
                     required
                     rows="4"
                     className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all outline-none resize-none"
-                    placeholder="اكتب رسالتك هنا..."
+                    placeholder="Write your message here..."
                   />
                 </div>
                 {success && (
                   <p className="text-emerald-600 font-medium flex items-center gap-2">
-                    ✓ تم إرسال الرسالة بنجاح! سنتواصل معك قريباً.
+                    ✓ Your message was sent successfully! We will contact you soon.
                   </p>
                 )}
                 {error && <p className="text-red-600 font-medium">{error}</p>}
@@ -283,7 +283,7 @@ const SupportPage = () => {
                   disabled={loading}
                   className="w-full py-4 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  {loading ? 'جاري الإرسال...' : 'إرسال الرسالة'}
+                  {loading ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
             </div>

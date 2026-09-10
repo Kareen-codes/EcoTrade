@@ -53,7 +53,7 @@ const Header = () => {
                             <h1 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
                                 EcoTrade
                             </h1>
-                            <p className="text-xs text-gray-500">إعادة تدوير ذكية</p>
+                            <p className="text-xs text-gray-500">Smart Recycling</p>
                         </div>
                     </Link>
 
@@ -61,18 +61,18 @@ const Header = () => {
                     <div className="hidden md:flex items-center gap-2">
                         {user ? (
                             <>
-                                <NavLink to="/" icon={HomeIcon}>الرئيسية</NavLink>
-                                <NavLink to="/orders" icon={ShoppingBagIcon}>الطلبات</NavLink>
-                                <NavLink to="/auctions" icon={ChartBarIcon}>المزادات</NavLink>
+                                <NavLink to="/" icon={HomeIcon}>Home</NavLink>
+                                <NavLink to="/orders" icon={ShoppingBagIcon}>Orders</NavLink>
+                                <NavLink to="/auctions" icon={ChartBarIcon}>Auctions</NavLink>
                                 {user.role === "admin" && (
                                     <>
-                                        <NavLink to="/users" icon={UsersIcon}>المستخدمين</NavLink>
-                                        <NavLink to="/scrap" icon={CollectionIcon}>المواد</NavLink>
+                                        <NavLink to="/users" icon={UsersIcon}>Users</NavLink>
+                                        <NavLink to="/scrap" icon={CollectionIcon}>Materials</NavLink>
                                     </>
                                 )}
                             </>
                         ) : (
-                            <NavLink to="/" icon={HomeIcon}>الرئيسية</NavLink>
+                            <NavLink to="/" icon={HomeIcon}>Home</NavLink>
                         )}
                     </div>
 
@@ -92,7 +92,7 @@ const Header = () => {
                                     className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-xl hover:from-red-700 hover:to-red-600 transition-all shadow-lg transform hover:scale-105"
                                 >
                                     <LogoutIcon className="w-5 h-5" />
-                                    <span className="font-medium">خروج</span>
+                                    <span className="font-medium">Logout</span>
                                 </button>
                             </>
                         ) : (
@@ -102,14 +102,14 @@ const Header = () => {
                                     className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl hover:from-blue-700 hover:to-blue-600 transition-all shadow-lg transform hover:scale-105"
                                 >
                                     <LoginIcon className="w-5 h-5" />
-                                    <span className="font-medium">دخول</span>
+                                    <span className="font-medium">Login</span>
                                 </Link>
                                 <Link
                                     to="/register"
                                     className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-xl hover:from-green-700 hover:to-teal-700 transition-all shadow-lg transform hover:scale-105"
                                 >
                                     <UserIcon className="w-5 h-5" />
-                                    <span className="font-medium">حساب جديد</span>
+                                    <span className="font-medium">Sign Up</span>
                                 </Link>
                             </>
                         )}
@@ -136,7 +136,7 @@ const Header = () => {
                                         <h2 className="text-xl font-bold bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
                                             EcoTrade
                                         </h2>
-                                        <p className="text-xs text-gray-500">إعادة تدوير ذكية</p>
+                                        <p className="text-xs text-gray-500">Smart Recycling</p>
                                     </div>
                                 </div>
                                 <button
@@ -161,7 +161,7 @@ const Header = () => {
                                             }`}
                                         >
                                             <HomeIcon className="w-6 h-6" />
-                                            <span className="font-medium">الصفحة الرئيسية</span>
+                                            <span className="font-medium">Home</span>
                                         </Link>
                                         <Link 
                                             to="/orders" 
@@ -173,7 +173,7 @@ const Header = () => {
                                             }`}
                                         >
                                             <ShoppingBagIcon className="w-6 h-6" />
-                                            <span className="font-medium">صفحة الطلبات</span>
+                                            <span className="font-medium">Orders Page</span>
                                         </Link>
                                         <Link 
                                             to="/auctions" 
@@ -185,7 +185,7 @@ const Header = () => {
                                             }`}
                                         >
                                             <ChartBarIcon className="w-6 h-6" />
-                                            <span className="font-medium">صفحة المزادات</span>
+                                            <span className="font-medium">Auctions Page</span>
                                         </Link>
                                         {user.role === "admin" && (
                                             <>
@@ -195,7 +195,7 @@ const Header = () => {
                                                     className="flex items-center gap-3 px-4 py-3 bg-gray-50 text-gray-700 rounded-xl hover:bg-green-50 transition-all"
                                                 >
                                                     <UsersIcon className="w-6 h-6" />
-                                                    <span className="font-medium">إدارة المستخدمين</span>
+                                                    <span className="font-medium">Manage Users</span>
                                                 </Link>
                                                 <Link 
                                                     to="/scrap" 
@@ -203,7 +203,7 @@ const Header = () => {
                                                     className="flex items-center gap-3 px-4 py-3 bg-gray-50 text-gray-700 rounded-xl hover:bg-green-50 transition-all"
                                                 >
                                                     <CollectionIcon className="w-6 h-6" />
-                                                    <span className="font-medium">إدارة المواد</span>
+                                                    <span className="font-medium">Manage Materials</span>
                                                 </Link>
                                             </>
                                         )}
@@ -227,7 +227,7 @@ const Header = () => {
                                                 className="w-full flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-xl hover:from-red-700 hover:to-red-600 transition-all shadow-lg"
                                             >
                                                 <LogoutIcon className="w-6 h-6" />
-                                                <span className="font-medium">تسجيل الخروج</span>
+                                                <span className="font-medium">Log Out</span>
                                             </button>
                                         </div>
                                     </>
@@ -243,7 +243,7 @@ const Header = () => {
                                             }`}
                                         >
                                             <HomeIcon className="w-6 h-6" />
-                                            <span className="font-medium">الصفحة الرئيسية</span>
+                                            <span className="font-medium">Home</span>
                                         </Link>
                                         
                                         <div className="pt-6 mt-6 border-t space-y-2">
@@ -253,7 +253,7 @@ const Header = () => {
                                                 className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl hover:from-blue-700 hover:to-blue-600 transition-all shadow-lg"
                                             >
                                                 <LoginIcon className="w-6 h-6" />
-                                                <span className="font-medium">تسجيل الدخول</span>
+                                                <span className="font-medium">Log In</span>
                                             </Link>
                                             <Link
                                                 to="/register"
@@ -261,7 +261,7 @@ const Header = () => {
                                                 className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-xl hover:from-green-700 hover:to-teal-700 transition-all shadow-lg"
                                             >
                                                 <UserIcon className="w-6 h-6" />
-                                                <span className="font-medium">تسجيل حساب جديد</span>
+                                                <span className="font-medium">Create New Account</span>
                                             </Link>
                                         </div>
                                     </>

@@ -36,29 +36,29 @@ const HomePage = () => {
     const features = [
         {
             icon: LightningBoltIcon,
-            title: "سرعة فائقة",
-            description: "إنشاء وإدارة طلباتك في ثوانٍ معدودة",
+            title: "Lightning Fast",
+            description: "Create and manage your requests in mere seconds",
             color: "from-yellow-400 to-orange-500",
             bgColor: "bg-yellow-50"
         },
         {
             icon: ShieldCheckIcon,
-            title: "أمان متقدم",
-            description: "حماية كاملة لبياناتك ومعاملاتك",
+            title: "Advanced Security",
+            description: "Complete protection for your data and transactions",
             color: "from-blue-400 to-indigo-500",
             bgColor: "bg-blue-50"
         },
         {
             icon: ChartBarIcon,
-            title: "مزادات مباشرة",
-            description: "شارك في مزادات حقيقية بوقت فعلي",
+            title: "Live Auctions",
+            description: "Participate in real auctions with real-time bidding",
             color: "from-green-400 to-teal-500",
             bgColor: "bg-green-50"
         },
         {
             icon: ChatAltIcon,
-            title: "دعم فوري",
-            description: "تواصل سريع مع فريقنا المتخصص",
+            title: "Instant Support",
+            description: "Quick communication with our specialized team",
             color: "from-purple-400 to-pink-500",
             bgColor: "bg-purple-50"
         }
@@ -67,56 +67,56 @@ const HomePage = () => {
     const steps = [
         {
             number: "01",
-            title: "أنشئ حسابك",
-            description: "سجل مجاناً في دقائق معدودة",
+            title: "Create Your Account",
+            description: "Sign up for free in just a few minutes",
             icon: UserGroupIcon
         },
         {
             number: "02",
-            title: "أضف طلبك",
-            description: "حدد نوع المواد والكمية المطلوبة",
+            title: "Add Your Request",
+            description: "Specify the type of materials and quantity needed",
             icon: SparklesIcon
         },
         {
             number: "03",
-            title: "احصل على عروض",
-            description: "استقبل عروض أسعار من مشترين متعددين",
+            title: "Receive Offers",
+            description: "Get price offers from multiple buyers",
             icon: CurrencyDollarIcon
         },
         {
             number: "04",
-            title: "أتمم الصفقة",
-            description: "اختر أفضل عرض وأكمل عملية البيع",
+            title: "Close the Deal",
+            description: "Choose the best offer and complete the sale",
             icon: CheckCircleIcon
         }
     ];
 
     const testimonials = [
         {
-            name: "أحمد محمد",
-            role: "صاحب مصنع",
-            text: "منصة رائعة ساعدتني في بيع مخلفات المصنع بأسعار ممتازة وبسرعة كبيرة",
+            name: "Ahmed Mohamed",
+            role: "Factory Owner",
+            text: "A wonderful platform that helped me sell my factory's scrap at excellent prices and very quickly",
             rating: 5,
             avatar: "https://ui-avatars.com/api/?name=Ahmed+Mohamed&background=16a34a&color=fff"
         },
         {
-            name: "سارة خالد",
-            role: "مشترية خردة",
-            text: "التعامل مع EcoTrade سهل وآمن، وجدت الكثير من الفرص الجيدة",
+            name: "Sara Khaled",
+            role: "Scrap Buyer",
+            text: "Dealing with EcoTrade is easy and safe, and I found many good opportunities",
             rating: 5,
             avatar: "https://ui-avatars.com/api/?name=Sara+Khaled&background=0891b2&color=fff"
         },
         {
-            name: "محمود علي",
-            role: "مستثمر",
-            text: "أفضل منصة للاستثمار في إعادة التدوير، عوائد ممتازة وإدارة احترافية",
+            name: "Mahmoud Ali",
+            role: "Investor",
+            text: "The best platform for investing in recycling, with excellent returns and professional management",
             rating: 5,
             avatar: "https://ui-avatars.com/api/?name=Mahmoud+Ali&background=8b5cf6&color=fff"
         }
     ];
 
     return (
-        <div className="min-h-screen bg-white" dir='rtl'>
+        <div className="min-h-screen bg-white">
             
             {/* Hero Section - Modern Animated */}
             <section className="relative overflow-hidden bg-gradient-to-br from-green-600 via-teal-500 to-blue-500 text-white">
@@ -133,18 +133,18 @@ const HomePage = () => {
                         <div className="space-y-8">
                             <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
                                 <SparklesIcon className="w-5 h-5" />
-                                <span className="text-sm font-medium">منصة إعادة التدوير الأولى في سوريا</span>
+                                <span className="text-sm font-medium">The leading recycling platform in Syria</span>
                             </div>
                             
                             <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-                                حوّل خردتك إلى
+                                Turn your scrap into
                                 <span className="block bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                                    ذهب حقيقي
+                                    real gold
                                 </span>
                             </h1>
                             
                             <p className="text-xl md:text-2xl text-green-50 leading-relaxed">
-                                انضم إلى آلاف المستخدمين الذين يستفيدون من منصتنا لبيع وشراء المواد المعاد تدويرها بأفضل الأسعار
+                                Join thousands of users who benefit from our platform to sell and buy recycled materials at the best prices
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-4">
@@ -152,9 +152,9 @@ const HomePage = () => {
                                     to="/register"
                                     className="group bg-white text-green-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-green-50 transition-all transform hover:scale-105 shadow-2xl flex items-center justify-center gap-2"
                                 >
-                                    <span>ابدأ الآن مجاناً</span>
+                                    <span>Get started for free</span>
                                     <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                     </svg>
                                 </Link>
                                 <Link
@@ -162,7 +162,7 @@ const HomePage = () => {
                                     className="bg-white/10 backdrop-blur-sm border-2 border-white text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/20 transition-all flex items-center justify-center gap-2"
                                 >
                                     <GlobeAltIcon className="w-6 h-6" />
-                                    <span>تواصل معنا</span>
+                                    <span>Contact us</span>
                                 </Link>
                             </div>
 
@@ -171,16 +171,16 @@ const HomePage = () => {
                                 <div className="flex items-center gap-2">
                                     <BadgeCheckIcon className="w-8 h-8 text-yellow-300" />
                                     <div>
-                                        <p className="text-sm text-green-100">موثق ومعتمد</p>
-                                        <p className="text-xs text-green-200">من الجهات الرسمية</p>
+                                        <p className="text-sm text-green-100">Licensed &amp; Certified</p>
+                                        <p className="text-xs text-green-200">By official authorities</p>
                                     </div>
                                 </div>
                                 <div className="h-12 w-px bg-white/20"></div>
                                 <div className="flex items-center gap-2">
                                     <ShieldCheckIcon className="w-8 h-8 text-blue-300" />
                                     <div>
-                                        <p className="text-sm text-green-100">حماية كاملة</p>
-                                        <p className="text-xs text-green-200">لجميع المعاملات</p>
+                                        <p className="text-sm text-green-100">Full protection</p>
+                                        <p className="text-xs text-green-200">For all transactions</p>
                                     </div>
                                 </div>
                             </div>
@@ -195,7 +195,7 @@ const HomePage = () => {
                                 <div className="relative space-y-6">
                                     <div className="flex items-center justify-between p-4 bg-white/90 rounded-2xl shadow-lg">
                                         <div>
-                                            <p className="text-sm text-gray-600">إجمالي المعاملات</p>
+                                            <p className="text-sm text-gray-600">Total Transactions</p>
                                             <p className="text-3xl font-bold text-green-600">{counter.transactions.toLocaleString()}</p>
                                         </div>
                                         <TrendingUpIcon className="w-12 h-12 text-green-500" />
@@ -203,7 +203,7 @@ const HomePage = () => {
 
                                     <div className="flex items-center justify-between p-4 bg-white/90 rounded-2xl shadow-lg">
                                         <div>
-                                            <p className="text-sm text-gray-600">مستخدم نشط</p>
+                                            <p className="text-sm text-gray-600">Active Users</p>
                                             <p className="text-3xl font-bold text-blue-600">{counter.users.toLocaleString()}+</p>
                                         </div>
                                         <UserGroupIcon className="w-12 h-12 text-blue-500" />
@@ -211,7 +211,7 @@ const HomePage = () => {
 
                                     <div className="flex items-center justify-between p-4 bg-white/90 rounded-2xl shadow-lg">
                                         <div>
-                                            <p className="text-sm text-gray-600">توفير بيئي (طن)</p>
+                                            <p className="text-sm text-gray-600">Environmental Savings (Tons)</p>
                                             <p className="text-3xl font-bold text-purple-600">{counter.savings.toLocaleString()}</p>
                                         </div>
                                         <HeartIcon className="w-12 h-12 text-purple-500" />
@@ -234,13 +234,13 @@ const HomePage = () => {
             <section className="max-w-7xl mx-auto px-6 py-20">
                 <div className="text-center mb-16">
                     <span className="inline-block px-4 py-2 bg-green-100 text-green-600 rounded-full text-sm font-semibold mb-4">
-                        ميزاتنا المتقدمة
+                        Our Advanced Features
                     </span>
                     <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                        لماذا نحن الخيار الأفضل؟
+                        Why are we the best choice?
                     </h2>
                     <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                        نقدم لك تجربة فريدة ومميزة في عالم إعادة التدوير
+                        We offer you a unique and distinctive experience in the world of recycling
                     </p>
                 </div>
 
@@ -264,9 +264,9 @@ const HomePage = () => {
                             
                             {/* Arrow Icon */}
                             <div className="mt-4 flex items-center text-green-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <span className="text-sm">اعرف المزيد</span>
-                                <svg className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                <span className="text-sm">Learn more</span>
+                                <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                 </svg>
                             </div>
                         </div>
@@ -279,13 +279,13 @@ const HomePage = () => {
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-16">
                         <span className="inline-block px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold mb-4">
-                            كيف تعمل المنصة
+                            How the platform works
                         </span>
                         <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                            ابدأ في 4 خطوات بسيطة
+                            Get started in 4 simple steps
                         </h2>
                         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                            عملية سهلة وسريعة للبدء في رحلتك مع إعادة التدوير
+                            An easy and quick way to begin your recycling journey
                         </p>
                     </div>
 
@@ -324,13 +324,13 @@ const HomePage = () => {
             <section className="max-w-7xl mx-auto px-6 py-20">
                 <div className="text-center mb-16">
                     <span className="inline-block px-4 py-2 bg-purple-100 text-purple-600 rounded-full text-sm font-semibold mb-4">
-                        آراء عملائنا
+                        Testimonials
                     </span>
                     <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                        ماذا يقول مستخدمونا؟
+                        What do our users say?
                     </h2>
                     <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                        انضم إلى آلاف العملاء الراضين عن خدماتنا
+                        Join thousands of satisfied customers who use our services
                     </p>
                 </div>
 
@@ -381,13 +381,13 @@ const HomePage = () => {
                 <div className="relative max-w-7xl mx-auto px-6">
                     <div className="text-center mb-16">
                         <span className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-semibold mb-4">
-                            تأثيرنا البيئي
+                            Our Environmental Impact
                         </span>
                         <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                            معاً نصنع الفرق
+                            Together we make a difference
                         </h2>
                         <p className="text-xl text-green-100 max-w-3xl mx-auto">
-                            كل معاملة على منصتنا تساهم في حماية كوكبنا للأجيال القادمة
+                            Every transaction on our platform contributes to protecting our planet for future generations
                         </p>
                     </div>
 
@@ -398,8 +398,8 @@ const HomePage = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                 </svg>
                             </div>
-                            <h3 className="text-3xl font-bold mb-2 text-center">2,500+ طن</h3>
-                            <p className="text-green-100 text-center">من النفايات تم إعادة تدويرها</p>
+                            <h3 className="text-3xl font-bold mb-2 text-center">2,500+ Tons</h3>
+                            <p className="text-green-100 text-center">Of waste has been recycled</p>
                         </div>
 
                         <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all">
@@ -408,16 +408,16 @@ const HomePage = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
-                            <h3 className="text-3xl font-bold mb-2 text-center">15,000+ شجرة</h3>
-                            <p className="text-green-100 text-center">تم إنقاذها من القطع</p>
+                            <h3 className="text-3xl font-bold mb-2 text-center">15,000+ Trees</h3>
+                            <p className="text-green-100 text-center">Saved from being cut down</p>
                         </div>
 
                         <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all">
                             <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-400 rounded-2xl flex items-center justify-center mb-6 mx-auto">
                                 <HeartIcon className="w-8 h-8 text-white" />
                             </div>
-                            <h3 className="text-3xl font-bold mb-2 text-center">50,000+ طن</h3>
-                            <p className="text-green-100 text-center">تقليل انبعاثات CO₂</p>
+                            <h3 className="text-3xl font-bold mb-2 text-center">50,000+ Tons</h3>
+                            <p className="text-green-100 text-center">Of CO₂ emissions reduced</p>
                         </div>
                     </div>
                 </div>
@@ -427,13 +427,13 @@ const HomePage = () => {
             <section className="max-w-7xl mx-auto px-6 py-20">
                 <div className="text-center mb-16">
                     <span className="inline-block px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold mb-4">
-                        التقنيات المستخدمة
+                        Technologies We Use
                     </span>
                     <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                        تقنيات عالمية حديثة
+                        Modern world-class technologies
                     </h2>
                     <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                        نستخدم أحدث التقنيات لضمان أفضل تجربة مستخدم
+                        We use the latest technologies to ensure the best user experience
                     </p>
                 </div>
 
@@ -467,10 +467,10 @@ const HomePage = () => {
                 <div className="max-w-4xl mx-auto px-6">
                     <div className="text-center mb-12">
                         <span className="inline-block px-4 py-2 bg-green-100 text-green-600 rounded-full text-sm font-semibold mb-4">
-                            المطور
+                            The Developer
                         </span>
                         <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                            مبتكر المنصة
+                            The Platform Creator
                         </h2>
                     </div>
 
@@ -487,13 +487,13 @@ const HomePage = () => {
                                         <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-teal-500 rounded-full blur-lg opacity-50"></div>
                                         <img
                                             src={osama}
-                                            alt="أسامة بيطار"
+                                            alt="Osama Bitar"
                                             className="relative w-48 h-48 rounded-full border-4 border-white shadow-2xl object-cover"
                                         />
                                         {/* Badge */}
                                         <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-green-600 to-teal-600 text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
                                             <BadgeCheckIcon className="w-5 h-5" />
-                                            <span className="text-sm font-bold">مطور رئيسي</span>
+                                            <span className="text-sm font-bold">Lead Developer</span>
                                         </div>
                                     </div>
                                 </div>
@@ -501,14 +501,14 @@ const HomePage = () => {
                                 {/* Info Section */}
                                 <div className="md:col-span-3 flex flex-col justify-center">
                                     <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-                                        أسامة بيطار
+                                        Osama Bitar
                                     </h3>
                                     <p className="text-xl text-green-600 font-semibold mb-4">
                                         Full Stack Developer
                                     </p>
                                     <p className="text-gray-600 leading-relaxed mb-6">
-                                        مطور محترف متخصص في تطوير تطبيقات الويب الحديثة باستخدام تقنيات MERN Stack. 
-                                        شغوف بإنشاء حلول مبتكرة للمشاكل البيئية والاستدامة.
+                                        A professional developer specialized in building modern web applications using MERN Stack technologies. 
+                                        Passionate about creating innovative solutions for environmental problems and sustainability.
                                     </p>
                                     
                                     {/* Education */}
@@ -518,7 +518,7 @@ const HomePage = () => {
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
                                             </svg>
-                                            كلية هندسة المعلوماتية - الجامعة السورية الافتراضية
+                                            Faculty of Informatics Engineering - Syrian Virtual University
                                         </p>
                                     </div>
 
@@ -554,16 +554,16 @@ const HomePage = () => {
                     <div className="mb-8">
                         <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full mb-6">
                             <SparklesIcon className="w-6 h-6" />
-                            <span className="font-semibold">انضم إلينا الآن</span>
+                            <span className="font-semibold">Join us now</span>
                         </div>
                         <h2 className="text-4xl md:text-6xl font-bold mb-6">
-                            ابدأ رحلتك نحو
+                            Start your journey towards a
                             <span className="block bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                                مستقبل أخضر
+                                green future
                             </span>
                         </h2>
                         <p className="text-xl md:text-2xl text-green-50 mb-8 max-w-3xl mx-auto">
-                            انضم إلى آلاف المستخدمين الذين يحققون أرباحاً ويساهمون في حماية البيئة
+                            Join thousands of users who are making profits and contributing to protecting the environment
                         </p>
                     </div>
 
@@ -573,9 +573,9 @@ const HomePage = () => {
                             className="group bg-white text-green-600 px-10 py-5 rounded-xl font-bold text-xl hover:bg-green-50 transition-all transform hover:scale-105 shadow-2xl flex items-center justify-center gap-3"
                         >
                             <UserGroupIcon className="w-7 h-7" />
-                            <span>سجل مجاناً الآن</span>
+                            <span>Sign up for free now</span>
                             <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
                         </Link>
                         <Link
@@ -583,7 +583,7 @@ const HomePage = () => {
                             className="bg-white/10 backdrop-blur-sm border-2 border-white text-white px-10 py-5 rounded-xl font-bold text-xl hover:bg-white/20 transition-all flex items-center justify-center gap-3"
                         >
                             <ChatAltIcon className="w-7 h-7" />
-                            <span>تواصل معنا</span>
+                            <span>Contact us</span>
                         </Link>
                     </div>
 
@@ -591,15 +591,15 @@ const HomePage = () => {
                     <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto">
                         <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
                             <p className="text-4xl font-bold mb-2">5K+</p>
-                            <p className="text-green-100">مستخدم نشط</p>
+                            <p className="text-green-100">Active users</p>
                         </div>
                         <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
                             <p className="text-4xl font-bold mb-2">10K+</p>
-                            <p className="text-green-100">معاملة ناجحة</p>
+                            <p className="text-green-100">Successful transactions</p>
                         </div>
                         <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
                             <p className="text-4xl font-bold mb-2">2.5K+</p>
-                            <p className="text-green-100">طن معاد تدويره</p>
+                            <p className="text-green-100">Tons recycled</p>
                         </div>
                     </div>
                 </div>

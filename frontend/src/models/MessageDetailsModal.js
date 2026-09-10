@@ -86,7 +86,7 @@ const MessageDetailsModal = ({
                 <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500" />
 
                 {/* Header */}
-                <div className="flex items-center justify-between px-6 pt-8 pb-4 border-b border-gray-100" dir="rtl">
+                <div className="flex items-center justify-between px-6 pt-8 pb-4 border-b border-gray-100">
                     <div className="flex items-center gap-3">
                         <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white text-lg font-bold shadow-lg">
                             {getInitials(message.customerName)}
@@ -109,7 +109,7 @@ const MessageDetailsModal = ({
                 </div>
 
                 {/* Scrollable Content */}
-                <div className="flex-1 overflow-y-auto px-6 py-6" dir="rtl">
+                <div className="flex-1 overflow-y-auto px-6 py-6">
                     {/* Date */}
                     <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
                         <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -122,7 +122,7 @@ const MessageDetailsModal = ({
                     <div className="mb-6">
                         <div className="flex items-center gap-2 mb-3">
                             <MailIcon className="w-5 h-5 text-gray-500" />
-                            <h3 className="text-sm font-semibold text-gray-700">محتوى الرسالة</h3>
+                            <h3 className="text-sm font-semibold text-gray-700">Message Content</h3>
                         </div>
                         <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
                             <p className="text-gray-800 leading-relaxed whitespace-pre-wrap">
@@ -138,7 +138,7 @@ const MessageDetailsModal = ({
                                 <UserIcon className="w-5 h-5 text-blue-600" />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="text-xs font-medium text-gray-500">اسم العميل</p>
+                                <p className="text-xs font-medium text-gray-500">Customer Name</p>
                                 <p className="text-sm font-semibold text-gray-900 truncate">{message.customerName}</p>
                             </div>
                         </div>
@@ -147,7 +147,7 @@ const MessageDetailsModal = ({
                                 <MailIcon className="w-5 h-5 text-purple-600" />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="text-xs font-medium text-gray-500">البريد الإلكتروني</p>
+                                <p className="text-xs font-medium text-gray-500">Email Address</p>
                                 <p className="text-sm font-semibold text-gray-900 truncate">{message.email}</p>
                             </div>
                         </div>
@@ -155,7 +155,7 @@ const MessageDetailsModal = ({
                 </div>
 
                 {/* Actions Footer */}
-                <div className="px-6 py-4 bg-gray-50 border-t border-gray-200" dir="rtl">
+                <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
                     <div className="flex gap-3">
                         <button
                             onClick={handleDelete}
@@ -168,12 +168,12 @@ const MessageDetailsModal = ({
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                                     </svg>
-                                    جاري الحذف...
+                                    Deleting...
                                 </>
                             ) : (
                                 <>
                                     <TrashIcon className="w-5 h-5" />
-                                    حذف الرسالة
+                                    Delete Message
                                 </>
                             )}
                         </button>

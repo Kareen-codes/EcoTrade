@@ -74,15 +74,15 @@ const OrdersPage = () => {
         } catch (error) {
             console.error('Error fetching requests:', error);
             
-            let errorMessage = 'فشل تحميل الطلبات. ';
+            let errorMessage = 'Failed to load requests. ';
             if (error.response?.status === 401) {
-                errorMessage += 'انتهت صلاحية الجلسة. يرجى تسجيل الدخول مرة أخرى.';
+                errorMessage += 'Your session has expired. Please log in again.';
             } else if (error.response?.status === 403) {
-                errorMessage += 'ليس لديك صلاحية للوصول إلى هذه البيانات.';
+                errorMessage += 'You do not have permission to access this data.';
             } else if (!error.response) {
-                errorMessage += 'تحقق من اتصالك بالإنترنت.';
+                errorMessage += 'Check your internet connection.';
             } else {
-                errorMessage += 'حدث خطأ غير متوقع.';
+                errorMessage += 'An unexpected error occurred.';
             }
             
             setFetchError(errorMessage);
@@ -101,7 +101,7 @@ const OrdersPage = () => {
     // Create new request
     const createRequest = async (newRequest) => {
         if (!user) {
-            showMessage('يجب تسجيل الدخول لإنشاء طلب', 'error');
+            showMessage('You must be logged in to create a request', 'error');
             return;
         }
         
@@ -123,7 +123,7 @@ const OrdersPage = () => {
                 }
             });
             
-            showMessage(response.data.message || 'تم إنشاء الطلب بنجاح', 'success');
+            showMessage(response.data.message || 'Request created successfully', 'success');
             
             // Add new request to the beginning of the list
             setRequests(prev => [response.data.request, ...prev]);
@@ -133,15 +133,15 @@ const OrdersPage = () => {
         } catch (error) {
             console.error('Error creating request:', error);
             
-            let errorMessage = 'فشل في إنشاء الطلب. ';
+            let errorMessage = 'Failed to create the request. ';
             if (error.response?.status === 401) {
-                errorMessage += 'انتهت صلاحية الجلسة.';
+                errorMessage += 'Your session has expired.';
             } else if (error.response?.status === 400) {
-                errorMessage += error.response.data.message || 'البيانات غير صالحة.';
+                errorMessage += error.response.data.message || 'Invalid data.';
             } else if (error.response?.status === 403) {
-                errorMessage += 'ليس لديك صلاحية لهذا الإجراء.';
+                errorMessage += 'You do not have permission for this action.';
             } else {
-                errorMessage += 'يرجى المحاولة مرة أخرى.';
+                errorMessage += 'Please try again.';
             }
             
             showMessage(errorMessage, 'error');
@@ -161,7 +161,7 @@ const OrdersPage = () => {
                 headers: { Authorization: `Bearer ${user.token}` } 
             });
 
-            showMessage(response.data.message || `تم ${status === 'completed' ? 'إكمال' : 'إلغاء'} الطلب بنجاح`, 'success');
+            showMessage(response.data.message || `Request ${status === 'completed' ? 'completed' : 'canceled'} successfully`, 'success');
 
             if (user.role === 'admin') {
                 // Update request in groupedRequests
@@ -198,17 +198,17 @@ const OrdersPage = () => {
         } catch (error) {
             console.error('Error updating request status:', error);
             
-            let errorMessage = 'فشل في تحديث حالة الطلب. ';
+            let errorMessage = 'Failed to update the request status. ';
             if (error.response?.status === 401) {
-                errorMessage += 'انتهت صلاحية الجلسة.';
+                errorMessage += 'Your session has expired.';
             } else if (error.response?.status === 403) {
-                errorMessage += 'ليس لديك صلاحية لهذا الإجراء.';
+                errorMessage += 'You do not have permission for this action.';
             } else if (error.response?.status === 404) {
-                errorMessage += 'الطلب غير موجود.';
+                errorMessage += 'Request not found.';
             } else if (error.response?.status === 400) {
-                errorMessage += error.response.data.message || 'البيانات غير صالحة.';
+                errorMessage += error.response.data.message || 'Invalid data.';
             } else {
-                errorMessage += 'يرجى المحاولة مرة أخرى.';
+                errorMessage += 'Please try again.';
             }
             
             showMessage(errorMessage, 'error');
@@ -219,8 +219,8 @@ const OrdersPage = () => {
     const cancelRequest = (requestId) => {
         setConfirmDialog({
             isOpen: true,
-            title: 'تأكيد إلغاء الطلب',
-            message: 'هل أنت متأكد من إلغاء هذا الطلب؟ لا يمكن التراجع عن هذا الإجراء.',
+            title: 'Confirm Request Cancellation',
+            message: 'Are you sure you want to cancel this request? This action cannot be undone.',
             type: 'warning',
             onConfirm: () => updateRequestStatus(requestId, 'canceled')
         });
@@ -229,14 +229,14 @@ const OrdersPage = () => {
     // Delete request with confirmation
     const deleteRequest = (requestId) => {
         if (!user || user.role !== 'admin') {
-            showMessage('ليس لديك صلاحية لحذف الطلبات', 'error');
+            showMessage('You do not have permission to delete requests', 'error');
             return;
         }
 
         setConfirmDialog({
             isOpen: true,
-            title: 'تأكيد حذف الطلب',
-            message: 'هل أنت متأكد من حذف هذا الطلب نهائياً؟ لا يمكن التراجع عن هذا الإجراء.',
+            title: 'Confirm Request Deletion',
+            message: 'Are you sure you want to permanently delete this request? This action cannot be undone.',
             type: 'danger',
             onConfirm: async () => {
                 try {
@@ -244,7 +244,7 @@ const OrdersPage = () => {
                         headers: { Authorization: `Bearer ${user.token}` },
                     });
 
-                    showMessage('تم حذف الطلب بنجاح', 'success');
+                    showMessage('Request deleted successfully', 'success');
 
                     // Remove request from groupedRequests
                     setGroupedRequests((prevGrouped) =>
@@ -258,15 +258,15 @@ const OrdersPage = () => {
                 } catch (error) {
                     console.error('Error deleting request:', error);
                     
-                    let errorMessage = 'فشل في حذف الطلب. ';
+                    let errorMessage = 'Failed to delete the request. ';
                     if (error.response?.status === 401) {
-                        errorMessage += 'انتهت صلاحية الجلسة.';
+                        errorMessage += 'Your session has expired.';
                     } else if (error.response?.status === 403) {
-                        errorMessage += 'ليس لديك صلاحية لهذا الإجراء.';
+                        errorMessage += 'You do not have permission for this action.';
                     } else if (error.response?.status === 404) {
-                        errorMessage += 'الطلب غير موجود.';
+                        errorMessage += 'Request not found.';
                     } else {
-                        errorMessage += 'يرجى المحاولة مرة أخرى.';
+                        errorMessage += 'Please try again.';
                     }
                     
                     showMessage(errorMessage, 'error');
@@ -291,7 +291,7 @@ const OrdersPage = () => {
     const isError = messageType === 'error';
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50" dir="rtl">
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
             {user ? (
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
                     {/* Hero Header with Gradient */}
@@ -311,16 +311,16 @@ const OrdersPage = () => {
                                     <div className="mb-1 flex items-center gap-2">
                                         <SparklesIcon className="h-5 w-5" />
                                         <span className="text-sm font-medium text-green-100">
-                                            {user.role === 'admin' ? 'لوحة التحكم' : 'منطقتك الشخصية'}
+                                            {user.role === 'admin' ? 'Control Panel' : 'Your Personal Area'}
                                         </span>
                                     </div>
                                     <h1 className="text-3xl font-bold sm:text-4xl">
-                                        {user.role === 'admin' ? 'إدارة الطلبات' : 'طلباتك'}
+                                        {user.role === 'admin' ? 'Manage Requests' : 'Your Requests'}
                                     </h1>
                                     <p className="mt-1 text-sm text-green-50">
                                         {user.role === 'admin'
-                                            ? 'عرض وإدارة جميع طلبات المستخدمين'
-                                            : 'تتبع وإدارة طلباتك بسهولة'}
+                                            ? 'View and manage all user requests'
+                                            : 'Track and manage your requests with ease'}
                                     </p>
                                 </div>
                             </div>
@@ -331,10 +331,10 @@ const OrdersPage = () => {
                                 onClick={fetchRequests}
                                 disabled={requestsLoading}
                                 className="flex items-center gap-2 rounded-xl border-2 border-white/30 bg-white/10 px-4 py-2.5 text-sm font-semibold backdrop-blur-sm transition hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-50"
-                                aria-label="تحديث"
+                                aria-label="Refresh"
                             >
                                 <RefreshIcon className={`h-5 w-5 ${requestsLoading ? 'animate-spin' : ''}`} />
-                                <span>تحديث</span>
+                                <span>Refresh</span>
                             </button>
                         </div>
                     </div>
@@ -367,7 +367,7 @@ const OrdersPage = () => {
                                 type="button"
                                 onClick={() => setStatusMessage('')}
                                 className="shrink-0 rounded-lg p-1.5 transition hover:bg-black/5"
-                                aria-label="إغلاق"
+                                aria-label="Close"
                             >
                                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -388,7 +388,7 @@ const OrdersPage = () => {
                                 <input
                                     id="orders-search"
                                     type="text"
-                                    placeholder="ابحث حسب العنوان أو نوع الخردة..."
+                                    placeholder="Search by address or scrap type..."
                                     value={searchQuery}
                                     onChange={(e) => {
                                         setSearchQuery(e.target.value);
@@ -405,7 +405,7 @@ const OrdersPage = () => {
                                 <svg className="h-5 w-5 transition group-hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
                                 </svg>
-                                <span className="whitespace-nowrap">إنشاء طلب جديد</span>
+                                <span className="whitespace-nowrap">Create New Request</span>
                             </button>
                         </div>
                     )}
@@ -440,8 +440,8 @@ const OrdersPage = () => {
                                     <ClipboardListIcon className="h-8 w-8 text-green-600" />
                                 </div>
                             </div>
-                            <p className="text-sm font-semibold text-gray-600">جاري تحميل الطلبات...</p>
-                            <p className="mt-1 text-xs text-gray-400">يرجى الانتظار</p>
+                            <p className="text-sm font-semibold text-gray-600">Loading requests...</p>
+                            <p className="mt-1 text-xs text-gray-400">Please wait</p>
                         </div>
                     ) : fetchError ? (
                         /* Error state with retry - Enhanced */
@@ -452,7 +452,7 @@ const OrdersPage = () => {
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                 </div>
-                                <h3 className="mb-2 text-xl font-bold text-gray-900">فشل تحميل الطلبات</h3>
+                                <h3 className="mb-2 text-xl font-bold text-gray-900">Failed to load requests</h3>
                                 <p className="mb-6 text-sm text-gray-700">{fetchError}</p>
                                 <button
                                     type="button"
@@ -460,7 +460,7 @@ const OrdersPage = () => {
                                     className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-pink-600 px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:from-red-700 hover:to-pink-700"
                                 >
                                     <RefreshIcon className="h-5 w-5" />
-                                    إعادة المحاولة
+                                    Try Again
                                 </button>
                             </div>
                         </div>
@@ -501,12 +501,12 @@ const OrdersPage = () => {
                                     </svg>
                                 </div>
                                 <h3 className="mb-2 text-2xl font-bold text-gray-900">
-                                    {searchQuery ? 'لا توجد نتائج' : 'لا توجد طلبات'}
+                                    {searchQuery ? 'No results found' : 'No requests yet'}
                                 </h3>
                                 <p className="mb-6 text-gray-600">
                                     {searchQuery 
-                                        ? 'لم نجد أي طلبات تطابق بحثك. حاول تعديل كلمات البحث.' 
-                                        : 'لم تقم بإنشاء أي طلبات بعد. ابدأ بإنشاء طلبك الأول!'}
+                                        ? 'We could not find any requests matching your search. Try adjusting your search terms.' 
+                                        : 'You have not created any requests yet. Start by creating your first request!'}
                                 </p>
                                 {!searchQuery && (
                                     <button
@@ -517,7 +517,7 @@ const OrdersPage = () => {
                                         <svg className="h-6 w-6 transition group-hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
                                         </svg>
-                                        <span>إنشاء طلب جديد</span>
+                                        <span>Create New Request</span>
                                     </button>
                                 )}
                             </div>
@@ -540,9 +540,9 @@ const OrdersPage = () => {
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                     </svg>
                                 </div>
-                                <h2 className="text-2xl font-bold">مطلوب تسجيل الدخول</h2>
+                                <h2 className="text-2xl font-bold">Login Required</h2>
                                 <p className="mt-2 text-sm text-green-50">
-                                    انضم إلينا للوصول إلى صفحة الطلبات
+                                    Join us to access the requests page
                                 </p>
                             </div>
                         </div>
@@ -550,7 +550,7 @@ const OrdersPage = () => {
                         {/* Body */}
                         <div className="p-8">
                             <p className="mb-6 text-center text-gray-600">
-                                يرجى تسجيل الدخول أو إنشاء حساب جديد للوصول إلى صفحة الطلبات وإدارة طلباتك.
+                                Please log in or create a new account to access the requests page and manage your requests.
                             </p>
                             <div className="space-y-3">
                                 <Link
@@ -560,7 +560,7 @@ const OrdersPage = () => {
                                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                                     </svg>
-                                    تسجيل الدخول
+                                    Log in
                                 </Link>
                                 <Link
                                     to="/register"
@@ -569,7 +569,7 @@ const OrdersPage = () => {
                                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                                     </svg>
-                                    إنشاء حساب جديد
+                                    Create New Account
                                 </Link>
                             </div>
                         </div>

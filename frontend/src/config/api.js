@@ -32,10 +32,12 @@ export const getServerUrl = (path) => {
   return `${SERVER_URL}/${cleanPath}`;
 };
 
-export default {
+const apiConfig = {
   API_BASE_URL,
   SOCKET_URL,
   SERVER_URL,
   getApiUrl,
   getServerUrl
 };
+
+export default apiConfig;
