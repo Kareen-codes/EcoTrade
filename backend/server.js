@@ -30,6 +30,11 @@ app.use(cors({
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// التحقق من وجود مفتاح JWT — بدونه سيفشل تسجيل الدخول
+if (!process.env.JWT_SECRET) {
+    console.error('❌  JWT_SECRET is missing! Add it to backend/.env — login and token verification will fail without it.');
+}
+
 // الاتصال بقاعدة البيانات
 connectDB();
 
