@@ -64,7 +64,7 @@ const AdminAuctionRoom = () => {
             setLoading(true);
             const response = await fetch(`${API_BASE_URL}/auction/${auctionId}`);
             if (!response.ok) {
-                throw new Error('فشل في جلب بيانات المزاد');
+                throw new Error('Failed to fetch auction data');
             }
             const data = await response.json();
             setAuction(data);
@@ -93,11 +93,11 @@ const AdminAuctionRoom = () => {
         setActionLoading(true);
         try {
             await axios.put(`${process.env.REACT_APP_API_URL}/auction/close/${auctionId}`);
-            showToast('تم إغلاق المزاد بنجاح');
+            showToast('Auction closed successfully');
             await fetchAuctionDetails();
         } catch (error) {
             console.error("Error closing auction:", error);
-            showToast('فشل إغلاق المزاد', 'error');
+            showToast('Failed to close the auction', 'error');
         } finally {
             setActionLoading(false);
             setConfirmModal({ ...confirmModal, isOpen: false });
@@ -108,11 +108,11 @@ const AdminAuctionRoom = () => {
         setActionLoading(true);
         try {
             await axios.put(`${process.env.REACT_APP_API_URL}/auction/cancel/${auctionId}`);
-            showToast('تم إلغاء المزاد بنجاح');
+            showToast('Auction canceled successfully');
             await fetchAuctionDetails();
         } catch (error) {
             console.error("Error canceling auction:", error);
-            showToast('فشل إلغاء المزاد', 'error');
+            showToast('Failed to cancel the auction', 'error');
         } finally {
             setActionLoading(false);
             setConfirmModal({ ...confirmModal, isOpen: false });
@@ -123,11 +123,11 @@ const AdminAuctionRoom = () => {
         setActionLoading(true);
         try {
             await axios.delete(`${process.env.REACT_APP_API_URL}/auction/${auctionId}`);
-            showToast('تم حذف المزاد بنجاح');
+            showToast('Auction deleted successfully');
             setTimeout(() => navigate('/auctions'), 1500);
         } catch (error) {
             console.error("Error deleting auction:", error);
-            showToast('فشل حذف المزاد', 'error');
+            showToast('Failed to delete the auction', 'error');
             setActionLoading(false);
             setConfirmModal({ ...confirmModal, isOpen: false });
         }
@@ -166,40 +166,40 @@ const AdminAuctionRoom = () => {
         const end = new Date(auction.endDate);
         const diff = end - now;
         
-        if (diff <= 0) return 'انتهى';
+        if (diff <= 0) return 'Ended';
         
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         
-        if (days > 0) return `${days} يوم و ${hours} ساعة`;
-        if (hours > 0) return `${hours} ساعة و ${minutes} دقيقة`;
-        return `${minutes} دقيقة`;
+        if (days > 0) return `${days} day${days > 1 ? 's' : ''} and ${hours} hour${hours > 1 ? 's' : ''}`;
+        if (hours > 0) return `${hours} hour${hours > 1 ? 's' : ''} and ${minutes} minute${minutes > 1 ? 's' : ''}`;
+        return `${minutes} minute${minutes > 1 ? 's' : ''}`;
     };
 
     if (loading) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-[60vh]" dir="rtl">
+            <div className="flex flex-col items-center justify-center min-h-[60vh]">
                 <div className="w-12 h-12 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mb-4" />
-                <p className="text-sm font-medium text-gray-600">جاري تحميل بيانات المزاد...</p>
+                <p className="text-sm font-medium text-gray-600">Loading auction data...</p>
             </div>
         );
     }
 
     if (error || !auction) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-[60vh]" dir="rtl">
+            <div className="flex flex-col items-center justify-center min-h-[60vh]">
                 <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center max-w-md">
                     <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
                         <XCircleIcon className="h-8 w-8 text-red-600" />
                     </div>
-                    <h3 className="text-lg font-bold text-red-900 mb-2">خطأ في تحميل المزاد</h3>
-                    <p className="text-sm text-red-700">{error || 'المزاد غير موجود'}</p>
+                    <h3 className="text-lg font-bold text-red-900 mb-2">Error loading the auction</h3>
+                    <p className="text-sm text-red-700">{error || 'Auction not found'}</p>
                     <button
                         onClick={() => navigate('/auctions')}
                         className="mt-4 px-4 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 transition"
                     >
-                        العودة للمزادات
+                        Back to Auctions
                     </button>
                 </div>
             </div>
@@ -213,7 +213,7 @@ const AdminAuctionRoom = () => {
     const timeRemaining = getTimeRemaining();
 
     return (
-        <div className="space-y-6 pb-8" dir='rtl'>
+        <div className="space-y-6 pb-8">
             {/* Toast */}
             {toast.show && (
                 <div className={`fixed top-4 right-4 z-50 flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg border animate-fadeIn ${
@@ -241,7 +241,7 @@ const AdminAuctionRoom = () => {
                 message={confirmModal.message}
                 type={confirmModal.type}
                 loading={actionLoading}
-                confirmText={confirmModal.type === 'danger' ? 'حذف' : confirmModal.type === 'cancel' ? 'إلغاء المزاد' : 'تأكيد'}
+                confirmText={confirmModal.type === 'danger' ? 'Delete' : confirmModal.type === 'cancel' ? 'Cancel Auction' : 'Confirm'}
             />
 
             {/* Back button */}
@@ -250,14 +250,14 @@ const AdminAuctionRoom = () => {
                 className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-800 transition"
             >
                 <ArrowLeftIcon className="h-4 w-4" />
-                العودة للمزادات
+                Back to Auctions
             </button>
 
             {/* Header with status */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
                     <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">{auction.itemName}</h1>
-                    <p className="mt-1 text-sm text-gray-500">معرف المزاد: {auctionId}</p>
+                    <p className="mt-1 text-sm text-gray-500">Auction ID: {auctionId}</p>
                 </div>
                 <span className={`inline-flex items-center gap-2 shrink-0 rounded-full px-4 py-2 text-sm font-semibold ${
                     isCanceled ? 'bg-red-100 text-red-800' : 
@@ -267,7 +267,7 @@ const AdminAuctionRoom = () => {
                     {isCanceled ? <XSolid className="h-5 w-5" /> : 
                      isClosed ? <CheckSolid className="h-5 w-5" /> : 
                      <ClockIcon className="h-5 w-5" />}
-                    {isCanceled ? 'ملغى' : isClosed ? 'مغلق' : 'نشط'}
+                    {isCanceled ? 'Canceled' : isClosed ? 'Closed' : 'Active'}
                 </span>
             </div>
 
@@ -294,7 +294,7 @@ const AdminAuctionRoom = () => {
                     <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
                         <h2 className="text-lg font-bold text-gray-800 mb-3 flex items-center gap-2">
                             <TagIcon className="h-5 w-5 text-gray-600" />
-                            الوصف
+                            Description
                         </h2>
                         <p className="text-gray-700 leading-relaxed">{auction.description}</p>
                     </div>
@@ -303,7 +303,7 @@ const AdminAuctionRoom = () => {
                     <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
                         <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
                             <UserGroupIcon className="h-5 w-5 text-gray-600" />
-                            المزايدات ({auction.bids?.length || 0})
+                            Bids ({auction.bids?.length || 0})
                         </h2>
 
                         {lastBidderInfo && (
@@ -321,7 +321,7 @@ const AdminAuctionRoom = () => {
                                             <h3 className="text-lg font-bold text-gray-800">{lastBidderInfo.name}</h3>
                                             {isClosed && (
                                                 <span className="rounded-full bg-emerald-600 px-2 py-0.5 text-xs font-semibold text-white">
-                                                    الفائز
+                                                    Winner
                                                 </span>
                                             )}
                                         </div>
@@ -329,17 +329,17 @@ const AdminAuctionRoom = () => {
                                     </div>
                                 </div>
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="text-sm text-gray-600">مبلغ العطاء:</span>
-                                    <span className="text-2xl font-bold text-emerald-700">{lastBid.bidAmount} ل.س</span>
+                                    <span className="text-sm text-gray-600">Bid Amount:</span>
+                                    <span className="text-2xl font-bold text-emerald-700">{lastBid.bidAmount} SYP</span>
                                 </div>
                                 {isClosed && (
                                     <div className="flex gap-2">
                                         <a
-                                            href={`mailto:${lastBidderInfo.email}?subject=استفسار حول المزاد ${auction.itemName}`}
+                                            href={`mailto:${lastBidderInfo.email}?subject=Inquiry about the auction ${auction.itemName}`}
                                             className="flex-1 flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-xl hover:bg-blue-700 transition text-sm font-medium"
                                         >
                                             <MailIcon className="h-4 w-4" />
-                                            تواصل عبر البريد
+                                            Contact via Email
                                         </a>
                                         {lastBidderInfo.phoneNumber && (
                                             <a
@@ -347,7 +347,7 @@ const AdminAuctionRoom = () => {
                                                 className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 text-white px-4 py-2.5 rounded-xl hover:bg-emerald-700 transition text-sm font-medium"
                                             >
                                                 <PhoneIcon className="h-4 w-4" />
-                                                اتصال
+                                                Call
                                             </a>
                                         )}
                                     </div>
@@ -358,7 +358,7 @@ const AdminAuctionRoom = () => {
                         {/* Previous bids */}
                         {auction.bids && auction.bids.length > 1 && (
                             <div>
-                                <h3 className="text-sm font-semibold text-gray-700 mb-3">المزايدات السابقة</h3>
+                                <h3 className="text-sm font-semibold text-gray-700 mb-3">Previous Bids</h3>
                                 <div className="space-y-3 max-h-96 overflow-y-auto">
                                     {auction.bids.slice(0, -1).reverse().map((bid, index) => {
                                         const bidder = biddersInfo[bid.bidder];
@@ -366,15 +366,15 @@ const AdminAuctionRoom = () => {
                                             <div key={index} className="flex items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 p-4">
                                                 <img
                                                     src={bidder?.profileImage || 'https://ui-avatars.com/api?name=' + encodeURIComponent(bidder?.name || 'User')}
-                                                    alt={bidder?.name || 'مزايد'}
+                                                    alt={bidder?.name || 'Bidder'}
                                                     className="h-10 w-10 rounded-full border border-gray-300 object-cover"
                                                 />
                                                 <div className="flex-1 min-w-0">
-                                                    <p className="font-semibold text-gray-800 text-sm">{bidder?.name || 'مزايد غير معروف'}</p>
+                                                    <p className="font-semibold text-gray-800 text-sm">{bidder?.name || 'Unknown bidder'}</p>
                                                     <p className="text-xs text-gray-500 truncate">{bidder?.email || '—'}</p>
                                                 </div>
                                                 <div className="text-left">
-                                                    <p className="text-sm font-bold text-gray-800">{bid.bidAmount} ل.س</p>
+                                                    <p className="text-sm font-bold text-gray-800">{bid.bidAmount} SYP</p>
                                                 </div>
                                             </div>
                                         );
@@ -388,7 +388,7 @@ const AdminAuctionRoom = () => {
                                 <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100">
                                     <TrendingUpIcon className="h-6 w-6 text-gray-400" />
                                 </div>
-                                <p className="text-sm text-gray-500">لا توجد مزايدات حتى الآن</p>
+                                <p className="text-sm text-gray-500">No bids yet</p>
                             </div>
                         )}
                     </div>
@@ -398,40 +398,40 @@ const AdminAuctionRoom = () => {
                 <div className="space-y-6">
                     {/* Auction info */}
                     <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm space-y-4">
-                        <h2 className="text-lg font-bold text-gray-800 mb-4">معلومات المزاد</h2>
+                        <h2 className="text-lg font-bold text-gray-800 mb-4">Auction Information</h2>
                         
                         <div className="space-y-3">
                             <div className="flex items-center justify-between pb-3 border-b border-gray-100">
-                                <span className="text-sm text-gray-600">الفئة</span>
+                                <span className="text-sm text-gray-600">Category</span>
                                 <span className="font-semibold text-gray-800">{auction.category}</span>
                             </div>
                             
                             <div className="flex items-center justify-between pb-3 border-b border-gray-100">
-                                <span className="text-sm text-gray-600">سعر البداية</span>
-                                <span className="font-semibold text-blue-700">{auction.startPrice} ل.س</span>
+                                <span className="text-sm text-gray-600">Starting Price</span>
+                                <span className="font-semibold text-blue-700">{auction.startPrice} SYP</span>
                             </div>
                             
                             <div className="flex items-center justify-between pb-3 border-b border-gray-100">
-                                <span className="text-sm text-gray-600">العطاء الحالي</span>
-                                <span className="font-bold text-emerald-700 text-lg">{auction.currentBid || auction.startPrice} ل.س</span>
+                                <span className="text-sm text-gray-600">Current Bid</span>
+                                <span className="font-bold text-emerald-700 text-lg">{auction.currentBid || auction.startPrice} SYP</span>
                             </div>
                             
                             <div className="flex items-center justify-between pb-3 border-b border-gray-100">
-                                <span className="text-sm text-gray-600">عدد المزايدات</span>
+                                <span className="text-sm text-gray-600">Number of Bids</span>
                                 <span className="font-semibold text-gray-800">{auction.bids?.length || 0}</span>
                             </div>
                             
                             <div className="flex items-center justify-between pb-3 border-b border-gray-100">
-                                <span className="text-sm text-gray-600">الوقت المتبقي</span>
-                                <span className={`font-semibold ${timeRemaining === 'انتهى' ? 'text-red-600' : 'text-amber-600'}`}>
+                                <span className="text-sm text-gray-600">Time Remaining</span>
+                                <span className={`font-semibold ${timeRemaining === 'Ended' ? 'text-red-600' : 'text-amber-600'}`}>
                                     {timeRemaining}
                                 </span>
                             </div>
                             
                             <div className="flex items-center justify-between">
-                                <span className="text-sm text-gray-600">تاريخ الانتهاء</span>
+                                <span className="text-sm text-gray-600">End Date</span>
                                 <span className="text-xs text-gray-800 font-medium">
-                                    {new Date(auction.endDate).toLocaleDateString('ar-EG', { 
+                                    {new Date(auction.endDate).toLocaleDateString('en-US', { 
                                         year: 'numeric', month: 'short', day: 'numeric', 
                                         hour: '2-digit', minute: '2-digit' 
                                     })}
@@ -442,13 +442,13 @@ const AdminAuctionRoom = () => {
 
                     {/* Actions */}
                     <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm space-y-3">
-                        <h2 className="text-lg font-bold text-gray-800 mb-4">الإجراءات</h2>
+                        <h2 className="text-lg font-bold text-gray-800 mb-4">Actions</h2>
                         
                         <button
                             onClick={() => openConfirmModal(
                                 'success',
-                                'إغلاق المزاد',
-                                'سيتم إغلاق المزاد ولن يتمكن أي شخص من المزايدة بعد ذلك. هل تريد المتابعة؟',
+                                'Close Auction',
+                                'The auction will be closed and no one will be able to bid afterwards. Do you want to continue?',
                                 handleCloseAuction
                             )}
                             disabled={isCanceled || isClosed}
@@ -459,14 +459,14 @@ const AdminAuctionRoom = () => {
                             }`}
                         >
                             <CheckCircleIcon className="h-5 w-5" />
-                            {isClosed ? 'المزاد مغلق' : 'إغلاق المزاد'}
+                            {isClosed ? 'Auction Closed' : 'Close Auction'}
                         </button>
                         
                         <button
                             onClick={() => openConfirmModal(
                                 'cancel',
-                                'إلغاء المزاد',
-                                'سيتم إلغاء المزاد ولن يتم تحديد فائز. هل تريد المتابعة؟',
+                                'Cancel Auction',
+                                'The auction will be canceled and no winner will be determined. Do you want to continue?',
                                 handleCancelAuction
                             )}
                             disabled={isCanceled}
@@ -477,20 +477,20 @@ const AdminAuctionRoom = () => {
                             }`}
                         >
                             <XCircleIcon className="h-5 w-5" />
-                            {isCanceled ? 'المزاد ملغى' : 'إلغاء المزاد'}
+                            {isCanceled ? 'Auction Canceled' : 'Cancel Auction'}
                         </button>
                         
                         <button
                             onClick={() => openConfirmModal(
                                 'danger',
-                                'حذف المزاد',
-                                'سيتم حذف المزاد نهائياً ولن يمكن استرجاعه. هل أنت متأكد؟',
+                                'Delete Auction',
+                                'The auction will be permanently deleted and cannot be recovered. Are you sure?',
                                 handleDeleteAuction
                             )}
                             className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium bg-red-600 text-white hover:bg-red-700 transition"
                         >
                             <TrashIcon className="h-5 w-5" />
-                            حذف المزاد
+                            Delete Auction
                         </button>
                     </div>
                 </div>

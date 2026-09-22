@@ -18,42 +18,42 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
     const menuItems = [
         {
             id: 'dashboard',
-            name: 'لوحة التحكم الرئيسية',
+            name: 'Main Dashboard',
             path: '/dashboard',
             icon: HomeIcon,
             badge: null
         },
         {
             id: 'users',
-            name: 'إدارة المستخدمين',
+            name: 'Manage Users',
             path: '/users',
             icon: UsersIcon,
             badge: null
         },
         {
             id: 'orders',
-            name: 'إدارة الطلبات',
+            name: 'Manage Orders',
             path: '/orders',
             icon: ShoppingBagIcon,
             badge: '12'
         },
         {
             id: 'auctions',
-            name: 'إدارة المزادات',
+            name: 'Manage Auctions',
             path: '/auctions',
             icon: CollectionIcon,
             badge: '5'
         },
         {
             id: 'scrap',
-            name: 'إدارة المواد',
+            name: 'Manage Materials',
             path: '/scrap',
             icon: CubeIcon,
             badge: null
         },
         {
             id: 'contact',
-            name: 'الرسائل',
+            name: 'Messages',
             path: '/contact',
             icon: ChatAlt2Icon,
             badge: '3'
@@ -94,7 +94,7 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
                         {isOpen && (
                             <div className="animate-fadeIn">
                                 <h2 className="text-xl font-bold text-white">EcoTrade</h2>
-                                <p className="text-xs text-blue-300">لوحة التحكم</p>
+                                <p className="text-xs text-blue-300">Dashboard</p>
                             </div>
                         )}
                     </Link>

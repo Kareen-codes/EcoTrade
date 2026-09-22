@@ -41,23 +41,23 @@ const DeleteUserModal = ({ isOpen, userName, onConfirm, onCancel }) => {
                         <UserGroupIcon className="w-8 h-8 text-red-600" strokeWidth={1.5} />
                     </div>
                     <h2 id="delete-user-modal-title" className="text-xl font-bold text-gray-900 mb-2">
-                        حذف المستخدم
+                        Delete User
                     </h2>
                     <p className="text-gray-600 mb-8 leading-relaxed">
-                        هل أنت متأكد من حذف المستخدم <strong className="text-gray-900">{userName}</strong>؟ لا يمكن التراجع عن هذا الإجراء.
+                        Are you sure you want to delete the user <strong className="text-gray-900">{userName}</strong>? This action cannot be undone.
                     </p>
                     <div className="flex flex-col-reverse sm:flex-row gap-3 justify-center">
                         <button
                             onClick={onCancel}
                             className="px-6 py-3 rounded-xl font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 transition-all duration-200"
                         >
-                            إلغاء
+                            Cancel
                         </button>
                         <button
                             onClick={onConfirm}
                             className="px-6 py-3 rounded-xl font-medium text-white bg-red-600 hover:bg-red-700 transition-all duration-200 shadow-lg shadow-red-500/30"
                         >
-                            حذف
+                            Delete
                         </button>
                     </div>
                 </div>

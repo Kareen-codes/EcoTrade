@@ -11,17 +11,17 @@ export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // دالة لتسجيل المستخدم
+    // Function to register the user
     const registerUser = async (userData) => {
         try {
             await axios.post(`${API_URL}/users/register`, userData);
         } catch (error) {
-            // إعادة الخطأ للمكون الذي يستدعيها
+            // Re-throw the error to the calling component
             throw error;
         }
     };
 
-    // دالة لتسجيل الدخول
+    // Function to log the user in
     const loginUser = async (credentials) => {
         try {
             const response = await axios.post(`${API_URL}/users/login`, credentials);
@@ -30,63 +30,63 @@ export const UserProvider = ({ children }) => {
             localStorage.setItem('sessionStart', Date.now());
         } catch (error) {
             if (error.response && error.response.status === 401) {
-                throw new Error('فشل تسجيل الدخول: بيانات الاعتماد غير صحيحة.');
+                throw new Error('Login failed: incorrect credentials.');
             } else {
-                throw new Error('حدث خطأ غير متوقع أثناء تسجيل الدخول.');
+                throw new Error('An unexpected error occurred while logging in.');
             }
         }
     };
 
-    // دالة لتسجيل الخروج
+    // Function to log the user out
     const logoutUser = () => {
         localStorage.removeItem('user');
         localStorage.removeItem('sessionStart');
         setUser(null);
     };
 
-    // دالة للتحقق من انتهاء صلاحية الجلسة
+    // Function to check whether the session has expired
     const checkSessionExpiration = useCallback(() => {
         const sessionStart = localStorage.getItem('sessionStart');
         if (sessionStart && Date.now() - sessionStart > SESSION_DURATION) {
             logoutUser();
-            alert("انتهت صلاحية الجلسة. يرجى تسجيل الدخول مرة أخرى.");
+            alert("Your session has expired. Please log in again.");
         }
     }, []);
 
-    // دالة لجلب بيانات المستخدم
+    // Function to fetch user data
     const fetchUserProfile = async (userId) => {
         try {
             checkSessionExpiration();
             const response = await axios.get(`${API_URL}/users/profile/${userId}`);
             setUser(response.data.user);
         } catch (error) {
-            console.error("فشل في جلب بيانات المستخدم:", error);
+            console.error("Failed to fetch user data:", error);
         }
     };
 
-    // دالة لتحديث بيانات المستخدم
+    // Function to update user data
     const updateUser = async (userId, updatedData) => {
         try {
             checkSessionExpiration();
             await axios.put(`${API_URL}/users/profile/${userId}`, updatedData);
         } catch (error) {
-            console.error("فشل في تحديث بيانات المستخدم:", error);
+            console.error("Failed to update user data:", error);
             throw error;
         }
     };
 
-    // دالة لحذف المستخدم
+    // Function to delete the user
     const deleteUser = async (userId) => {
         try {
             checkSessionExpiration();
             await axios.delete(`${API_URL}/users/profile/${userId}`);
         } catch (error) {
-            console.error("فشل في حذف المستخدم:", error);
+            console.error("Failed to delete the user:", error);
             throw error;
         }
     };
 
-    // تأثير لجلب المستخدم من localStorage عند التحميل والتحقق من انتهاء الجلسة
+    // Effect to load the user from localStorage on mount and check session expiration
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {

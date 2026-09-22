@@ -68,7 +68,7 @@ const AddUserPopup = ({ isOpen, onClose, onSubmit, userToEdit }) => {
             await onSubmit(userData);
             onClose();
         } catch (err) {
-            setError(err.response?.data?.message || err.message || 'حدث خطأ أثناء العملية. يرجى المحاولة مرة أخرى.');
+            setError(err.response?.data?.message || err.message || 'An error occurred during the operation. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -101,7 +101,7 @@ const AddUserPopup = ({ isOpen, onClose, onSubmit, userToEdit }) => {
 
                 <div className="p-8 pt-10">
                     <h2 id="add-user-modal-title" className="text-xl font-bold text-gray-900 mb-6 text-center">
-                        {userToEdit ? 'تعديل المستخدم' : 'إضافة مستخدم جديد'}
+                        {userToEdit ? 'Edit User' : 'Add New User'}
                     </h2>
 
                     {error && (
@@ -112,29 +112,29 @@ const AddUserPopup = ({ isOpen, onClose, onSubmit, userToEdit }) => {
 
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1.5">الاسم</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-1.5">Name</label>
                             <div className="relative">
-                                <UserIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" strokeWidth={1.5} />
+                                <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" strokeWidth={1.5} />
                                 <input
                                     type="text"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
-                                    className="w-full pr-10 pl-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                                    placeholder="اسم المستخدم"
+                                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                    placeholder="Username"
                                     required
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1.5">البريد الإلكتروني</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-1.5">Email Address</label>
                             <div className="relative">
-                                <MailIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" strokeWidth={1.5} />
+                                <MailIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" strokeWidth={1.5} />
                                 <input
                                     type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full pr-10 pl-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                                     placeholder="email@example.com"
                                     required
                                 />
@@ -143,16 +143,16 @@ const AddUserPopup = ({ isOpen, onClose, onSubmit, userToEdit }) => {
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                                كلمة المرور {userToEdit && '(اترك فارغاً للإبقاء على الحالية)'}
+                                Password {userToEdit && '(leave empty to keep the current one)'}
                             </label>
                             <div className="relative">
-                                <KeyIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" strokeWidth={1.5} />
+                                <KeyIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" strokeWidth={1.5} />
                                 <input
                                     type="password"
                                     value={password}
                                     onChange={handlePasswordChange}
-                                    className="w-full pr-10 pl-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                                    placeholder={userToEdit ? '••••••••' : '8 أحرف على الأقل'}
+                                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                    placeholder={userToEdit ? '••••••••' : 'At least 8 characters'}
                                     required={!userToEdit}
                                 />
                             </div>
@@ -169,18 +169,18 @@ const AddUserPopup = ({ isOpen, onClose, onSubmit, userToEdit }) => {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1.5">نوع المستخدم</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-1.5">Role</label>
                             <div className="relative">
-                                <ShieldCheckIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" strokeWidth={1.5} />
+                                <ShieldCheckIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" strokeWidth={1.5} />
                                 <select
                                     value={role}
                                     onChange={(e) => setRole(e.target.value)}
-                                    className="w-full pr-10 pl-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all appearance-none bg-white"
+                                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all appearance-none bg-white"
                                     required
                                 >
-                                    <option value="">اختر نوع المستخدم</option>
-                                    <option value="user">مستخدم</option>
-                                    <option value="admin">مدير</option>
+                                    <option value="">Select a role</option>
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
                                 </select>
                             </div>
                         </div>
@@ -191,7 +191,7 @@ const AddUserPopup = ({ isOpen, onClose, onSubmit, userToEdit }) => {
                                 onClick={onClose}
                                 className="px-6 py-3 rounded-xl font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 transition-all duration-200"
                             >
-                                إلغاء
+                                Cancel
                             </button>
                             <button
                                 type="submit"
@@ -201,12 +201,12 @@ const AddUserPopup = ({ isOpen, onClose, onSubmit, userToEdit }) => {
                                 {loading ? (
                                     <>
                                         <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                                        جاري الحفظ...
+                                        Saving...
                                     </>
                                 ) : userToEdit ? (
-                                    'تحديث'
+                                    'Update'
                                 ) : (
-                                    'إضافة'
+                                    'Add'
                                 )}
                             </button>
                         </div>

@@ -23,9 +23,9 @@ const getRequestId = (request) => request.id || request._id;
 
 // Sort options
 const SORT_OPTIONS = [
-    { value: 'newest', label: 'الأحدث أولاً' },
-    { value: 'oldest', label: 'الأقدم أولاً' },
-    { value: 'status', label: 'حسب الحالة' },
+    { value: 'newest', label: 'Newest First' },
+    { value: 'oldest', label: 'Oldest First' },
+    { value: 'status', label: 'By Status' },
 ];
 
 const RequestsList = ({ requests, onUpdateStatus, userRole }) => {
@@ -70,7 +70,7 @@ const RequestsList = ({ requests, onUpdateStatus, userRole }) => {
     };
 
     return (
-        <div className="space-y-6" dir="rtl">
+        <div className="space-y-6">
             {/* Filters and sorting - Enhanced */}
             <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg">
                 <div className="bg-gradient-to-r from-gray-50 to-white p-4">
@@ -85,7 +85,7 @@ const RequestsList = ({ requests, onUpdateStatus, userRole }) => {
                                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                                 }`}
                             >
-                                الكل <span className="mr-1 text-xs">({statusCounts.all})</span>
+                                All <span className="ml-1 text-xs">({statusCounts.all})</span>
                             </button>
                             <button
                                 onClick={() => setFilterStatus('pending')}
@@ -95,7 +95,7 @@ const RequestsList = ({ requests, onUpdateStatus, userRole }) => {
                                         : 'bg-amber-50 text-amber-800 hover:bg-amber-100'
                                 }`}
                             >
-                                قيد الانتظار <span className="mr-1 text-xs">({statusCounts.pending})</span>
+                                Pending <span className="ml-1 text-xs">({statusCounts.pending})</span>
                             </button>
                             <button
                                 onClick={() => setFilterStatus('completed')}
@@ -105,7 +105,7 @@ const RequestsList = ({ requests, onUpdateStatus, userRole }) => {
                                         : 'bg-green-50 text-green-800 hover:bg-green-100'
                                 }`}
                             >
-                                مكتمل <span className="mr-1 text-xs">({statusCounts.completed})</span>
+                                Completed <span className="ml-1 text-xs">({statusCounts.completed})</span>
                             </button>
                             <button
                                 onClick={() => setFilterStatus('canceled')}
@@ -115,7 +115,7 @@ const RequestsList = ({ requests, onUpdateStatus, userRole }) => {
                                         : 'bg-red-50 text-red-800 hover:bg-red-100'
                                 }`}
                             >
-                                ملغي <span className="mr-1 text-xs">({statusCounts.canceled})</span>
+                                Canceled <span className="ml-1 text-xs">({statusCounts.canceled})</span>
                             </button>
                         </div>
 
@@ -145,7 +145,7 @@ const RequestsList = ({ requests, onUpdateStatus, userRole }) => {
                         const requestId = getRequestId(request);
                         const isCompleted = request.status === 'completed';
                         const isCanceled = request.status === 'canceled';
-                        const statusLabel = isCompleted ? 'مكتمل' : isCanceled ? 'ملغي' : 'قيد الانتظار';
+                        const statusLabel = isCompleted ? 'Completed' : isCanceled ? 'Canceled' : 'Pending';
 
                         return (
                             <div
@@ -165,14 +165,14 @@ const RequestsList = ({ requests, onUpdateStatus, userRole }) => {
                                             <div key={index} className="relative">
                                                 <img 
                                                     src={image} 
-                                                    alt={`طلب ${index + 1}`} 
+                                                    alt={`Request ${index + 1}`} 
                                                     className="h-52 w-full object-cover"
                                                 />
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                                             </div>
                                         )) : (
                                             <div className="flex h-52 w-full items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 text-sm text-gray-400">
-                                                لا توجد صور
+                                                No images
                                             </div>
                                         )}
                                     </Slider>
@@ -206,7 +206,7 @@ const RequestsList = ({ requests, onUpdateStatus, userRole }) => {
                                                 <LocationMarkerIcon className="h-4 w-4 text-white" />
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-xs font-semibold text-gray-500">نوع الخردة</p>
+                                                <p className="text-xs font-semibold text-gray-500">Scrap Type</p>
                                                 <p className="truncate text-sm font-bold text-gray-900">{request.scrapType}</p>
                                             </div>
                                         </div>
@@ -216,9 +216,9 @@ const RequestsList = ({ requests, onUpdateStatus, userRole }) => {
                                                 <CalendarIcon className="h-4 w-4 text-white" />
                                             </div>
                                             <div className="flex-1">
-                                                <p className="text-xs font-semibold text-gray-500">تاريخ الإنشاء</p>
+                                                <p className="text-xs font-semibold text-gray-500">Created On</p>
                                                 <p className="text-sm font-bold text-gray-900">
-                                                    {new Date(request.createdAt).toLocaleDateString('ar-SY', { 
+                                                    {new Date(request.createdAt).toLocaleDateString('en-US', { 
                                                         day: '2-digit', 
                                                         month: 'short', 
                                                         year: 'numeric' 
@@ -231,7 +231,7 @@ const RequestsList = ({ requests, onUpdateStatus, userRole }) => {
                                             <div className="rounded-lg border border-green-200 bg-gradient-to-r from-green-50 to-teal-50 p-2 text-green-800">
                                                 <p className="flex items-center gap-1 text-xs font-bold">
                                                     <CalendarIcon className="h-4 w-4" />
-                                                    اكتمل في: {new Date(request.completedAt).toLocaleDateString('ar-SY', { 
+                                                    Completed on: {new Date(request.completedAt).toLocaleDateString('en-US', { 
                                                         day: '2-digit', 
                                                         month: 'short' 
                                                     })}
@@ -243,7 +243,7 @@ const RequestsList = ({ requests, onUpdateStatus, userRole }) => {
                                             <div className="rounded-lg border border-red-200 bg-gradient-to-r from-red-50 to-pink-50 p-2 text-red-800">
                                                 <p className="flex items-center gap-1 text-xs font-bold">
                                                     <CalendarIcon className="h-4 w-4" />
-                                                    ألغي في: {new Date(request.canceledAt).toLocaleDateString('ar-SY', { 
+                                                    Canceled on: {new Date(request.canceledAt).toLocaleDateString('en-US', { 
                                                         day: '2-digit', 
                                                         month: 'short' 
                                                     })}
@@ -272,7 +272,7 @@ const RequestsList = ({ requests, onUpdateStatus, userRole }) => {
                                                     : 'bg-gradient-to-r from-green-600 to-teal-600 text-white hover:from-green-700 hover:to-teal-700 hover:shadow-xl'
                                             }`}
                                         >
-                                            {isCompleted ? '✓ مكتمل' : 'تأكيد الإكمال'}
+                                            {isCompleted ? '✓ Completed' : 'Confirm Completion'}
                                         </button>
                                     )}
                                 </div>
@@ -289,8 +289,8 @@ const RequestsList = ({ requests, onUpdateStatus, userRole }) => {
                     </div>
                     <p className="text-lg font-semibold text-gray-700">
                         {filterStatus !== 'all' 
-                            ? `لا توجد طلبات ${filterStatus === 'pending' ? 'قيد الانتظار' : filterStatus === 'completed' ? 'مكتملة' : 'ملغاة'}.`
-                            : 'لا توجد طلبات.'
+                            ? `No ${filterStatus === 'pending' ? 'pending' : filterStatus === 'completed' ? 'completed' : 'canceled'} requests.`
+                            : 'No requests.'
                         }
                     </p>
                 </div>

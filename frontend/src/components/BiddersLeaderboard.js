@@ -33,8 +33,8 @@ const BiddersLeaderboard = ({ bids = [], currentUserId }) => {
                     <BadgeCheckIcon className="w-7 h-7 text-white" />
                 </div>
                 <div>
-                    <h3 className="text-xl font-bold text-gray-800">أفضل المزايدين</h3>
-                    <p className="text-sm text-gray-500">قائمة المتصدرين الحالية</p>
+                    <h3 className="text-xl font-bold text-gray-800">Top Bidders</h3>
+                    <p className="text-sm text-gray-500">Current leaderboard</p>
                 </div>
             </div>
 
@@ -44,8 +44,8 @@ const BiddersLeaderboard = ({ bids = [], currentUserId }) => {
                     <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <UserIcon className="w-8 h-8 text-gray-400" />
                     </div>
-                    <p className="text-gray-500">لا توجد عروض بعد</p>
-                    <p className="text-sm text-gray-400 mt-1">كن أول من يقدم عرضاً!</p>
+                    <p className="text-gray-500">No bids yet</p>
+                    <p className="text-sm text-gray-400 mt-1">Be the first to place a bid!</p>
                 </div>
             ) : (
                 <div className="space-y-3">
@@ -80,7 +80,7 @@ const BiddersLeaderboard = ({ bids = [], currentUserId }) => {
                                         {bid.bidder?.profileImage ? (
                                             <img
                                                 src={bid.bidder.profileImage}
-                                                alt={bid.bidder.name || 'مستخدم'}
+                                                alt={bid.bidder.name || 'User'}
                                                 className="w-10 h-10 rounded-full border-2 border-white shadow-md"
                                                 onError={(e) => {
                                                     e.target.style.display = 'none';
@@ -93,17 +93,17 @@ const BiddersLeaderboard = ({ bids = [], currentUserId }) => {
                                         )}
                                         <div>
                                             <p className="font-semibold text-gray-800">
-                                                {bid.bidder?.name || 'مستخدم مجهول'}
+                                                {bid.bidder?.name || 'Anonymous user'}
                                                 {isCurrentUser && (
-                                                    <span className="mr-2 text-xs bg-gradient-to-r from-green-600 to-teal-600 text-white px-2 py-0.5 rounded-full">
-                                                        أنت
+                                                    <span className="ml-2 text-xs bg-gradient-to-r from-green-600 to-teal-600 text-white px-2 py-0.5 rounded-full">
+                                                        You
                                                     </span>
                                                 )}
                                             </p>
                                             <p className="text-xs text-gray-500">
                                                 {bid.bidTime 
-                                                    ? new Date(bid.bidTime).toLocaleString('ar-SY')
-                                                    : 'غير محدد'
+                                                    ? new Date(bid.bidTime).toLocaleString('en-US')
+                                                    : 'Not specified'
                                                 }
                                             </p>
                                         </div>
@@ -111,14 +111,14 @@ const BiddersLeaderboard = ({ bids = [], currentUserId }) => {
                                 </div>
 
                                 {/* Bid Amount */}
-                                <div className="text-left">
+                                <div className="text-right">
                                     <div className="flex items-center gap-1">
                                         <CurrencyDollarIcon className="w-5 h-5 text-green-600" />
                                         <span className="text-lg font-bold text-green-600">
-                                            {(bid.bidAmount || 0).toLocaleString('ar-SY')}
+                                            {(bid.bidAmount || 0).toLocaleString('en-US')}
                                         </span>
                                     </div>
-                                    <p className="text-xs text-gray-500">يورو</p>
+                                    <p className="text-xs text-gray-500">EUR</p>
                                 </div>
                             </div>
                         );
@@ -132,13 +132,13 @@ const BiddersLeaderboard = ({ bids = [], currentUserId }) => {
                     <div className="grid grid-cols-2 gap-4 text-center">
                         <div>
                             <p className="text-2xl font-bold text-gray-800">{topBidders.length}</p>
-                            <p className="text-xs text-gray-500">إجمالي المزايدين</p>
+                            <p className="text-xs text-gray-500">Total Bidders</p>
                         </div>
                         <div>
                             <p className="text-2xl font-bold text-green-600">
-                                {(topBidders[0]?.bidAmount || 0).toLocaleString('ar-SY')}€
+                                {(topBidders[0]?.bidAmount || 0).toLocaleString('en-US')}€
                             </p>
-                            <p className="text-xs text-gray-500">أعلى عرض</p>
+                            <p className="text-xs text-gray-500">Highest Bid</p>
                         </div>
                     </div>
                 </div>

@@ -18,7 +18,7 @@ const getInitials = (name) => {
  * Format role label for display
  */
 const getRoleLabel = (role) => {
-    const labels = { admin: 'مدير النظام', user: 'مستخدم' };
+    const labels = { admin: 'System Administrator', user: 'User' };
     return labels[role] || role;
 };
 
@@ -102,7 +102,7 @@ const UserInfoModal = ({ user, onClose }) => {
                     <h2 id="profile-modal-title" className="mt-6 text-xl font-bold text-gray-900">
                         {user.name}
                     </h2>
-                    <p className="mt-1 text-sm text-gray-500">الملف الشخصي</p>
+                    <p className="mt-1 text-sm text-gray-500">Profile</p>
                 </div>
 
                 {/* Info cards */}
@@ -112,7 +112,7 @@ const UserInfoModal = ({ user, onClose }) => {
                             <MailIcon className="w-5 h-5 text-blue-600" strokeWidth={1.5} />
                         </div>
                         <div className="flex-1 min-w-0 text-right">
-                            <p className="text-xs font-medium text-gray-500 mb-0.5">البريد الإلكتروني</p>
+                            <p className="text-xs font-medium text-gray-500 mb-0.5">Email Address</p>
                             <p className="text-gray-900 font-medium truncate">{user.email}</p>
                         </div>
                     </div>
@@ -121,7 +121,7 @@ const UserInfoModal = ({ user, onClose }) => {
                             <CalendarIcon className="w-5 h-5 text-emerald-600" strokeWidth={1.5} />
                         </div>
                         <div className="flex-1 min-w-0 text-right">
-                            <p className="text-xs font-medium text-gray-500 mb-0.5">تاريخ الإنشاء</p>
+                            <p className="text-xs font-medium text-gray-500 mb-0.5">Created On</p>
                             <p className="text-gray-900 font-medium">{createdAtFormatted}</p>
                         </div>
                     </div>
@@ -130,7 +130,7 @@ const UserInfoModal = ({ user, onClose }) => {
                             <ShieldCheckIcon className="w-5 h-5 text-amber-600" strokeWidth={1.5} />
                         </div>
                         <div className="flex-1 min-w-0 text-right">
-                            <p className="text-xs font-medium text-gray-500 mb-0.5">الدور</p>
+                            <p className="text-xs font-medium text-gray-500 mb-0.5">Role</p>
                             <p className="text-gray-900 font-medium">{getRoleLabel(user.role)}</p>
                         </div>
                     </div>
@@ -143,7 +143,7 @@ const UserInfoModal = ({ user, onClose }) => {
                         className="w-full py-3 rounded-xl font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-all duration-200 shadow-lg shadow-emerald-500/30 flex items-center justify-center gap-2"
                     >
                         <UserCircleIcon className="w-5 h-5" strokeWidth={2} />
-                        إغلاق
+                        Close
                     </button>
                 </div>
             </div>

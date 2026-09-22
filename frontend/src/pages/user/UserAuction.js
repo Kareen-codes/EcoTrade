@@ -45,21 +45,21 @@ const UserAuction = () => {
             const response = await fetch(getApiUrl('auction'));
             
             if (!response.ok) {
-                throw new Error('فشل في جلب المزادات من الخادم');
+                throw new Error('Failed to fetch auctions from the server');
             }
             
             const data = await response.json();
             
             // Validate data structure
             if (!Array.isArray(data)) {
-                throw new Error('البيانات المستلمة غير صحيحة');
+                throw new Error('The received data is invalid');
             }
             
             setAuctions(data);
             setError(null);
         } catch (err) {
             console.error('Error fetching auctions:', err);
-            setError(err.message || 'حدث خطأ أثناء جلب المزادات');
+            setError(err.message || 'An error occurred while fetching auctions');
         } finally {
             setLoading(false);
             setRefreshing(false);
@@ -111,26 +111,26 @@ const UserAuction = () => {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
-        rtl: true,
+        rtl: false,
     };
 
     // Calculate time remaining for auction
     const calculateTimeRemaining = (endDate) => {
-        if (!endDate) return 'غير محدد';
+        if (!endDate) return 'Not specified';
         
         const now = new Date();
         const end = new Date(endDate);
         const diff = end - now;
 
-        if (diff <= 0) return 'انتهى المزاد';
+        if (diff <= 0) return 'Auction ended';
 
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 
-        if (days > 0) return `${days} يوم ${hours} ساعة`;
-        if (hours > 0) return `${hours} ساعة ${minutes} دقيقة`;
-        return `${minutes} دقيقة`;
+        if (days > 0) return `${days} day${days > 1 ? 's' : ''} ${hours} hr`;
+        if (hours > 0) return `${hours} hour${hours > 1 ? 's' : ''} ${minutes} min`;
+        return `${minutes} minute${minutes > 1 ? 's' : ''}`;
     };
 
     // Get status badge styling
@@ -138,15 +138,15 @@ const UserAuction = () => {
         const badges = {
             open: {
                 class: 'bg-gradient-to-r from-green-500 to-teal-500 text-white',
-                label: 'نشط'
+                label: 'Active'
             },
             closed: {
                 class: 'bg-gradient-to-r from-gray-500 to-gray-600 text-white',
-                label: 'مغلق'
+                label: 'Closed'
             },
             canceled: {
                 class: 'bg-gradient-to-r from-red-500 to-pink-500 text-white',
-                label: 'ملغي'
+                label: 'Canceled'
             },
         };
         return badges[status] || badges.open;
@@ -161,8 +161,8 @@ const UserAuction = () => {
                         <div className="absolute inset-0 border-4 border-green-200 rounded-full"></div>
                         <div className="absolute inset-0 border-4 border-green-600 rounded-full border-t-transparent animate-spin"></div>
                     </div>
-                    <p className="text-xl font-semibold text-gray-700">جاري تحميل المزادات...</p>
-                    <p className="text-sm text-gray-500 mt-2">يرجى الانتظار بينما نجلب أحدث المزادات</p>
+                    <p className="text-xl font-semibold text-gray-700">Loading auctions...</p>
+                    <p className="text-sm text-gray-500 mt-2">Please wait while we fetch the latest auctions</p>
                 </div>
             </div>
         );
@@ -176,13 +176,13 @@ const UserAuction = () => {
                     <div className="w-20 h-20 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
                         <XIcon className="w-10 h-10 text-white" />
                     </div>
-                    <h2 className="text-2xl font-bold text-gray-800 mb-2">خطأ في تحميل المزادات</h2>
+                    <h2 className="text-2xl font-bold text-gray-800 mb-2">Error loading auctions</h2>
                     <p className="text-red-600 mb-6">{error}</p>
                     <button
                         onClick={fetchAuctions}
                         className="bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg"
                     >
-                        حاول مرة أخرى
+                        Try Again
                     </button>
                 </div>
             </div>
@@ -190,7 +190,7 @@ const UserAuction = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-teal-50" dir="rtl">
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-teal-50">
             {/* Hero Header */}
             <section className="relative overflow-hidden bg-gradient-to-br from-green-600 via-teal-500 to-blue-500 text-white">
                 {/* Animated Background Shapes */}
@@ -204,16 +204,16 @@ const UserAuction = () => {
                         <div>
                             <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-4">
                                 <SparklesIcon className="w-5 h-5" />
-                                <span className="text-sm font-medium">المزادات المباشرة</span>
+                                <span className="text-sm font-medium">Live Auctions</span>
                             </div>
                             <h1 className="text-5xl md:text-6xl font-bold mb-4">
-                                اكتشف أفضل
+                                Discover the Best
                                 <span className="block bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                                    عروض المزادات
+                                    Auction Deals
                                 </span>
                             </h1>
                             <p className="text-xl text-green-50 max-w-2xl">
-                                تصفح مجموعتنا من المواد القابلة لإعادة التدوير وضع عروضك على العناصر التي تحتاجها
+                                Browse our collection of recyclable materials and place your bids on the items you need
                             </p>
                         </div>
 
@@ -223,7 +223,7 @@ const UserAuction = () => {
                             className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 flex items-center gap-2 shadow-lg disabled:opacity-50"
                         >
                             <RefreshIcon className={`w-5 h-5 ${refreshing ? 'animate-spin' : ''}`} />
-                            تحديث
+                            Refresh
                         </button>
                     </div>
 
@@ -231,21 +231,21 @@ const UserAuction = () => {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
                         <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center">
                             <p className="text-3xl font-bold">{auctions.length}</p>
-                            <p className="text-sm text-green-50">إجمالي المزادات</p>
+                            <p className="text-sm text-green-50">Total Auctions</p>
                         </div>
                         <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center">
                             <p className="text-3xl font-bold">{auctions.filter(a => a.status === 'open').length}</p>
-                            <p className="text-sm text-green-50">نشطة الآن</p>
+                            <p className="text-sm text-green-50">Active Now</p>
                         </div>
                         <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center">
                             <p className="text-3xl font-bold">{auctions.filter(a => a.status === 'closed').length}</p>
-                            <p className="text-sm text-green-50">مكتملة</p>
+                            <p className="text-sm text-green-50">Completed</p>
                         </div>
                         <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center">
                             <p className="text-3xl font-bold">
                                 {auctions.reduce((acc, a) => acc + (a.participantsCount || 0), 0)}
                             </p>
-                            <p className="text-sm text-green-50">إجمالي العروض</p>
+                            <p className="text-sm text-green-50">Total Bids</p>
                         </div>
                     </div>
                 </div>
@@ -257,11 +257,11 @@ const UserAuction = () => {
                     {/* Search and View Toggle */}
                     <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-6">
                         <div className="relative flex-1 w-full">
-                            <SearchIcon className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                            <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                             <input
                                 type="text"
-                                placeholder="ابحث عن المزادات..."
-                                className="w-full pr-12 pl-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                                placeholder="Search for auctions..."
+                                className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
@@ -277,7 +277,7 @@ const UserAuction = () => {
                                 }`}
                             >
                                 <FilterIcon className="w-5 h-5" />
-                                الفلاتر
+                                Filters
                             </button>
 
                             <div className="flex bg-gray-100 rounded-xl p-1">
@@ -286,7 +286,7 @@ const UserAuction = () => {
                                     className={`p-2 rounded-lg transition-all ${
                                         viewMode === 'grid' ? 'bg-white shadow-md' : 'hover:bg-gray-200'
                                     }`}
-                                    title="عرض شبكي"
+                                    title="Grid view"
                                 >
                                     <ViewGridIcon className="w-5 h-5" />
                                 </button>
@@ -295,7 +295,7 @@ const UserAuction = () => {
                                     className={`p-2 rounded-lg transition-all ${
                                         viewMode === 'list' ? 'bg-white shadow-md' : 'hover:bg-gray-200'
                                     }`}
-                                    title="عرض قائمة"
+                                    title="List view"
                                 >
                                     <ViewListIcon className="w-5 h-5" />
                                 </button>
@@ -309,51 +309,51 @@ const UserAuction = () => {
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                                 {/* Status Filter */}
                                 <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">الحالة</label>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">Status</label>
                                     <select
                                         value={filterStatus}
                                         onChange={(e) => setFilterStatus(e.target.value)}
                                         className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent"
                                     >
-                                        <option value="all">جميع الحالات</option>
-                                        <option value="open">نشط</option>
-                                        <option value="closed">مغلق</option>
-                                        <option value="canceled">ملغي</option>
+                                        <option value="all">All Statuses</option>
+                                        <option value="open">Active</option>
+                                        <option value="closed">Closed</option>
+                                        <option value="canceled">Canceled</option>
                                     </select>
                                 </div>
 
                                 {/* Category Filter */}
                                 <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">الفئة</label>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">Category</label>
                                     <select
                                         value={filterCategory}
                                         onChange={(e) => setFilterCategory(e.target.value)}
                                         className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent"
                                     >
-                                        <option value="all">جميع الفئات</option>
-                                        <option value="Metals">معادن</option>
-                                        <option value="Plastics">بلاستيك</option>
-                                        <option value="Electronics">إلكترونيات</option>
-                                        <option value="Paper and Cardboard">ورق وكرتون</option>
-                                        <option value="Furniture">أثاث</option>
+                                        <option value="all">All Categories</option>
+                                        <option value="Metals">Metals</option>
+                                        <option value="Plastics">Plastics</option>
+                                        <option value="Electronics">Electronics</option>
+                                        <option value="Paper and Cardboard">Paper and Cardboard</option>
+                                        <option value="Furniture">Furniture</option>
                                     </select>
                                 </div>
 
                                 {/* Sort Filter */}
                                 <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">ترتيب حسب</label>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">Sort By</label>
                                     <select
                                         value={sortOrder}
                                         onChange={(e) => setSortOrder(e.target.value)}
                                         className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent"
                                     >
-                                        <option value="default">افتراضي</option>
-                                        <option value="newest">الأحدث أولاً</option>
-                                        <option value="oldest">الأقدم أولاً</option>
-                                        <option value="priceAsc">السعر: من الأقل للأعلى</option>
-                                        <option value="priceDesc">السعر: من الأعلى للأقل</option>
-                                        <option value="ending">ينتهي قريباً</option>
-                                        <option value="popular">الأكثر شهرة</option>
+                                        <option value="default">Default</option>
+                                        <option value="newest">Newest First</option>
+                                        <option value="oldest">Oldest First</option>
+                                        <option value="priceAsc">Price: Low to High</option>
+                                        <option value="priceDesc">Price: High to Low</option>
+                                        <option value="ending">Ending Soon</option>
+                                        <option value="popular">Most Popular</option>
                                     </select>
                                 </div>
 
@@ -363,7 +363,7 @@ const UserAuction = () => {
                                         onClick={resetFilters}
                                         className="w-full bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-bold py-2 px-4 rounded-xl transition-all duration-300 shadow-lg"
                                     >
-                                        إعادة تعيين الفلاتر
+                                        Reset Filters
                                     </button>
                                 </div>
                             </div>
@@ -374,7 +374,7 @@ const UserAuction = () => {
                 {/* Results Count */}
                 <div className="mb-6">
                     <p className="text-lg font-semibold text-gray-700">
-                        تم العثور على <span className="text-green-600">{sortedAuctions.length}</span> مزاد
+                        Found <span className="text-green-600">{sortedAuctions.length}</span> auction{sortedAuctions.length !== 1 ? 's' : ''}
                     </p>
                 </div>
 
@@ -384,13 +384,13 @@ const UserAuction = () => {
                         <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-6">
                             <SearchIcon className="w-12 h-12 text-white" />
                         </div>
-                        <h3 className="text-2xl font-bold text-gray-800 mb-2">لم يتم العثور على مزادات</h3>
-                        <p className="text-gray-600 mb-6">جرب تعديل الفلاتر أو كلمات البحث</p>
+                        <h3 className="text-2xl font-bold text-gray-800 mb-2">No auctions found</h3>
+                        <p className="text-gray-600 mb-6">Try adjusting the filters or search terms</p>
                         <button
                             onClick={resetFilters}
                             className="bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 shadow-lg"
                         >
-                            مسح الفلاتر
+                            Clear Filters
                         </button>
                     </div>
                 ) : (
@@ -414,7 +414,7 @@ const UserAuction = () => {
                                                     <div key={index} className="relative">
                                                         <img
                                                             src={image}
-                                                            alt={`${auction.itemName} - صورة ${index + 1}`}
+                                                            alt={`${auction.itemName} - view ${index + 1}`}
                                                             className={`object-cover ${viewMode === 'list' ? 'h-64' : 'h-56'} w-full group-hover:scale-110 transition-transform duration-500`}
                                                             onError={(e) => {
                                                                 e.target.src = 'https://via.placeholder.com/400x300?text=No+Image';
@@ -426,7 +426,7 @@ const UserAuction = () => {
                                             </Slider>
                                         ) : (
                                             <div className="w-full h-56 bg-gray-200 flex items-center justify-center">
-                                                <p className="text-gray-500">لا توجد صورة</p>
+                                                <p className="text-gray-500">No image</p>
                                             </div>
                                         )}
 
@@ -450,30 +450,30 @@ const UserAuction = () => {
                                     <div className={`p-5 ${viewMode === 'list' ? 'w-2/3 flex flex-col justify-between' : ''}`}>
                                         <div>
                                             <h3 className="font-bold text-xl mb-2 text-gray-800 line-clamp-1">
-                                                {auction.itemName || 'بدون اسم'}
+                                                {auction.itemName || 'Unnamed'}
                                             </h3>
                                             <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                                                {auction.description || 'لا يوجد وصف'}
+                                                {auction.description || 'No description'}
                                             </p>
 
                                             {/* Category Badge */}
                                             <div className="mb-4">
                                                 <span className="bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 px-3 py-1 rounded-lg text-xs font-semibold">
-                                                    {auction.category || 'غير محدد'}
+                                                    {auction.category || 'Not specified'}
                                                 </span>
                                             </div>
 
                                             {/* Stats */}
                                             <div className="grid grid-cols-3 gap-2 mb-4">
-                                                <div className="flex items-center gap-1 text-xs text-gray-600" title="المشاهدات">
+                                                <div className="flex items-center gap-1 text-xs text-gray-600" title="Views">
                                                     <EyeIcon className="w-4 h-4" />
                                                     <span>{auction.viewsCount || 0}</span>
                                                 </div>
-                                                <div className="flex items-center gap-1 text-xs text-gray-600" title="المشاركون">
+                                                <div className="flex items-center gap-1 text-xs text-gray-600" title="Participants">
                                                     <UserGroupIcon className="w-4 h-4" />
                                                     <span>{auction.participantsCount || 0}</span>
                                                 </div>
-                                                <div className="flex items-center gap-1 text-xs text-gray-600" title="العروض">
+                                                <div className="flex items-center gap-1 text-xs text-gray-600" title="Bids">
                                                     <TrendingUpIcon className="w-4 h-4" />
                                                     <span>{auction.bids?.length || 0}</span>
                                                 </div>
@@ -482,15 +482,15 @@ const UserAuction = () => {
                                             {/* Prices */}
                                             <div className="bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-4 mb-4">
                                                 <div className="flex justify-between items-center mb-2">
-                                                    <span className="text-xs font-semibold text-gray-600">سعر البداية</span>
+                                                    <span className="text-xs font-semibold text-gray-600">Starting Price</span>
                                                     <span className="text-sm font-bold text-gray-800">
-                                                        {(auction.startPrice || 0).toLocaleString('ar-SY')} €
+                                                        {(auction.startPrice || 0).toLocaleString('en-US')} €
                                                     </span>
                                                 </div>
                                                 <div className="flex justify-between items-center">
-                                                    <span className="text-xs font-semibold text-gray-600">العرض الحالي</span>
+                                                    <span className="text-xs font-semibold text-gray-600">Current Bid</span>
                                                     <span className="text-lg font-bold bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
-                                                        {(auction.currentBid || 0).toLocaleString('ar-SY')} €
+                                                        {(auction.currentBid || 0).toLocaleString('en-US')} €
                                                     </span>
                                                 </div>
                                             </div>
@@ -506,7 +506,7 @@ const UserAuction = () => {
                                                     : 'bg-gray-200 text-gray-500 cursor-not-allowed'
                                             }`}
                                         >
-                                            {auction.status === 'open' ? 'ادخل غرفة المزاد' : `المزاد ${statusBadge.label}`}
+                                            {auction.status === 'open' ? 'Enter Auction Room' : `Auction ${statusBadge.label}`}
                                         </button>
                                     </div>
                                 </div>
