@@ -1,612 +1,669 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { 
-    ShieldCheckIcon, 
-    LightningBoltIcon, 
-    ChartBarIcon, 
-    ChatAltIcon,
-    CurrencyDollarIcon,
-    UserGroupIcon,
-    TrendingUpIcon,
-    CheckCircleIcon,
-    SparklesIcon,
-    GlobeAltIcon,
-    HeartIcon,
-    BadgeCheckIcon
-} from '@heroicons/react/outline';
-import { StarIcon } from '@heroicons/react/solid';
-import osama from "../assets/images/osama.png"
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import {
+  SparklesIcon,
+  ShieldCheckIcon,
+  ChartBarIcon,
+  UserGroupIcon,
+  CheckCircleIcon,
+  BadgeCheckIcon,
+  TrendingUpIcon,
+  HeartIcon,
+  MailIcon,
+  PhoneIcon,
+  LocationMarkerIcon,
+  CollectionIcon,
+  CubeIcon,
+  FireIcon,
+  ShoppingBagIcon,
+  ChatAltIcon,
+  SunIcon,
+  CameraIcon,
+  GlobeAltIcon,
+} from "@heroicons/react/outline";
+import { StarIcon } from "@heroicons/react/solid";
+import { getApiUrl } from "../config/api";
+import HomeNavbar from "../components/HomeNavbar";
+import HomeFooter from "../components/HomeFooter";
+import useScrollReveal from "../hooks/useScrollReveal";
 
 const HomePage = () => {
-    const [counter, setCounter] = useState({ users: 0, transactions: 0, savings: 0 });
+  useScrollReveal();
 
-    // Animated counter effect
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setCounter(prev => ({
-                users: prev.users < 5000 ? prev.users + 50 : 5000,
-                transactions: prev.transactions < 10000 ? prev.transactions + 100 : 10000,
-                savings: prev.savings < 2500 ? prev.savings + 25 : 2500
-            }));
-        }, 30);
+  const [counter, setCounter] = useState({ users: 0, artworks: 0, recycled: 0 });
 
-        return () => clearInterval(timer);
-    }, []);
+  // Animated counter effect
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCounter((prev) => ({
+        users: prev.users < 5000 ? prev.users + 50 : 5000,
+        artworks: prev.artworks < 3200 ? prev.artworks + 32 : 3200,
+        recycled: prev.recycled < 2500 ? prev.recycled + 25 : 2500,
+      }));
+    }, 30);
 
-    const features = [
-        {
-            icon: LightningBoltIcon,
-            title: "سرعة فائقة",
-            description: "إنشاء وإدارة طلباتك في ثوانٍ معدودة",
-            color: "from-yellow-400 to-orange-500",
-            bgColor: "bg-yellow-50"
-        },
-        {
-            icon: ShieldCheckIcon,
-            title: "أمان متقدم",
-            description: "حماية كاملة لبياناتك ومعاملاتك",
-            color: "from-blue-400 to-indigo-500",
-            bgColor: "bg-blue-50"
-        },
-        {
-            icon: ChartBarIcon,
-            title: "مزادات مباشرة",
-            description: "شارك في مزادات حقيقية بوقت فعلي",
-            color: "from-green-400 to-teal-500",
-            bgColor: "bg-green-50"
-        },
-        {
-            icon: ChatAltIcon,
-            title: "دعم فوري",
-            description: "تواصل سريع مع فريقنا المتخصص",
-            color: "from-purple-400 to-pink-500",
-            bgColor: "bg-purple-50"
-        }
-    ];
+    return () => clearInterval(timer);
+  }, []);
 
-    const steps = [
-        {
-            number: "01",
-            title: "أنشئ حسابك",
-            description: "سجل مجاناً في دقائق معدودة",
-            icon: UserGroupIcon
-        },
-        {
-            number: "02",
-            title: "أضف طلبك",
-            description: "حدد نوع المواد والكمية المطلوبة",
-            icon: SparklesIcon
-        },
-        {
-            number: "03",
-            title: "احصل على عروض",
-            description: "استقبل عروض أسعار من مشترين متعددين",
-            icon: CurrencyDollarIcon
-        },
-        {
-            number: "04",
-            title: "أتمم الصفقة",
-            description: "اختر أفضل عرض وأكمل عملية البيع",
-            icon: CheckCircleIcon
-        }
-    ];
+  // ----- Contact form state (posts to the existing messages endpoint) -----
+  const [contact, setContact] = useState({ name: "", email: "", subject: "General Inquiry", message: "" });
+  const [contactStatus, setContactStatus] = useState({ type: "idle", text: "" });
 
-    const testimonials = [
-        {
-            name: "أحمد محمد",
-            role: "صاحب مصنع",
-            text: "منصة رائعة ساعدتني في بيع مخلفات المصنع بأسعار ممتازة وبسرعة كبيرة",
-            rating: 5,
-            avatar: "https://ui-avatars.com/api/?name=Ahmed+Mohamed&background=16a34a&color=fff"
-        },
-        {
-            name: "سارة خالد",
-            role: "مشترية خردة",
-            text: "التعامل مع EcoTrade سهل وآمن، وجدت الكثير من الفرص الجيدة",
-            rating: 5,
-            avatar: "https://ui-avatars.com/api/?name=Sara+Khaled&background=0891b2&color=fff"
-        },
-        {
-            name: "محمود علي",
-            role: "مستثمر",
-            text: "أفضل منصة للاستثمار في إعادة التدوير، عوائد ممتازة وإدارة احترافية",
-            rating: 5,
-            avatar: "https://ui-avatars.com/api/?name=Mahmoud+Ali&background=8b5cf6&color=fff"
-        }
-    ];
+  const handleContactChange = (e) => {
+    setContact({ ...contact, [e.target.name]: e.target.value });
+  };
 
-    return (
-        <div className="min-h-screen bg-white" dir='rtl'>
-            
-            {/* Hero Section - Modern Animated */}
-            <section className="relative overflow-hidden bg-gradient-to-br from-green-600 via-teal-500 to-blue-500 text-white">
-                {/* Animated Background Shapes */}
-                <div className="absolute inset-0 overflow-hidden">
-                    <div className="absolute -top-40 -right-40 w-80 h-80 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
-                    <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-white/10 rounded-full blur-3xl animate-pulse delay-700"></div>
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
-                </div>
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+    setContactStatus({ type: "loading", text: "" });
+    try {
+      await axios.post(getApiUrl("messages/send-message"), {
+        customerName: contact.name,
+        email: contact.email,
+        message: `[${contact.subject}] ${contact.message}`,
+      });
+      setContactStatus({ type: "success", text: "Your message has been sent successfully! We'll get back to you soon." });
+      setContact({ name: "", email: "", subject: "General Inquiry", message: "" });
+    } catch {
+      setContactStatus({ type: "error", text: "Something went wrong while sending. Please try again later." });
+    }
+  };
 
-                <div className="relative max-w-7xl mx-auto px-6 py-24 md:py-32">
-                    <div className="grid md:grid-cols-2 gap-12 items-center">
-                        {/* Left Content */}
-                        <div className="space-y-8">
-                            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
-                                <SparklesIcon className="w-5 h-5" />
-                                <span className="text-sm font-medium">منصة إعادة التدوير الأولى في سوريا</span>
-                            </div>
-                            
-                            <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-                                حوّل خردتك إلى
-                                <span className="block bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                                    ذهب حقيقي
-                                </span>
-                            </h1>
-                            
-                            <p className="text-xl md:text-2xl text-green-50 leading-relaxed">
-                                انضم إلى آلاف المستخدمين الذين يستفيدون من منصتنا لبيع وشراء المواد المعاد تدويرها بأفضل الأسعار
-                            </p>
+  const stats = [
+    { value: "5,000+", label: "Active Users", Icon: UserGroupIcon, tint: "bg-green-50 text-green-600 dark:bg-green-900/40 dark:text-green-300" },
+    { value: "10,000+", label: "Items Traded", Icon: TrendingUpIcon, tint: "bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-300" },
+    { value: "2,500+", label: "Tonnes Recycled", Icon: CubeIcon, tint: "bg-purple-50 text-purple-600 dark:bg-purple-900/40 dark:text-purple-300" },
+    { value: "3,200+", label: "Artworks Sold", Icon: FireIcon, tint: "bg-orange-50 text-orange-600 dark:bg-orange-900/40 dark:text-orange-300" },
+  ];
 
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <Link
-                                    to="/register"
-                                    className="group bg-white text-green-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-green-50 transition-all transform hover:scale-105 shadow-2xl flex items-center justify-center gap-2"
-                                >
-                                    <span>ابدأ الآن مجاناً</span>
-                                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                    </svg>
-                                </Link>
-                                <Link
-                                    to="/contact"
-                                    className="bg-white/10 backdrop-blur-sm border-2 border-white text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/20 transition-all flex items-center justify-center gap-2"
-                                >
-                                    <GlobeAltIcon className="w-6 h-6" />
-                                    <span>تواصل معنا</span>
-                                </Link>
-                            </div>
+  const features = [
+    {
+      title: "Marketplace",
+      Icon: ShoppingBagIcon,
+      tint: "bg-green-50 text-green-600 dark:bg-green-900/40 dark:text-green-300",
+      description: "Buy and sell recycled items and recycled art in a trusted marketplace that gives waste a second life.",
+    },
+    {
+      title: "Auctions & Bids",
+      Icon: ChartBarIcon,
+      tint: "bg-teal-50 text-teal-600 dark:bg-teal-900/40 dark:text-teal-300",
+      description: "Bid on unique recycled artworks in live, transparent auctions where fair competition sets the price.",
+    },
+    {
+      title: "Community Challenges",
+      Icon: FireIcon,
+      tint: "bg-orange-50 text-orange-600 dark:bg-orange-900/40 dark:text-orange-300",
+      description: "Join recycling challenges, track weekly eco goals, and earn rewards while making a real difference.",
+    },
+    {
+      title: "AI Playground",
+      Icon: CameraIcon,
+      tint: "bg-purple-50 text-purple-600 dark:bg-purple-900/40 dark:text-purple-300",
+      description: "Snap a photo and let AI identify recyclable materials instantly — know exactly what you're holding.",
+    },
+    {
+      title: "Community Feed",
+      Icon: ChatAltIcon,
+      tint: "bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-300",
+      description: "Share your recycling wins, follow changemakers, and connect with a community building a greener Nigeria.",
+    },
+    {
+      title: "Eco News",
+      Icon: GlobeAltIcon,
+      tint: "bg-pink-50 text-pink-600 dark:bg-pink-900/40 dark:text-pink-300",
+      description: "Stay informed with curated eco headlines and sustainability news from across the continent and beyond.",
+    },
+  ];
 
-                            {/* Trust Badges */}
-                            <div className="flex items-center gap-6 pt-6">
-                                <div className="flex items-center gap-2">
-                                    <BadgeCheckIcon className="w-8 h-8 text-yellow-300" />
-                                    <div>
-                                        <p className="text-sm text-green-100">موثق ومعتمد</p>
-                                        <p className="text-xs text-green-200">من الجهات الرسمية</p>
-                                    </div>
-                                </div>
-                                <div className="h-12 w-px bg-white/20"></div>
-                                <div className="flex items-center gap-2">
-                                    <ShieldCheckIcon className="w-8 h-8 text-blue-300" />
-                                    <div>
-                                        <p className="text-sm text-green-100">حماية كاملة</p>
-                                        <p className="text-xs text-green-200">لجميع المعاملات</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+  const steps = [
+    { number: "01", title: "Create your account", description: "Join free and set up your eco profile in minutes", Icon: UserGroupIcon },
+    { number: "02", title: "Scan or list materials", description: "Use the AI scanner or list items for the marketplace", Icon: SparklesIcon },
+    { number: "03", title: "Sell, bid or buy", description: "Trade recyclables, bid on art auctions, or shop recycled goods", Icon: ChartBarIcon },
+    { number: "04", title: "Earn and grow impact", description: "Complete challenges, hit weekly goals, build a greener future", Icon: CheckCircleIcon },
+  ];
 
-                        {/* Right Content - Animated Card */}
-                        <div className="relative hidden md:block">
-                            <div className="relative bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/20">
-                                <div className="absolute -top-6 -right-6 w-32 h-32 bg-yellow-400 rounded-full blur-2xl opacity-50 animate-pulse"></div>
-                                <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-blue-400 rounded-full blur-2xl opacity-50 animate-pulse delay-1000"></div>
-                                
-                                <div className="relative space-y-6">
-                                    <div className="flex items-center justify-between p-4 bg-white/90 rounded-2xl shadow-lg">
-                                        <div>
-                                            <p className="text-sm text-gray-600">إجمالي المعاملات</p>
-                                            <p className="text-3xl font-bold text-green-600">{counter.transactions.toLocaleString()}</p>
-                                        </div>
-                                        <TrendingUpIcon className="w-12 h-12 text-green-500" />
-                                    </div>
+  const whyItems = [
+    {
+      title: "Full Transparency",
+      Icon: ShieldCheckIcon,
+      tint: "bg-green-50 text-green-600 dark:bg-green-900/40 dark:text-green-300",
+      description: "Every bidder sees the same information, and prices are set through clear competition — not opaque middlemen.",
+    },
+    {
+      title: "Fairness for Everyone",
+      Icon: BadgeCheckIcon,
+      tint: "bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-300",
+      description: "No difference between a large company and a small collector — anyone with recyclables can take part.",
+    },
+    {
+      title: "Documented Trust",
+      Icon: CheckCircleIcon,
+      tint: "bg-purple-50 text-purple-600 dark:bg-purple-900/40 dark:text-purple-300",
+      description: "Traceable records for listings, materials, and bids, with support channels to resolve disputes quickly.",
+    },
+    {
+      title: "Real Environmental Impact",
+      Icon: HeartIcon,
+      tint: "bg-orange-50 text-orange-600 dark:bg-orange-900/40 dark:text-orange-300",
+      description: "Every trade returns materials to the production cycle and cuts waste, emissions, and pollution.",
+    },
+  ];
 
-                                    <div className="flex items-center justify-between p-4 bg-white/90 rounded-2xl shadow-lg">
-                                        <div>
-                                            <p className="text-sm text-gray-600">مستخدم نشط</p>
-                                            <p className="text-3xl font-bold text-blue-600">{counter.users.toLocaleString()}+</p>
-                                        </div>
-                                        <UserGroupIcon className="w-12 h-12 text-blue-500" />
-                                    </div>
+  const testimonials = [
+    {
+      name: "Adeola Ogunlesi",
+      role: "Eco Artist",
+      text: "EcoMate AI transformed my passion for recycled art into a thriving business. I've sold over 50 artworks and connected with amazing buyers who care about sustainability.",
+      rating: 5,
+      avatar: "https://randomuser.me/api/portraits/women/45.jpg",
+    },
+    {
+      name: "Chinedu Okonkwo",
+      role: "Recycling Collector",
+      text: "The AI scanner is incredible! I can now identify materials instantly and get better prices from companies. My income has doubled since joining the platform.",
+      rating: 5,
+      avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+    },
+    {
+      name: "Fatima Abdullahi",
+      role: "NGO Coordinator",
+      text: "We launched a community recycling challenge through EcoMate and had 2,000+ participants in the first month. The impact tracking features are exactly what we needed.",
+      rating: 5,
+      avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+    },
+    {
+      name: "Oluwaseun Adeyemi",
+      role: "Plastic Manufacturer",
+      text: "As a plastic manufacturer, EcoMate connects us directly with quality recyclable materials. We've reduced raw material costs by 30% while supporting local communities.",
+      rating: 5,
+      avatar: "https://randomuser.me/api/portraits/men/75.jpg",
+    },
+    {
+      name: "Ngozi Eze",
+      role: "University Student",
+      text: "I participate in environmental challenges and earn rewards while making a real difference. The gamification makes sustainability actually fun!",
+      rating: 4,
+      avatar: "https://randomuser.me/api/portraits/women/90.jpg",
+    },
+    {
+      name: "Ibrahim Mohammed",
+      role: "E-Waste Dealer",
+      text: "The e-waste classification AI is spot-on. I used to guess material types; now I scan and get instant, accurate results. Game changer for my business.",
+      rating: 5,
+      avatar: "https://randomuser.me/api/portraits/men/51.jpg",
+    },
+  ];
 
-                                    <div className="flex items-center justify-between p-4 bg-white/90 rounded-2xl shadow-lg">
-                                        <div>
-                                            <p className="text-sm text-gray-600">توفير بيئي (طن)</p>
-                                            <p className="text-3xl font-bold text-purple-600">{counter.savings.toLocaleString()}</p>
-                                        </div>
-                                        <HeartIcon className="w-12 h-12 text-purple-500" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  const subjectOptions = ["General Inquiry", "Partnership", "Technical Support", "Media"];
 
-                {/* Wave Divider */}
-                <div className="absolute bottom-0 left-0 w-full">
-                    <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0V120Z" fill="white"/>
+  return (
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      <HomeNavbar />
+
+      <main>
+        {/* ===== Hero ===== */}
+        <section id="home" className="relative overflow-hidden bg-gradient-to-b from-green-50 via-white to-white dark:from-gray-800 dark:via-gray-900 dark:to-gray-900">
+          <div className="max-w-7xl mx-auto px-6 pt-16 pb-20 md:pt-24 md:pb-28">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="space-y-7 reveal">
+                <span className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 px-4 py-1.5 rounded-full text-sm font-semibold">
+                  <SparklesIcon className="w-4 h-4" />
+                  AI-powered recycling, made in Nigeria
+                </span>
+
+                <h1 className="text-4xl md:text-6xl font-bold leading-tight text-gray-900 dark:text-white">
+                  Transform waste into
+                  <span className="text-green-600 dark:text-green-400"> value</span>
+                </h1>
+
+                <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+                  Join thousands of changemakers buying and selling recyclables,
+                  bidding on recycled art, completing eco challenges, and building
+                  a sustainable future with EcoMate AI.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link
+                    to="/register"
+                    className="group inline-flex items-center justify-center gap-2 bg-green-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-green-700 transition-all shadow-lg shadow-green-600/25 hover:shadow-xl hover:shadow-green-600/30"
+                  >
+                    Get Started Free
+                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                </div>
-            </section>
-
-            {/* Features Section - Modern Cards */}
-            <section className="max-w-7xl mx-auto px-6 py-20">
-                <div className="text-center mb-16">
-                    <span className="inline-block px-4 py-2 bg-green-100 text-green-600 rounded-full text-sm font-semibold mb-4">
-                        ميزاتنا المتقدمة
-                    </span>
-                    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                        لماذا نحن الخيار الأفضل؟
-                    </h2>
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                        نقدم لك تجربة فريدة ومميزة في عالم إعادة التدوير
-                    </p>
+                  </Link>
+                  <a
+                    href="#why"
+                    className="inline-flex items-center justify-center gap-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 px-8 py-4 rounded-xl font-bold text-lg hover:bg-green-50 dark:hover:bg-gray-700 hover:border-green-300 transition-all"
+                  >
+                    Learn More
+                  </a>
                 </div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {features.map((feature, index) => (
-                        <div
-                            key={index}
-                            className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer overflow-hidden"
-                        >
-                            {/* Gradient Background on Hover */}
-                            <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
-                            
-                            {/* Icon */}
-                            <div className={`relative ${feature.bgColor} w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                                <feature.icon className={`w-8 h-8 text-gray-700`} />
-                            </div>
-                            
-                            {/* Content */}
-                            <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                            <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-                            
-                            {/* Arrow Icon */}
-                            <div className="mt-4 flex items-center text-green-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <span className="text-sm">اعرف المزيد</span>
-                                <svg className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                </svg>
-                            </div>
-                        </div>
+                {/* Trust badges */}
+                <div className="flex items-center gap-6 pt-2">
+                  <div className="flex items-center gap-2">
+                    <BadgeCheckIcon className="w-7 h-7 text-green-600 dark:text-green-400" />
+                    <div>
+                      <p className="text-sm font-semibold text-gray-900 dark:text-white">Verified & Certified</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">by official authorities</p>
+                    </div>
+                  </div>
+                  <div className="h-10 w-px bg-gray-200 dark:bg-gray-700"></div>
+                  <div className="flex items-center gap-2">
+                    <ShieldCheckIcon className="w-7 h-7 text-blue-600 dark:text-blue-400" />
+                    <div>
+                      <p className="text-sm font-semibold text-gray-900 dark:text-white">Full Protection</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">for all transactions</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating stat card */}
+              <div className="relative hidden md:block reveal">
+                <div className="absolute -top-8 -right-8 w-40 h-40 bg-green-200 dark:bg-green-900 rounded-full blur-3xl opacity-60"></div>
+                <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-blue-200 dark:bg-blue-900 rounded-full blur-3xl opacity-60"></div>
+                <div className="relative bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-2xl border border-gray-100 dark:border-gray-700 space-y-5">
+                  <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-2xl">
+                    <div>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Community Members</p>
+                      <p className="text-3xl font-bold text-green-600 dark:text-green-400">{counter.users.toLocaleString()}+</p>
+                    </div>
+                    <UserGroupIcon className="w-11 h-11 text-green-500" />
+                  </div>
+                  <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-2xl">
+                    <div>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Items Traded</p>
+                      <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{(counter.artworks * 3).toLocaleString()}</p>
+                    </div>
+                    <ShoppingBagIcon className="w-11 h-11 text-blue-500" />
+                  </div>
+                  <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-2xl">
+                    <div>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Tonnes Recycled</p>
+                      <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">{counter.recycled.toLocaleString()}</p>
+                    </div>
+                    <CollectionIcon className="w-11 h-11 text-purple-500" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== Stats ===== */}
+        <section className="max-w-7xl mx-auto px-6 py-16">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {stats.map(({ value, label, Icon, tint }, i) => (
+              <div
+                key={i}
+                className="reveal bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-6 text-center shadow-sm hover:shadow-lg transition-shadow"
+              >
+                <div className={`w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4 ${tint}`}>
+                  <Icon className="w-7 h-7" />
+                </div>
+                <p className="text-3xl font-bold text-gray-900 dark:text-white">{value}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{label}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ===== What EcoMate offers ===== */}
+        <section id="partners" className="max-w-7xl mx-auto px-6 py-16">
+          <div className="text-center mb-14 reveal">
+            <p className="text-sm font-bold tracking-wider text-green-600 dark:text-green-400 uppercase mb-3">
+              One Platform, Endless Possibilities
+            </p>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              More than <span className="text-green-600 dark:text-green-400">recycling</span>
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              EcoMate AI brings the entire circular economy into one community — marketplace, auctions, challenges, and connections
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map(({ title, Icon, tint, description }, i) => (
+              <div
+                key={i}
+                className="reveal bg-gray-50 dark:bg-gray-800 rounded-3xl p-10 hover:shadow-xl transition-shadow border border-transparent hover:border-green-100 dark:hover:border-green-900"
+              >
+                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${tint}`}>
+                  <Icon className="w-8 h-8" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ===== How It Works ===== */}
+        <section id="how-it-works" className="bg-gray-50 dark:bg-gray-800/50 py-20">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-14 reveal">
+              <p className="text-sm font-bold tracking-wider text-green-600 dark:text-green-400 uppercase mb-3">
+                How It Works
+              </p>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                Start in <span className="text-green-600 dark:text-green-400">4 simple steps</span>
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                An easy, fast journey from sign-up to real environmental impact
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+              <div className="hidden lg:block absolute top-14 left-[12%] right-[12%] h-0.5 bg-gradient-to-r from-green-300 via-blue-300 to-purple-300 dark:opacity-40"></div>
+              {steps.map(({ number, title, description, Icon }, i) => (
+                <div key={i} className="relative z-10 reveal">
+                  <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-md hover:shadow-xl transition-shadow text-center border border-gray-100 dark:border-gray-700">
+                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl flex items-center justify-center shadow-lg mb-5">
+                      <span className="text-2xl font-bold text-white">{number}</span>
+                    </div>
+                    <div className="flex justify-center mb-3">
+                      <div className="bg-green-50 dark:bg-green-900/40 w-12 h-12 rounded-xl flex items-center justify-center">
+                        <Icon className="w-6 h-6 text-green-600 dark:text-green-300" />
+                      </div>
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{title}</h3>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">{description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ===== Our Why ===== */}
+        <section id="why" className="max-w-7xl mx-auto px-6 py-20">
+          <div className="text-center mb-14 reveal">
+            <p className="text-sm font-bold tracking-wider text-green-600 dark:text-green-400 uppercase mb-3">
+              Our Core Values
+            </p>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              Why <span className="text-green-600 dark:text-green-400">EcoMate AI</span>?
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Because we see recycling as an economic, environmental, and social opportunity all at once
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {whyItems.map(({ title, Icon, tint, description }, i) => (
+              <div
+                key={i}
+                className="reveal flex gap-5 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-7 hover:shadow-lg transition-shadow"
+              >
+                <div className={`w-14 h-14 flex-shrink-0 rounded-2xl flex items-center justify-center ${tint}`}>
+                  <Icon className="w-7 h-7" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{title}</h3>
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ===== Testimonials ===== */}
+        <section className="bg-gray-50 dark:bg-gray-800/50 py-20">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-14 reveal">
+              <p className="text-sm font-bold tracking-wider text-green-600 dark:text-green-400 uppercase mb-3">
+                Testimonials
+              </p>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                Loved by the <span className="text-green-600 dark:text-green-400">community</span>
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                Hear from Nigerians who are earning more while protecting the environment
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {testimonials.map((t, i) => (
+                <div
+                  key={i}
+                  className="reveal bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-shadow border border-gray-100 dark:border-gray-700"
+                >
+                  <span className="text-6xl leading-none text-green-100 dark:text-green-900 font-serif select-none">"</span>
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed -mt-6 mb-6">{t.text}</p>
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(5)].map((_, s) => (
+                      <StarIcon
+                        key={s}
+                        className={`w-5 h-5 ${s < t.rating ? "text-yellow-400" : "text-gray-300 dark:text-gray-600"}`}
+                      />
                     ))}
-                </div>
-            </section>
-
-            {/* How It Works Section */}
-            <section className="bg-gradient-to-br from-gray-50 to-gray-100 py-20">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <span className="inline-block px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold mb-4">
-                            كيف تعمل المنصة
-                        </span>
-                        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                            ابدأ في 4 خطوات بسيطة
-                        </h2>
-                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                            عملية سهلة وسريعة للبدء في رحلتك مع إعادة التدوير
-                        </p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full object-cover" />
+                    <div>
+                      <p className="font-bold text-gray-900 dark:text-white">{t.name}</p>
+                      <p className="text-sm text-green-600 dark:text-green-400">{t.role}</p>
                     </div>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-                        {/* Connection Lines - Hidden on mobile */}
-                        <div className="hidden lg:block absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-green-300 via-blue-300 to-purple-300 z-0" style={{ width: 'calc(100% - 8rem)', margin: '0 4rem' }}></div>
-                        
-                        {steps.map((step, index) => (
-                            <div key={index} className="relative z-10">
-                                <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-                                    {/* Step Number */}
-                                    <div className="relative mb-6">
-                                        <div className="w-20 h-20 mx-auto bg-gradient-to-br from-green-400 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                                            <span className="text-3xl font-bold text-white">{step.number}</span>
-                                        </div>
-                                    </div>
-                                    
-                                    {/* Icon */}
-                                    <div className="flex justify-center mb-4">
-                                        <div className="bg-green-50 w-14 h-14 rounded-xl flex items-center justify-center">
-                                            <step.icon className="w-7 h-7 text-green-600" />
-                                        </div>
-                                    </div>
-                                    
-                                    {/* Content */}
-                                    <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">{step.title}</h3>
-                                    <p className="text-gray-600 text-center leading-relaxed">{step.description}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                  </div>
                 </div>
-            </section>
+              ))}
+            </div>
+          </div>
+        </section>
 
-            {/* Testimonials Section */}
-            <section className="max-w-7xl mx-auto px-6 py-20">
-                <div className="text-center mb-16">
-                    <span className="inline-block px-4 py-2 bg-purple-100 text-purple-600 rounded-full text-sm font-semibold mb-4">
-                        آراء عملائنا
-                    </span>
-                    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                        ماذا يقول مستخدمونا؟
-                    </h2>
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                        انضم إلى آلاف العملاء الراضين عن خدماتنا
+        {/* ===== Contact ===== */}
+        <section id="contact" className="bg-gray-50 dark:bg-gray-800/50 py-20">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-14 reveal">
+              <p className="text-sm font-bold tracking-wider text-green-600 dark:text-green-400 uppercase mb-3">
+                Get in Touch
+              </p>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                Contact <span className="text-green-600 dark:text-green-400">Us</span>
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                Questions about EcoMate AI? We'd love to hear from you — reach out and let's build a sustainable future together.
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-10">
+              {/* Contact info */}
+              <div className="space-y-6 reveal">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-green-100 dark:bg-green-900/40 flex items-center justify-center flex-shrink-0">
+                    <MailIcon className="w-6 h-6 text-green-600 dark:text-green-300" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 dark:text-white">Email Us</h3>
+                    <a href="mailto:hello@ecomate.ai" className="block text-gray-600 dark:text-gray-300 hover:text-green-600 transition-colors">
+                      hello@ecomate.ai
+                    </a>
+                    <a href="mailto:support@ecomate.ai" className="block text-gray-600 dark:text-gray-300 hover:text-green-600 transition-colors">
+                      support@ecomate.ai
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-green-100 dark:bg-green-900/40 flex items-center justify-center flex-shrink-0">
+                    <PhoneIcon className="w-6 h-6 text-green-600 dark:text-green-300" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 dark:text-white">Call Us</h3>
+                    <a href="tel:+2348003266283" className="block text-gray-600 dark:text-gray-300 hover:text-green-600 transition-colors">
+                      +234 800 ECOMATE
+                    </a>
+                    <a href="tel:+23412345678" className="block text-gray-600 dark:text-gray-300 hover:text-green-600 transition-colors">
+                      +234 1 234 5678
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-green-100 dark:bg-green-900/40 flex items-center justify-center flex-shrink-0">
+                    <LocationMarkerIcon className="w-6 h-6 text-green-600 dark:text-green-300" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 dark:text-white">Visit Us</h3>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      Innovation Hub, Sangotedo,
+                      <br />
+                      Lekki, Lagos, Nigeria
                     </p>
+                  </div>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-8">
-                    {testimonials.map((testimonial, index) => (
-                        <div
-                            key={index}
-                            className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
-                        >
-                            {/* Stars */}
-                            <div className="flex gap-1 mb-4">
-                                {[...Array(testimonial.rating)].map((_, i) => (
-                                    <StarIcon key={i} className="w-5 h-5 text-yellow-400" />
-                                ))}
-                            </div>
-                            
-                            {/* Quote */}
-                            <p className="text-gray-700 leading-relaxed mb-6 italic">
-                                "{testimonial.text}"
-                            </p>
-                            
-                            {/* User Info */}
-                            <div className="flex items-center gap-4">
-                                <img
-                                    src={testimonial.avatar}
-                                    alt={testimonial.name}
-                                    className="w-12 h-12 rounded-full"
-                                />
-                                <div>
-                                    <p className="font-bold text-gray-900">{testimonial.name}</p>
-                                    <p className="text-sm text-gray-500">{testimonial.role}</p>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+                <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-12 flex flex-col items-center justify-center gap-3 text-gray-500 dark:text-gray-400">
+                  <LocationMarkerIcon className="w-10 h-10 text-green-500" />
+                  <span>Lagos, Nigeria</span>
                 </div>
-            </section>
+              </div>
 
-            {/* Environmental Impact - Visual Section */}
-            <section className="relative bg-gradient-to-br from-green-900 via-teal-800 to-blue-900 text-white py-20 overflow-hidden">
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-0 left-0 w-full h-full" style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-                    }}></div>
-                </div>
+              {/* Contact form */}
+              <div className="reveal bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 p-8">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Send us a Message</h3>
+                <form onSubmit={handleContactSubmit} className="space-y-5">
+                  <div>
+                    <label htmlFor="contact-name" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Full Name
+                    </label>
+                    <input
+                      id="contact-name"
+                      name="name"
+                      type="text"
+                      required
+                      value={contact.name}
+                      onChange={handleContactChange}
+                      placeholder="John Doe"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="contact-email" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Email Address
+                    </label>
+                    <input
+                      id="contact-email"
+                      name="email"
+                      type="email"
+                      required
+                      value={contact.email}
+                      onChange={handleContactChange}
+                      placeholder="john@example.com"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="contact-subject" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Subject
+                    </label>
+                    <select
+                      id="contact-subject"
+                      name="subject"
+                      value={contact.subject}
+                      onChange={handleContactChange}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
+                    >
+                      {subjectOptions.map((s) => (
+                        <option key={s} value={s}>
+                          {s}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label htmlFor="contact-message" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Message
+                    </label>
+                    <textarea
+                      id="contact-message"
+                      name="message"
+                      rows={4}
+                      required
+                      value={contact.message}
+                      onChange={handleContactChange}
+                      placeholder="Tell us how we can help..."
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition resize-none"
+                    />
+                  </div>
 
-                <div className="relative max-w-7xl mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <span className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-semibold mb-4">
-                            تأثيرنا البيئي
-                        </span>
-                        <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                            معاً نصنع الفرق
-                        </h2>
-                        <p className="text-xl text-green-100 max-w-3xl mx-auto">
-                            كل معاملة على منصتنا تساهم في حماية كوكبنا للأجيال القادمة
-                        </p>
-                    </div>
-
-                    <div className="grid md:grid-cols-3 gap-8">
-                        <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all">
-                            <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-teal-400 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                </svg>
-                            </div>
-                            <h3 className="text-3xl font-bold mb-2 text-center">2,500+ طن</h3>
-                            <p className="text-green-100 text-center">من النفايات تم إعادة تدويرها</p>
-                        </div>
-
-                        <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all">
-                            <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <h3 className="text-3xl font-bold mb-2 text-center">15,000+ شجرة</h3>
-                            <p className="text-green-100 text-center">تم إنقاذها من القطع</p>
-                        </div>
-
-                        <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all">
-                            <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-400 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                                <HeartIcon className="w-8 h-8 text-white" />
-                            </div>
-                            <h3 className="text-3xl font-bold mb-2 text-center">50,000+ طن</h3>
-                            <p className="text-green-100 text-center">تقليل انبعاثات CO₂</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Technology Section - Modern */}
-            <section className="max-w-7xl mx-auto px-6 py-20">
-                <div className="text-center mb-16">
-                    <span className="inline-block px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold mb-4">
-                        التقنيات المستخدمة
-                    </span>
-                    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                        تقنيات عالمية حديثة
-                    </h2>
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                        نستخدم أحدث التقنيات لضمان أفضل تجربة مستخدم
+                  {contactStatus.type === "success" && (
+                    <p className="text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/30 rounded-xl px-4 py-3 text-sm font-medium">
+                      ✓ {contactStatus.text}
                     </p>
-                </div>
+                  )}
+                  {contactStatus.type === "error" && (
+                    <p className="text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 rounded-xl px-4 py-3 text-sm font-medium">
+                      {contactStatus.text}
+                    </p>
+                  )}
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {[
-                        { name: 'React.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', color: 'from-cyan-400 to-blue-500' },
-                        { name: 'Node.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', color: 'from-green-400 to-green-600' },
-                        { name: 'MongoDB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', color: 'from-green-500 to-green-700' },
-                        { name: 'Express.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg', color: 'from-gray-600 to-gray-800' }
-                    ].map((tech, index) => (
-                        <div
-                            key={index}
-                            className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 text-center"
-                        >
-                            <div className="relative mb-6">
-                                <div className={`absolute inset-0 bg-gradient-to-br ${tech.color} rounded-full blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-300`}></div>
-                                <img
-                                    src={tech.logo}
-                                    alt={tech.name}
-                                    className="relative w-20 h-20 mx-auto group-hover:scale-110 transition-transform duration-300"
-                                />
-                            </div>
-                            <h3 className="text-xl font-bold text-gray-900">{tech.name}</h3>
-                        </div>
-                    ))}
-                </div>
-            </section>
+                  <button
+                    type="submit"
+                    disabled={contactStatus.type === "loading"}
+                    className="w-full bg-green-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-green-700 transition-colors shadow-lg shadow-green-600/25 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {contactStatus.type === "loading" ? "Sending..." : "Send Message"}
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
 
-            {/* Developer Section - Solo */}
-            <section className="bg-gradient-to-br from-gray-50 to-white py-20">
-                <div className="max-w-4xl mx-auto px-6">
-                    <div className="text-center mb-12">
-                        <span className="inline-block px-4 py-2 bg-green-100 text-green-600 rounded-full text-sm font-semibold mb-4">
-                            المطور
-                        </span>
-                        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                            مبتكر المنصة
-                        </h2>
-                    </div>
+        {/* ===== CTA ===== */}
+        <section className="bg-green-600 dark:bg-green-700 py-20">
+          <div className="max-w-5xl mx-auto px-6 text-center reveal">
+            {/* Leaf mark */}
+            <svg className="w-14 h-14 mx-auto text-white/80 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 8c-6 0-10 2-12 6-1.5 3-1 6-1 6s3 .5 6-1c4-2 6-6 7-11zM8 20c2-6 6-10 13-12" />
+            </svg>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-5">Ready to Make an Impact?</h2>
+            <p className="text-lg md:text-xl text-green-50 mb-10 max-w-2xl mx-auto leading-relaxed">
+              Join thousands of users and companies already transforming waste into value.
+              Start your sustainability journey with EcoMate AI today.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/register"
+                className="group inline-flex items-center justify-center gap-2 bg-white text-green-700 px-9 py-4 rounded-xl font-bold text-lg hover:bg-green-50 transition-all shadow-xl"
+              >
+                Get Started Free
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+              <a
+                href="#why"
+                className="inline-flex items-center justify-center gap-2 border-2 border-white/70 text-white px-9 py-4 rounded-xl font-bold text-lg hover:bg-white/10 transition-all"
+              >
+                Learn More
+              </a>
+            </div>
 
-                    <div className="relative">
-                        {/* Decorative Elements */}
-                        <div className="absolute -top-4 -left-4 w-24 h-24 bg-gradient-to-br from-green-400 to-teal-500 rounded-full blur-2xl opacity-20"></div>
-                        <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full blur-2xl opacity-20"></div>
-                        
-                        <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden">
-                            <div className="grid md:grid-cols-5 gap-8 p-8 md:p-12">
-                                {/* Image Section */}
-                                <div className="md:col-span-2 flex justify-center items-center">
-                                    <div className="relative">
-                                        <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-teal-500 rounded-full blur-lg opacity-50"></div>
-                                        <img
-                                            src={osama}
-                                            alt="أسامة بيطار"
-                                            className="relative w-48 h-48 rounded-full border-4 border-white shadow-2xl object-cover"
-                                        />
-                                        {/* Badge */}
-                                        <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-green-600 to-teal-600 text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
-                                            <BadgeCheckIcon className="w-5 h-5" />
-                                            <span className="text-sm font-bold">مطور رئيسي</span>
-                                        </div>
-                                    </div>
-                                </div>
+            {/* Login shortcut for existing users */}
+            <div className="mt-8">
+              <Link
+                to="/login"
+                className="inline-flex items-center gap-2 text-green-100 hover:text-white text-sm font-medium transition-colors"
+              >
+                <SunIcon className="w-4 h-4 hidden" />
+                Already have an account? Sign in here
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
 
-                                {/* Info Section */}
-                                <div className="md:col-span-3 flex flex-col justify-center">
-                                    <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-                                        أسامة بيطار
-                                    </h3>
-                                    <p className="text-xl text-green-600 font-semibold mb-4">
-                                        Full Stack Developer
-                                    </p>
-                                    <p className="text-gray-600 leading-relaxed mb-6">
-                                        مطور محترف متخصص في تطوير تطبيقات الويب الحديثة باستخدام تقنيات MERN Stack. 
-                                        شغوف بإنشاء حلول مبتكرة للمشاكل البيئية والاستدامة.
-                                    </p>
-                                    
-                                    {/* Education */}
-                                    <div className="bg-gradient-to-r from-green-50 to-teal-50 rounded-2xl p-4 mb-6">
-                                        <p className="text-gray-700 font-medium flex items-center gap-2">
-                                            <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                                            </svg>
-                                            كلية هندسة المعلوماتية - الجامعة السورية الافتراضية
-                                        </p>
-                                    </div>
-
-                                    {/* Skills */}
-                                    <div className="flex flex-wrap gap-2">
-                                        {['React.js', 'Node.js', 'MongoDB', 'Express.js', 'Tailwind CSS'].map((skill, index) => (
-                                            <span
-                                                key={index}
-                                                className="px-3 py-1 bg-gradient-to-r from-green-100 to-teal-100 text-green-700 rounded-full text-sm font-medium"
-                                            >
-                                                {skill}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* CTA Section - Final */}
-            <section className="relative bg-gradient-to-br from-green-600 via-teal-500 to-blue-500 text-white py-20 overflow-hidden">
-                {/* Animated Background */}
-                <div className="absolute inset-0">
-                    <div className="absolute top-0 left-0 w-full h-full opacity-10">
-                        <div className="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse"></div>
-                        <div className="absolute bottom-10 right-10 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse delay-1000"></div>
-                    </div>
-                </div>
-
-                <div className="relative max-w-5xl mx-auto px-6 text-center">
-                    <div className="mb-8">
-                        <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full mb-6">
-                            <SparklesIcon className="w-6 h-6" />
-                            <span className="font-semibold">انضم إلينا الآن</span>
-                        </div>
-                        <h2 className="text-4xl md:text-6xl font-bold mb-6">
-                            ابدأ رحلتك نحو
-                            <span className="block bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                                مستقبل أخضر
-                            </span>
-                        </h2>
-                        <p className="text-xl md:text-2xl text-green-50 mb-8 max-w-3xl mx-auto">
-                            انضم إلى آلاف المستخدمين الذين يحققون أرباحاً ويساهمون في حماية البيئة
-                        </p>
-                    </div>
-
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                        <Link
-                            to="/register"
-                            className="group bg-white text-green-600 px-10 py-5 rounded-xl font-bold text-xl hover:bg-green-50 transition-all transform hover:scale-105 shadow-2xl flex items-center justify-center gap-3"
-                        >
-                            <UserGroupIcon className="w-7 h-7" />
-                            <span>سجل مجاناً الآن</span>
-                            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </Link>
-                        <Link
-                            to="/contact"
-                            className="bg-white/10 backdrop-blur-sm border-2 border-white text-white px-10 py-5 rounded-xl font-bold text-xl hover:bg-white/20 transition-all flex items-center justify-center gap-3"
-                        >
-                            <ChatAltIcon className="w-7 h-7" />
-                            <span>تواصل معنا</span>
-                        </Link>
-                    </div>
-
-                    {/* Stats */}
-                    <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto">
-                        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                            <p className="text-4xl font-bold mb-2">5K+</p>
-                            <p className="text-green-100">مستخدم نشط</p>
-                        </div>
-                        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                            <p className="text-4xl font-bold mb-2">10K+</p>
-                            <p className="text-green-100">معاملة ناجحة</p>
-                        </div>
-                        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                            <p className="text-4xl font-bold mb-2">2.5K+</p>
-                            <p className="text-green-100">طن معاد تدويره</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-    );
+      <HomeFooter />
+    </div>
+  );
 };
 
 export default HomePage;

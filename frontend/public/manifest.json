@@ -1,9 +1,9 @@
 {
-  "name": "My Application",
-  "short_name": "App",
+  "name": "EcoMate AI",
+  "short_name": "EcoMate",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#ffffff",
-  "description": "A simple description of the app",
-  "theme_color": "#000000"
+  "description": "Transforming waste into value through AI-powered recycling.",
+  "theme_color": "#16a34a"
 }

@@ -44,7 +44,7 @@ const AdminHeader = ({ sidebarOpen, setSidebarOpen }) => {
                             {/* Dashboard Title */}
                             <div className="hidden md:flex items-center">
                                 <h1 className="text-xl font-bold text-gray-800">
-                                    لوحة تحكم المدير
+                                    Admin Dashboard
                                 </h1>
                             </div>
                         </div>
@@ -52,7 +52,7 @@ const AdminHeader = ({ sidebarOpen, setSidebarOpen }) => {
                         {/* Center - Page Title or Info */}
                         <div className="hidden md:flex flex-1 items-center justify-center">
                             <div className="text-center">
-                                <p className="text-sm text-gray-600">لوحة تحكم المدير - EcoTrade</p>
+                                <p className="text-sm text-gray-600">EcoMate AI — Admin Dashboard</p>
                             </div>
                         </div>
 
@@ -76,7 +76,7 @@ const AdminHeader = ({ sidebarOpen, setSidebarOpen }) => {
                                     )}
                                     <div className="hidden md:block text-left ml-2">
                                         <p className="text-sm font-semibold text-gray-800">{user?.name}</p>
-                                        <p className="text-xs text-gray-500">مدير النظام</p>
+                                        <p className="text-xs text-gray-500">Administrator</p>
                                     </div>
                                 </button>
 
@@ -100,7 +100,7 @@ const AdminHeader = ({ sidebarOpen, setSidebarOpen }) => {
                                                     <p className="font-bold text-gray-800">{user?.name}</p>
                                                     <p className="text-xs text-gray-600">{user?.email}</p>
                                                     <span className="inline-block mt-1 px-2 py-0.5 bg-gradient-to-r from-red-100 to-red-200 text-red-800 text-xs font-bold rounded-full border border-red-300">
-                                                        👑 مدير النظام
+                                                        👑 Administrator
                                                     </span>
                                                 </div>
                                             </div>
@@ -114,7 +114,7 @@ const AdminHeader = ({ sidebarOpen, setSidebarOpen }) => {
                                                 className="w-full px-4 py-3 text-left text-sm text-gray-700 hover:bg-blue-50 flex items-center gap-3 transition-colors"
                                             >
                                                 <UserCircleIcon className="h-5 w-5 text-blue-600" />
-                                                <span className="font-medium">الملف الشخصي</span>
+                                                <span className="font-medium">My Profile</span>
                                             </button>
                                         </div>
                                         <div className="border-t border-gray-200 py-2 bg-red-50">
@@ -126,7 +126,7 @@ const AdminHeader = ({ sidebarOpen, setSidebarOpen }) => {
                                                 className="w-full px-4 py-3 text-left text-sm text-red-600 hover:bg-red-100 flex items-center gap-3 transition-colors font-medium"
                                             >
                                                 <LogoutIcon className="h-5 w-5" />
-                                                <span>تسجيل الخروج</span>
+                                                <span>Logout</span>
                                             </button>
                                         </div>
                                     </div>

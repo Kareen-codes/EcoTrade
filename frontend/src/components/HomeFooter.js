@@ -1,36 +1,51 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { MailIcon, PhoneIcon, LocationMarkerIcon } from "@heroicons/react/outline";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import {
+  MailIcon,
+  PhoneIcon,
+  LocationMarkerIcon,
+} from "@heroicons/react/solid";
 import logo from "../assets/images/ecomate-logo.svg";
 
 /**
- * Shared EcoMate AI footer for authenticated/app pages (login, register,
- * terms, privacy, support, auction room). Visually consistent with the
- * homepage footer (HomeFooter): dark background, brand blurb, quick links,
- * platform links, and Nigeria contact info.
+ * EcoMate AI footer: dark navy background, brand blurb with social icons,
+ * quick links, platform links, and contact info columns — matching the
+ * EcoMate design. Shared visual language with the homepage navbar.
  */
-const Footer = () => {
+const HomeFooter = () => {
   const currentYear = new Date().getFullYear();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Bookmark links work from the homepage AND from /feed / /playground:
+  // navigate home first, then smooth-scroll to the section.
+  const goToSection = (e, href) => {
+    e.preventDefault();
+    const scroll = () => {
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    };
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(scroll, 200);
+    } else {
+      scroll();
+    }
+  };
 
   const quickLinks = [
-    { label: "Home", to: "/" },
-    { label: "Our Why", to: "/#why" },
-    { label: "Marketplace", to: "/#partners" },
-    { label: "How It Works", to: "/#how-it-works" },
-    { label: "Support", to: "/support" },
+    { label: "Home", href: "#home" },
+    { label: "Our Why", href: "#why" },
+    { label: "Playground", to: "/playground" },
+    { label: "Feed", to: "/feed" },
+    { label: "Contact Us", href: "#contact" },
   ];
 
   const platformLinks = [
     { label: "Marketplace", to: "/login" },
     { label: "Auctions & Bids", to: "/login" },
-    { label: "Orders", to: "/login" },
     { label: "Challenges", to: "/login" },
     { label: "Art Gallery", to: "/login" },
-  ];
-
-  const legalLinks = [
-    { label: "Privacy Policy", to: "/privacy-policy" },
-    { label: "Terms of Service", to: "/terms-of-service" },
+    { label: "Messaging", to: "/login" },
   ];
 
   // Brand icons are not shipped with heroicons v1 — inline SVGs
@@ -58,7 +73,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-900 text-gray-300 mt-16">
+    <footer className="bg-gray-900 dark:bg-black text-gray-300">
       <div className="max-w-7xl mx-auto px-6 py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
@@ -77,7 +92,7 @@ const Footer = () => {
               {socials.map(({ label, hover, path }) => (
                 <a
                   key={label}
-                  href="/"
+                  href="#home"
                   aria-label={label}
                   className={`bg-gray-800 p-2 rounded-lg ${hover} transition-colors`}
                 >
@@ -89,24 +104,36 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick links */}
           <div>
             <h3 className="text-white font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2.5">
-              {quickLinks.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    to={link.to}
-                    className="text-gray-400 hover:text-green-400 transition-colors text-sm"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              {quickLinks.map((link) =>
+                link.to ? (
+                  <li key={link.label}>
+                    <Link
+                      to={link.to}
+                      className="text-gray-400 hover:text-green-400 transition-colors text-sm"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ) : (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      onClick={(e) => goToSection(e, link.href)}
+                      className="text-gray-400 hover:text-green-400 transition-colors text-sm"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                )
+              )}
             </ul>
           </div>
 
-          {/* Platform Links */}
+          {/* Platform links */}
           <div>
             <h3 className="text-white font-bold mb-4">Platform</h3>
             <ul className="space-y-2.5">
@@ -147,39 +174,23 @@ const Footer = () => {
               </li>
               <li className="flex items-start gap-3">
                 <LocationMarkerIcon className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-400">
-                  Innovation Hub, Sangotedo,
-                  <br />
-                  Lekki, Lagos, Nigeria
-                </span>
+                <span className="text-gray-400">Lagos, Nigeria</span>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Legal + bottom bar */}
         <div className="mt-12 pt-6 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-sm text-gray-500">
             © {currentYear} EcoMate AI. All rights reserved.
           </p>
-          <div className="flex items-center gap-5">
-            {legalLinks.map((link) => (
-              <Link
-                key={link.label}
-                to={link.to}
-                className="text-sm text-gray-500 hover:text-green-400 transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <span className="text-sm text-gray-500 hidden sm:inline">
-              Built with <span className="text-green-400">♥</span> for a sustainable planet
-            </span>
-          </div>
+          <p className="text-sm text-gray-500">
+            Built with <span className="text-green-400">♥</span> for a sustainable planet
+          </p>
         </div>
       </div>
     </footer>
   );
 };
 
-export default Footer;
+export default HomeFooter;

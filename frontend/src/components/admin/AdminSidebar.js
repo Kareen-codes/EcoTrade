@@ -9,7 +9,7 @@ import {
     ChatAlt2Icon,
     CollectionIcon
 } from '@heroicons/react/outline';
-import logo from '../../assets/images/logo.png';
+import logo from '../../assets/images/ecomate-logo.svg';
 
 const AdminSidebar = ({ isOpen, setIsOpen }) => {
     const location = useLocation();
@@ -18,42 +18,42 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
     const menuItems = [
         {
             id: 'dashboard',
-            name: 'لوحة التحكم الرئيسية',
+            name: 'Main Dashboard',
             path: '/dashboard',
             icon: HomeIcon,
             badge: null
         },
         {
             id: 'users',
-            name: 'إدارة المستخدمين',
+            name: 'Manage Users',
             path: '/users',
             icon: UsersIcon,
             badge: null
         },
         {
             id: 'orders',
-            name: 'إدارة الطلبات',
+            name: 'Manage Orders',
             path: '/orders',
             icon: ShoppingBagIcon,
             badge: '12'
         },
         {
             id: 'auctions',
-            name: 'إدارة المزادات',
+            name: 'Manage Auctions',
             path: '/auctions',
             icon: CollectionIcon,
             badge: '5'
         },
         {
             id: 'scrap',
-            name: 'إدارة المواد',
+            name: 'Manage Materials',
             path: '/scrap',
             icon: CubeIcon,
             badge: null
         },
         {
             id: 'contact',
-            name: 'الرسائل',
+            name: 'Messages',
             path: '/contact',
             icon: ChatAlt2Icon,
             badge: '3'
@@ -88,13 +88,13 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
                     <Link to="/" className="flex items-center gap-3 px-4">
                         <img 
                             src={logo} 
-                            alt="EcoTrade Logo" 
+                            alt="EcoMate AI Logo" 
                             className={`transition-all duration-300 ${isOpen ? 'h-10' : 'h-8'}`}
                         />
                         {isOpen && (
                             <div className="animate-fadeIn">
-                                <h2 className="text-xl font-bold text-white">EcoTrade</h2>
-                                <p className="text-xs text-blue-300">لوحة التحكم</p>
+                                <h2 className="text-xl font-bold text-white">EcoMate<span className="text-green-400"> AI</span></h2>
+                                <p className="text-xs text-blue-300">Admin Panel</p>
                             </div>
                         )}
                     </Link>

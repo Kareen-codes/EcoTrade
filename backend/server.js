@@ -10,6 +10,8 @@ const requestRoutes = require('./routes/requestRoutes');
 const messageRoutes = require('./routes/messageRoutes');
 const auctionRoutes = require('./routes/auctionRoutes');
 const scrapItems = require('./routes/scrapItemsRoutes');
+const newsRoutes = require('./routes/newsRoutes'); // Eco news feed (NewsAPI + GNews)
+const playgroundRoutes = require('./routes/playgroundRoutes'); // AI classification proxy
 require('./scheduled/cronJobs'); // استيراد وظائف الجدولة إذا كانت ضرورية
 
 // تحميل متغيرات البيئة من ملف .env
@@ -39,6 +41,8 @@ app.use('/api/requests', requestRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/auction', auctionRoutes);
 app.use('/api/scrap', scrapItems);
+app.use('/api/news', newsRoutes); // Eco news feed — no auth, no DB
+app.use('/api/playground', playgroundRoutes); // AI classification proxy — no auth, no DB
 
 // بدء الخادم
 app.listen(PORT, () => {
