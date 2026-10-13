@@ -12,6 +12,16 @@ const auctionRoutes = require('./routes/auctionRoutes');
 const scrapItems = require('./routes/scrapItemsRoutes');
 const newsRoutes = require('./routes/newsRoutes'); // Eco news feed (NewsAPI + GNews)
 const playgroundRoutes = require('./routes/playgroundRoutes'); // AI classification proxy
+
+// MarketX-inspired marketplace modules (port of Kareen-codes/MarketX-backend)
+const listingRoutes = require('./routes/listingRoutes');     // marketplace + art gallery listings
+const orderRoutes = require('./routes/orderRoutes');         // orders + escrow lifecycle
+const notificationRoutes = require('./routes/notificationRoutes'); // in-app notifications
+const reviewRoutes = require('./routes/reviewRoutes');         // seller/listing reviews
+const challengeRoutes = require('./routes/challengeRoutes'); // environmental challenges
+const goalRoutes = require('./routes/goalRoutes');           // personal weekly goals
+const feedRoutes = require('./routes/feedRoutes');           // community feed
+const impactRoutes = require('./routes/impactRoutes');       // impact dashboard
 require('./scheduled/cronJobs'); // استيراد وظائف الجدولة إذا كانت ضرورية
 
 // تحميل متغيرات البيئة من ملف .env
@@ -43,6 +53,18 @@ app.use('/api/auction', auctionRoutes);
 app.use('/api/scrap', scrapItems);
 app.use('/api/news', newsRoutes); // Eco news feed — no auth, no DB
 app.use('/api/playground', playgroundRoutes); // AI classification proxy — no auth, no DB
+
+// Marketplace (reuse of MarketX domain logic)
+app.use('/api/listings', listingRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/reviews', reviewRoutes);
+
+// EcoMate social / sustainability modules
+app.use('/api/challenges', challengeRoutes);
+app.use('/api/goals', goalRoutes);
+app.use('/api/feed', feedRoutes);
+app.use('/api/impact', impactRoutes);
 
 // بدء الخادم
 app.listen(PORT, () => {
