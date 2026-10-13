@@ -23,7 +23,9 @@ const LoginPage = () => {
             if (userRole === 'admin') {
                 navigate('/admin');
             } else {
-                navigate('/dashboard');
+                // EcoMate: regular users land on the Marketplace after login
+                // (the old /dashboard route is admin-only and bounced users home)
+                navigate('/marketplace');
             }
         } catch (error) {
             setError('فشل تسجيل الدخول. تحقق من البريد الإلكتروني أو كلمة المرور وأعد المحاولة.');

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import UserContext from "../context/UserContext";
 import { MoonIcon, SunIcon } from "@heroicons/react/outline";
 import logo from "../assets/images/ecomate-logo.svg";
 
@@ -18,6 +19,7 @@ const HomeNavbar = () => {
   );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { user } = useContext(UserContext);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -50,10 +52,13 @@ const HomeNavbar = () => {
     }
   };
 
-  // Home | Our Why (bookmarks) + Playground | Feed (routes) + Contact Us
+  // Home | Our Why (bookmarks) + EcoMate verticals (routes) + Contact Us
   const links = [
     { label: "Home", href: "#home" },
-    { label: "Our Why", href: "#why" },
+    { label: "Marketplace", to: "/marketplace" },
+    { label: "Gallery", to: "/gallery" },
+    { label: "Challenges", to: "/challenges" },
+    { label: "Community", to: "/community" },
     { label: "Playground", to: "/playground" },
     { label: "Feed", to: "/feed" },
     { label: "Contact Us", href: "#contact" },
@@ -127,14 +132,23 @@ const HomeNavbar = () => {
             )}
           </button>
 
-          {/* Sign In (same route as before) */}
+          {/* Auth: Profile when signed in, Sign In otherwise */}
           <div className="hidden sm:flex items-center gap-2">
-            <Link
-              to="/login"
-              className="px-5 py-2 rounded-lg bg-green-600 text-white text-sm font-semibold hover:bg-green-700 transition-colors shadow-sm"
-            >
-              Sign In
-            </Link>
+            {user ? (
+              <Link
+                to="/profile"
+                className="px-5 py-2 rounded-lg bg-ecomate-600 text-white text-sm font-semibold hover:bg-ecomate-700 transition-colors shadow-sm"
+              >
+                Profile
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                className="px-5 py-2 rounded-lg bg-green-600 text-white text-sm font-semibold hover:bg-green-700 transition-colors shadow-sm"
+              >
+                Sign In
+              </Link>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -183,13 +197,23 @@ const HomeNavbar = () => {
             )
           )}
           <div className="pt-2">
-            <Link
-              to="/login"
-              onClick={() => setIsMenuOpen(false)}
-              className="block text-center px-4 py-2.5 rounded-lg bg-green-600 text-white text-sm font-semibold hover:bg-green-700"
-            >
-              Sign In
-            </Link>
+            {user ? (
+              <Link
+                to="/profile"
+                onClick={() => setIsMenuOpen(false)}
+                className="block text-center px-4 py-2.5 rounded-lg bg-ecomate-600 text-white text-sm font-semibold hover:bg-ecomate-700"
+              >
+                Profile
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                onClick={() => setIsMenuOpen(false)}
+                className="block text-center px-4 py-2.5 rounded-lg bg-green-600 text-white text-sm font-semibold hover:bg-green-700"
+              >
+                Sign In
+              </Link>
+            )}
           </div>
         </div>
       )}

@@ -19,6 +19,11 @@ import SupportPage from './pages/SupportPage';
 import SiteLayout from './layout/SiteLayout';
 import FeedPage from './pages/FeedPage';
 import PlaygroundPage from './pages/PlaygroundPage';
+import MarketplacePage from './pages/MarketplacePage';
+import ArtGalleryPage from './pages/ArtGalleryPage';
+import ChallengesPage from './pages/ChallengesPage';
+import CommunityFeedPage from './pages/CommunityFeedPage';
+import ProfilePage from './pages/ProfilePage';
 import UserAdmin from './pages/admin/UserAdmin';
 import AdminScrapItems from './pages/admin/AdminScrapItems';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -85,6 +90,13 @@ const AppRoutes = () => {
       {/* Public EcoMate pages sharing the site navbar/footer */}
       <Route path="/feed" element={<SiteLayout><FeedPage /></SiteLayout>} />
       <Route path="/playground" element={<SiteLayout><PlaygroundPage /></SiteLayout>} />
+      {/* EcoMate marketplace verticals (MarketX-inspired) */}
+      <Route path="/marketplace" element={<SiteLayout><MarketplacePage /></SiteLayout>} />
+      <Route path="/gallery" element={<SiteLayout><ArtGalleryPage /></SiteLayout>} />
+      <Route path="/gallery/:id" element={<SiteLayout><ArtGalleryPage /></SiteLayout>} />
+      <Route path="/challenges" element={<SiteLayout><ChallengesPage /></SiteLayout>} />
+      <Route path="/community" element={<SiteLayout><CommunityFeedPage /></SiteLayout>} />
+      <Route path="/profile" element={<SiteLayout><ProfilePage /></SiteLayout>} />
       <Route path="/login" element={<RegularRoute><LoginPage /></RegularRoute>} />
       <Route path="/register" element={<RegularRoute><RegisterPage /></RegularRoute>} />
       <Route path="/terms-of-service" element={<RegularRoute><Termofuse /></RegularRoute>} />
