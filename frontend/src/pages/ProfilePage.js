@@ -110,7 +110,7 @@ const ProfilePage = () => {
             </p>
             {community && (
               <p className="mt-2 text-sm font-semibold text-ecomate-400">
-                🏅 Top {100 - (community.rankPercentile ?? 0)}% recycler in the community
+                🏅 Top {Math.max(1, 100 - (community.rankPercentile ?? 0))}% recycler in the community
                 {community.totalUsers ? ` (${community.totalUsers} members)` : ''}
               </p>
             )}

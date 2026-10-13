@@ -22,6 +22,7 @@ const challengeRoutes = require('./routes/challengeRoutes'); // environmental ch
 const goalRoutes = require('./routes/goalRoutes');           // personal weekly goals
 const feedRoutes = require('./routes/feedRoutes');           // community feed
 const impactRoutes = require('./routes/impactRoutes');       // impact dashboard
+const disputeRoutes = require('./routes/disputeRoutes');     // order disputes (MarketX pattern)
 require('./scheduled/cronJobs'); // استيراد وظائف الجدولة إذا كانت ضرورية
 
 // تحميل متغيرات البيئة من ملف .env
@@ -58,6 +59,7 @@ app.use('/api/playground', playgroundRoutes); // AI classification proxy — no 
 app.use('/api/listings', listingRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/disputes', disputeRoutes);
 app.use('/api/reviews', reviewRoutes);
 
 // EcoMate social / sustainability modules
