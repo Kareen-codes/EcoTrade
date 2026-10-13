@@ -16,6 +16,9 @@ import UserContext from './context/UserContext';
 import Termofuse from "./pages/Termofuse";
 import Privacypolicy from './pages/Privacypolicy';
 import SupportPage from './pages/SupportPage';
+import SiteLayout from './layout/SiteLayout';
+import FeedPage from './pages/FeedPage';
+import PlaygroundPage from './pages/PlaygroundPage';
 import UserAdmin from './pages/admin/UserAdmin';
 import AdminScrapItems from './pages/admin/AdminScrapItems';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -77,7 +80,11 @@ const AppRoutes = () => {
   return (
     <Routes>
       {/* Public Routes with Regular Layout */}
-      <Route path="/" element={<RegularRoute><HomePage /></RegularRoute>} />
+      {/* Homepage renders its own EcoMate-style navbar/footer */}
+      <Route path="/" element={<HomePage />} />
+      {/* Public EcoMate pages sharing the site navbar/footer */}
+      <Route path="/feed" element={<SiteLayout><FeedPage /></SiteLayout>} />
+      <Route path="/playground" element={<SiteLayout><PlaygroundPage /></SiteLayout>} />
       <Route path="/login" element={<RegularRoute><LoginPage /></RegularRoute>} />
       <Route path="/register" element={<RegularRoute><RegisterPage /></RegularRoute>} />
       <Route path="/terms-of-service" element={<RegularRoute><Termofuse /></RegularRoute>} />

@@ -10,7 +10,7 @@ const AdminFooter = () => {
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                 {/* Copyright */}
                 <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <p>© {currentYear} <span className="font-semibold text-gray-800">EcoTrade</span></p>
+                    <p>© {currentYear} <span className="font-semibold text-gray-800">EcoMate AI</span></p>
                     <span>•</span>
                     <p>All rights reserved</p>
                 </div>
@@ -19,7 +19,7 @@ const AdminFooter = () => {
                 <div className="flex items-center gap-2 text-sm text-gray-600">
                     <span>Made with</span>
                     <HeartIcon className="h-4 w-4 text-red-500 animate-pulse" />
-                    <span>by the EcoTrade team</span>
+                    <span>by the EcoMate AI Team</span>
                 </div>
 
                 {/* Quick Links */}

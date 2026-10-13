@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- EcoMate logo: green rounded square with a white leaf -->
+  <rect width="64" height="64" rx="16" fill="#16a34a"/>
+  <path d="M45 18c-14-2-25 4-26 16-.3 4 1 8 3.5 11 .6-6 3-10.5 8-14-4 5-5.5 9.5-5 15 2.5 1.6 5.6 2.3 9 2 11-1 13.5-15 10.5-30z" fill="#ffffff"/>
+  <path d="M24.5 47C28 37 34 30 42 25" stroke="#16a34a" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg>

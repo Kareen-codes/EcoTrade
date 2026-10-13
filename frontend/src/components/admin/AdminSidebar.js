@@ -9,7 +9,7 @@ import {
     ChatAlt2Icon,
     CollectionIcon
 } from '@heroicons/react/outline';
-import logo from '../../assets/images/logo.png';
+import logo from '../../assets/images/ecomate-logo.svg';
 
 const AdminSidebar = ({ isOpen, setIsOpen }) => {
     const location = useLocation();
@@ -88,13 +88,13 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
                     <Link to="/" className="flex items-center gap-3 px-4">
                         <img 
                             src={logo} 
-                            alt="EcoTrade Logo" 
+                            alt="EcoMate AI Logo" 
                             className={`transition-all duration-300 ${isOpen ? 'h-10' : 'h-8'}`}
                         />
                         {isOpen && (
                             <div className="animate-fadeIn">
-                                <h2 className="text-xl font-bold text-white">EcoTrade</h2>
-                                <p className="text-xs text-blue-300">Dashboard</p>
+                                <h2 className="text-xl font-bold text-white">EcoMate<span className="text-green-400"> AI</span></h2>
+                                <p className="text-xs text-blue-300">Admin Panel</p>
                             </div>
                         )}
                     </Link>
