@@ -11,35 +11,35 @@ const AuctionPopup = ({ newAuction, handleChange, handleImageUpload, createAucti
         const newErrors = {};
 
         if (!newAuction.itemName || newAuction.itemName.trim().length < 3) {
-            newErrors.itemName = 'اسم العنصر يجب أن يكون 3 أحرف على الأقل';
+            newErrors.itemName = 'The item name must be at least 3 characters long';
         }
 
         if (!newAuction.description || newAuction.description.trim().length < 10) {
-            newErrors.description = 'الوصف يجب أن يكون 10 أحرف على الأقل';
+            newErrors.description = 'The description must be at least 10 characters long';
         }
 
         if (!newAuction.category) {
-            newErrors.category = 'يرجى اختيار الفئة';
+            newErrors.category = 'Please choose a category';
         }
 
         if (!newAuction.startPrice || newAuction.startPrice <= 0) {
-            newErrors.startPrice = 'سعر البداية يجب أن يكون أكبر من صفر';
+            newErrors.startPrice = 'The starting price must be greater than zero';
         }
 
         if (!newAuction.endDate) {
-            newErrors.endDate = 'يرجى تحديد تاريخ الانتهاء';
+            newErrors.endDate = 'Please set an end date';
         } else {
             const endDate = new Date(newAuction.endDate);
             const now = new Date();
             if (endDate <= now) {
-                newErrors.endDate = 'تاريخ الانتهاء يجب أن يكون في المستقبل';
+                newErrors.endDate = 'The end date must be in the future';
             }
         }
 
         if (!newAuction.images || newAuction.images.length === 0) {
-            newErrors.images = 'يجب إضافة صورة واحدة على الأقل';
+            newErrors.images = 'At least one image must be added';
         } else if (newAuction.images.length > 10) {
-            newErrors.images = 'الحد الأقصى 10 صور';
+            newErrors.images = 'The maximum is 10 images';
         }
 
         setErrors(newErrors);
@@ -68,11 +68,11 @@ const AuctionPopup = ({ newAuction, handleChange, handleImageUpload, createAucti
     };
 
     const categories = [
-        { value: 'Metals', label: 'معادن' },
-        { value: 'Plastics', label: 'بلاستيك' },
-        { value: 'Electronics', label: 'إلكترونيات' },
-        { value: 'Paper and Cardboard', label: 'ورق وكرتون' },
-        { value: 'Furniture', label: 'أثاث' },
+        { value: 'Metals', label: 'Metals' },
+        { value: 'Plastics', label: 'Plastics' },
+        { value: 'Electronics', label: 'Electronics' },
+        { value: 'Paper and Cardboard', label: 'Paper and Cardboard' },
+        { value: 'Furniture', label: 'Furniture' },
     ];
 
     // Get minimum date (now + 1 hour)
@@ -83,11 +83,11 @@ const AuctionPopup = ({ newAuction, handleChange, handleImageUpload, createAucti
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm" dir="rtl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
             <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white shadow-2xl">
                 {/* Header */}
                 <div className="sticky top-0 z-10 flex items-center justify-between border-b border-gray-200 bg-white px-6 py-4">
-                    <h2 className="text-xl font-bold text-gray-800">إضافة مزاد جديد</h2>
+                    <h2 className="text-xl font-bold text-gray-800">Add New Auction</h2>
                     <button
                         type="button"
                         onClick={closePopup}
@@ -102,13 +102,13 @@ const AuctionPopup = ({ newAuction, handleChange, handleImageUpload, createAucti
                     {/* Item Name */}
                     <div>
                         <label htmlFor="itemName" className="mb-2 block text-sm font-medium text-gray-700">
-                            اسم العنصر <span className="text-red-500">*</span>
+                            Item Name <span className="text-red-500">*</span>
                         </label>
                         <input
                             id="itemName"
                             type="text"
                             name="itemName"
-                            placeholder="مثال: لوحة نحاسية قديمة"
+                            placeholder="e.g., an old copper sign"
                             value={newAuction.itemName}
                             onChange={handleChange}
                             onBlur={() => handleBlur('itemName')}
@@ -129,12 +129,12 @@ const AuctionPopup = ({ newAuction, handleChange, handleImageUpload, createAucti
                     {/* Description */}
                     <div>
                         <label htmlFor="description" className="mb-2 block text-sm font-medium text-gray-700">
-                            وصف العنصر <span className="text-red-500">*</span>
+                            Item Description <span className="text-red-500">*</span>
                         </label>
                         <textarea
                             id="description"
                             name="description"
-                            placeholder="وصف تفصيلي للعنصر، الحالة، المميزات..."
+                            placeholder="A detailed description of the item, its condition, features..."
                             value={newAuction.description}
                             onChange={handleChange}
                             onBlur={() => handleBlur('description')}
@@ -158,7 +158,7 @@ const AuctionPopup = ({ newAuction, handleChange, handleImageUpload, createAucti
                         {/* Category */}
                         <div>
                             <label htmlFor="category" className="mb-2 block text-sm font-medium text-gray-700">
-                                الفئة <span className="text-red-500">*</span>
+                                Category <span className="text-red-500">*</span>
                             </label>
                             <select
                                 id="category"
@@ -189,7 +189,7 @@ const AuctionPopup = ({ newAuction, handleChange, handleImageUpload, createAucti
                         {/* Start Price */}
                         <div>
                             <label htmlFor="startPrice" className="mb-2 block text-sm font-medium text-gray-700">
-                                سعر البداية (ل.س) <span className="text-red-500">*</span>
+                                Starting Price (SYP) <span className="text-red-500">*</span>
                             </label>
                             <input
                                 id="startPrice"
@@ -218,7 +218,7 @@ const AuctionPopup = ({ newAuction, handleChange, handleImageUpload, createAucti
                     {/* End Date */}
                     <div>
                         <label htmlFor="endDate" className="mb-2 block text-sm font-medium text-gray-700">
-                            تاريخ ووقت الانتهاء <span className="text-red-500">*</span>
+                            End Date and Time <span className="text-red-500">*</span>
                         </label>
                         <input
                             id="endDate"
@@ -245,7 +245,7 @@ const AuctionPopup = ({ newAuction, handleChange, handleImageUpload, createAucti
                     {/* Images */}
                     <div>
                         <label htmlFor="images" className="mb-2 block text-sm font-medium text-gray-700">
-                            صور العنصر (حتى 10 صور) <span className="text-red-500">*</span>
+                            Item Images (up to 10 images) <span className="text-red-500">*</span>
                         </label>
                         <div className="relative">
                             <input
@@ -271,10 +271,10 @@ const AuctionPopup = ({ newAuction, handleChange, handleImageUpload, createAucti
                                 <PhotographIcon className="mb-2 h-10 w-10 text-gray-400" />
                                 <span className="text-sm font-medium text-gray-700">
                                     {newAuction.images.length > 0
-                                        ? `تم اختيار ${newAuction.images.length} صورة`
-                                        : 'اضغط لاختيار الصور'}
+                                        ? `${newAuction.images.length} image${newAuction.images.length !== 1 ? 's' : ''} selected`
+                                        : 'Click to choose images'}
                                 </span>
-                                <span className="mt-1 text-xs text-gray-500">PNG, JPG, JPEG (حتى 10 صور)</span>
+                                <span className="mt-1 text-xs text-gray-500">PNG, JPG, JPEG (up to 10 images)</span>
                             </label>
                         </div>
                         {touched.images && errors.images && (
@@ -291,14 +291,14 @@ const AuctionPopup = ({ newAuction, handleChange, handleImageUpload, createAucti
                             type="submit"
                             className="flex-1 rounded-xl bg-blue-600 py-3 text-sm font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                         >
-                            إنشاء المزاد
+                            Create Auction
                         </button>
                         <button
                             type="button"
                             onClick={closePopup}
                             className="rounded-xl border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500/50"
                         >
-                            إلغاء
+                            Cancel
                         </button>
                     </div>
                 </form>

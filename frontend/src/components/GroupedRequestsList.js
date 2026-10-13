@@ -24,10 +24,10 @@ const STATUS_COMPLETED = 'completed';
 const STATUS_CANCELED = 'canceled';
 
 const statusFilters = [
-    { value: STATUS_ALL, label: 'الكل' },
-    { value: STATUS_PENDING, label: 'قيد الانتظار' },
-    { value: STATUS_COMPLETED, label: 'مكتمل' },
-    { value: STATUS_CANCELED, label: 'ملغي' },
+    { value: STATUS_ALL, label: 'All' },
+    { value: STATUS_PENDING, label: 'Pending' },
+    { value: STATUS_COMPLETED, label: 'Completed' },
+    { value: STATUS_CANCELED, label: 'Canceled' },
 ];
 
 // Get request id (API uses id for user requests, _id for grouped)
@@ -57,7 +57,7 @@ const GroupedRequestsList = ({ groupedRequests, onUpdateStatus, onDeleteRequest,
     // Pie chart data
     const pieData = useMemo(
         () => ({
-            labels: ['مكتملة', 'قيد الانتظار', 'ملغاة'],
+            labels: ['Completed', 'Pending', 'Canceled'],
             datasets: [
                 {
                     data: [completedRequests, pendingRequests, canceledRequests],
@@ -125,25 +125,25 @@ const GroupedRequestsList = ({ groupedRequests, onUpdateStatus, onDeleteRequest,
     // Empty state
     if (groupedRequests.length === 0) {
         return (
-            <div className="rounded-2xl border border-gray-200 bg-white p-12 text-center shadow-sm" dir="rtl">
+            <div className="rounded-2xl border border-gray-200 bg-white p-12 text-center shadow-sm">
                 <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gray-100">
                     <ClipboardListIcon className="h-10 w-10 text-gray-400" />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-gray-800">لا توجد طلبات</h3>
-                <p className="mt-2 text-sm text-gray-500">لم يتم إرسال أي طلبات من المستخدمين بعد.</p>
+                <h3 className="mt-4 text-lg font-semibold text-gray-800">No requests</h3>
+                <p className="mt-2 text-sm text-gray-500">No requests have been submitted by users yet.</p>
             </div>
         );
     }
 
     const statCards = [
-        { label: 'إجمالي الطلبات', value: totalRequests, icon: ClipboardListIcon, bg: 'bg-slate-100', text: 'text-slate-700', iconColor: 'text-slate-600' },
-        { label: 'مكتملة', value: completedRequests, icon: CheckCircleIcon, bg: 'bg-emerald-100', text: 'text-emerald-700', iconColor: 'text-emerald-600' },
-        { label: 'قيد الانتظار', value: pendingRequests, icon: ClockIcon, bg: 'bg-amber-100', text: 'text-amber-700', iconColor: 'text-amber-600' },
-        { label: 'ملغاة', value: canceledRequests, icon: XCircleIcon, bg: 'bg-red-100', text: 'text-red-700', iconColor: 'text-red-600' },
+        { label: 'Total Requests', value: totalRequests, icon: ClipboardListIcon, bg: 'bg-slate-100', text: 'text-slate-700', iconColor: 'text-slate-600' },
+        { label: 'Completed', value: completedRequests, icon: CheckCircleIcon, bg: 'bg-emerald-100', text: 'text-emerald-700', iconColor: 'text-emerald-600' },
+        { label: 'Pending', value: pendingRequests, icon: ClockIcon, bg: 'bg-amber-100', text: 'text-amber-700', iconColor: 'text-amber-600' },
+        { label: 'Canceled', value: canceledRequests, icon: XCircleIcon, bg: 'bg-red-100', text: 'text-red-700', iconColor: 'text-red-600' },
     ];
 
     return (
-        <div className="space-y-6" dir="rtl">
+        <div className="space-y-6">
             {/* Stats row */}
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                 {statCards.map(({ label, value, icon: Icon, bg, text, iconColor }) => (
@@ -170,7 +170,7 @@ const GroupedRequestsList = ({ groupedRequests, onUpdateStatus, onDeleteRequest,
                         onClick={() => setChartVisible((v) => !v)}
                         className="flex w-full items-center justify-between rounded-lg py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                     >
-                        <span>توزيع حالات الطلبات</span>
+                        <span>Request Status Distribution</span>
                         {chartVisible ? <ChevronUpIcon className="h-5 w-5" /> : <ChevronDownIcon className="h-5 w-5" />}
                     </button>
                     {chartVisible && (
@@ -185,17 +185,17 @@ const GroupedRequestsList = ({ groupedRequests, onUpdateStatus, onDeleteRequest,
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex flex-wrap items-center gap-2">
                     <div className="relative flex-1 min-w-[200px] sm:max-w-xs">
-                        <SearchIcon className="absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+                        <SearchIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
                         <input
                             type="text"
-                            placeholder="بحث (اسم، بريد، عنوان)..."
+                            placeholder="Search (name, email, address)..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full rounded-xl border border-gray-300 py-2.5 pr-10 pl-3 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                            className="w-full rounded-xl border border-gray-300 py-2.5 pl-10 pr-3 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                         />
                     </div>
                     <div className="flex items-center gap-1 rounded-xl border border-gray-300 bg-white p-1">
-                        <FilterIcon className="h-4 w-4 text-gray-500 ml-1" />
+                        <FilterIcon className="h-4 w-4 text-gray-500 mr-1" />
                         {statusFilters.map(({ value, label }) => (
                             <button
                                 key={value}
@@ -218,14 +218,14 @@ const GroupedRequestsList = ({ groupedRequests, onUpdateStatus, onDeleteRequest,
                         onClick={expandAll}
                         className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50"
                     >
-                        توسيع الكل
+                        Expand All
                     </button>
                     <button
                         type="button"
                         onClick={collapseAll}
                         className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50"
                     >
-                        طي الكل
+                        Collapse All
                     </button>
                 </div>
             </div>
@@ -247,7 +247,7 @@ const GroupedRequestsList = ({ groupedRequests, onUpdateStatus, onDeleteRequest,
                             <button
                                 type="button"
                                 onClick={() => toggleUser(userId)}
-                                className="flex w-full items-center gap-4 p-4 text-right hover:bg-gray-50/80"
+                                className="flex w-full items-center gap-4 p-4 text-left hover:bg-gray-50/80"
                             >
                                 <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-gray-200 bg-gray-100">
                                     {user.profileImage ? (
@@ -263,7 +263,7 @@ const GroupedRequestsList = ({ groupedRequests, onUpdateStatus, onDeleteRequest,
                                     <p className="text-sm text-gray-500">{user.email || '—'}</p>
                                 </div>
                                 <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800">
-                                    {requests.length} طلب
+                                    {requests.length} request{requests.length !== 1 ? 's' : ''}
                                 </span>
                                 {isExpanded ? <ChevronUpIcon className="h-5 w-5 text-gray-400" /> : <ChevronDownIcon className="h-5 w-5 text-gray-400" />}
                             </button>
@@ -275,7 +275,7 @@ const GroupedRequestsList = ({ groupedRequests, onUpdateStatus, onDeleteRequest,
                                             const reqId = getRequestId(request);
                                             const isCompleted = request.status === 'completed';
                                             const isCanceled = request.status === 'canceled';
-                                            const statusLabel = isCompleted ? 'مكتمل' : isCanceled ? 'ملغي' : 'قيد الانتظار';
+                                            const statusLabel = isCompleted ? 'Completed' : isCanceled ? 'Canceled' : 'Pending';
 
                                             return (
                                                 <li
@@ -285,7 +285,7 @@ const GroupedRequestsList = ({ groupedRequests, onUpdateStatus, onDeleteRequest,
                                                     <div className="flex-1 min-w-0">
                                                         <p className="font-medium text-gray-800 line-clamp-2">{request.address}</p>
                                                         <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-500">
-                                                            <span>نوع الخردة: {request.scrapType}</span>
+                                                            <span>Scrap Type: {request.scrapType}</span>
                                                             <span>{formatDate(request.createdAt)}</span>
                                                         </div>
                                                         {request.images && request.images.length > 0 && (
@@ -316,7 +316,7 @@ const GroupedRequestsList = ({ groupedRequests, onUpdateStatus, onDeleteRequest,
                                                             type="button"
                                                             onClick={() => onUpdateStatus(reqId, 'completed')}
                                                             disabled={isCompleted}
-                                                            title="تأكيد الإكمال"
+                                                            title="Confirm Completion"
                                                             className={`inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium transition ${
                                                                 isCompleted
                                                                     ? 'cursor-not-allowed bg-gray-200 text-gray-500'
@@ -324,13 +324,13 @@ const GroupedRequestsList = ({ groupedRequests, onUpdateStatus, onDeleteRequest,
                                                             }`}
                                                         >
                                                             {isCompleted ? <CheckCircleSolid className="h-4 w-4" /> : <CheckCircleIcon className="h-4 w-4" />}
-                                                            {isCompleted ? 'مكتمل' : 'إكمال'}
+                                                            {isCompleted ? 'Completed' : 'Complete'}
                                                         </button>
                                                         <button
                                                             type="button"
                                                             onClick={() => onCancelRequest(reqId)}
                                                             disabled={isCanceled}
-                                                            title="إلغاء الطلب"
+                                                            title="Cancel Request"
                                                             className={`inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium transition ${
                                                                 isCanceled
                                                                     ? 'cursor-not-allowed bg-gray-200 text-gray-500'
@@ -338,16 +338,16 @@ const GroupedRequestsList = ({ groupedRequests, onUpdateStatus, onDeleteRequest,
                                                             }`}
                                                         >
                                                             {isCanceled ? <XCircleSolid className="h-4 w-4" /> : <XCircleIcon className="h-4 w-4" />}
-                                                            {isCanceled ? 'ملغي' : 'إلغاء'}
+                                                            {isCanceled ? 'Canceled' : 'Cancel'}
                                                         </button>
                                                         <button
                                                             type="button"
                                                             onClick={() => onDeleteRequest(reqId)}
-                                                            title="حذف الطلب"
+                                                            title="Delete Request"
                                                             className="inline-flex items-center gap-1 rounded-lg bg-red-600 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-red-700"
                                                         >
                                                             <TrashIcon className="h-4 w-4" />
-                                                            حذف
+                                                            Delete
                                                         </button>
                                                     </div>
                                                 </li>
@@ -368,14 +368,14 @@ const GroupedRequestsList = ({ groupedRequests, onUpdateStatus, onDeleteRequest,
                         onClick={() => setVisibleGroups((v) => v + 6)}
                         className="rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-blue-700"
                     >
-                        عرض المزيد من المستخدمين
+                        Show More Users
                     </button>
                 </div>
             )}
 
             {filteredGroups.length === 0 && (
                 <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center">
-                    <p className="text-gray-500">لا توجد نتائج تطابق البحث أو التصفية.</p>
+                    <p className="text-gray-500">No results match the search or filters.</p>
                 </div>
             )}
         </div>

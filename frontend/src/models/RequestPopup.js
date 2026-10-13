@@ -33,7 +33,7 @@ const RequestPopup = ({ onClose, onCreateRequest }) => {
             console.error('Error fetching address:', error);
             setErrors(prev => ({ 
                 ...prev, 
-                address: 'فشل في جلب العنوان. يرجى المحاولة مرة أخرى.' 
+                address: 'Failed to fetch the address. Please try again.' 
             }));
         } finally {
             setIsLoadingAddress(false);
@@ -53,7 +53,7 @@ const RequestPopup = ({ onClose, onCreateRequest }) => {
         if (files.length > 5) {
             setErrors(prev => ({ 
                 ...prev, 
-                images: 'يمكنك تحميل 5 صور كحد أقصى' 
+                images: 'You can upload up to 5 images' 
             }));
             return;
         }
@@ -68,7 +68,7 @@ const RequestPopup = ({ onClose, onCreateRequest }) => {
             if (!file.type.startsWith('image/')) {
                 setErrors(prev => ({ 
                     ...prev, 
-                    images: 'يجب أن تكون جميع الملفات صورًا' 
+                    images: 'All files must be images' 
                 }));
                 hasError = true;
                 return;
@@ -78,7 +78,7 @@ const RequestPopup = ({ onClose, onCreateRequest }) => {
             if (file.size > 2 * 1024 * 1024) {
                 setErrors(prev => ({ 
                     ...prev, 
-                    images: 'حجم الصورة يجب أن لا يتجاوز 2 ميجابايت' 
+                    images: 'The image size must not exceed 2 MB' 
                 }));
                 hasError = true;
                 return;
@@ -120,15 +120,15 @@ const RequestPopup = ({ onClose, onCreateRequest }) => {
         const newErrors = {};
 
         if (!newRequest.address.trim()) {
-            newErrors.address = 'العنوان مطلوب';
+            newErrors.address = 'The address is required';
         }
 
         if (!newRequest.scrapType.trim()) {
-            newErrors.scrapType = 'نوع الخردة مطلوب';
+            newErrors.scrapType = 'The scrap type is required';
         }
 
         if (newRequest.images.length === 0) {
-            newErrors.images = 'يجب تحميل صورة واحدة على الأقل';
+            newErrors.images = 'At least one image must be uploaded';
         }
 
         setErrors(newErrors);
@@ -150,7 +150,7 @@ const RequestPopup = ({ onClose, onCreateRequest }) => {
             console.error('Error creating request:', error);
             setErrors(prev => ({ 
                 ...prev, 
-                submit: 'فشل في إنشاء الطلب. يرجى المحاولة مرة أخرى.' 
+                submit: 'Failed to create the request. Please try again.' 
             }));
         } finally {
             setIsSubmitting(false);
@@ -165,17 +165,17 @@ const RequestPopup = ({ onClose, onCreateRequest }) => {
     }, [onClose]);
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 p-4 backdrop-blur-sm" dir="rtl" role="dialog" aria-modal="true" aria-labelledby="request-popup-title">
-            <button type="button" onClick={onClose} className="absolute inset-0 cursor-default" aria-label="إغلاق" />
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="request-popup-title">
+            <button type="button" onClick={onClose} className="absolute inset-0 cursor-default" aria-label="Close" />
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative z-10 cursor-auto" onClick={(e) => e.stopPropagation()}>
                 {/* Header */}
                 <div className="sticky top-0 z-10 flex items-center justify-between border-b border-gray-100 bg-white p-6">
-                    <h2 id="request-popup-title" className="text-xl font-bold text-gray-800">إنشاء طلب جديد</h2>
+                    <h2 id="request-popup-title" className="text-xl font-bold text-gray-800">Create New Request</h2>
                     <button
                         type="button"
                         onClick={onClose}
                         className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
-                        aria-label="إغلاق"
+                        aria-label="Close"
                     >
                         <XIcon className="h-5 w-5" />
                     </button>
@@ -192,14 +192,14 @@ const RequestPopup = ({ onClose, onCreateRequest }) => {
                     {/* Address field */}
                     <div>
                         <label htmlFor="request-address" className="block text-sm font-semibold text-gray-700 mb-2">
-                            العنوان {isLoadingAddress && <span className="text-xs text-blue-600">(جاري التحميل...)</span>}
+                            Address {isLoadingAddress && <span className="text-xs text-blue-600">(Loading...)</span>}
                         </label>
                         <input
                             id="request-address"
                             type="text"
                             value={newRequest.address}
                             readOnly
-                            placeholder="اختر نقطة على الخريطة"
+                            placeholder="Pick a point on the map"
                             className={`block w-full p-3 border rounded-lg bg-gray-50 focus:outline-none ${
                                 errors.address ? 'border-red-300' : 'border-gray-300'
                             }`}
@@ -212,13 +212,13 @@ const RequestPopup = ({ onClose, onCreateRequest }) => {
                     {/* Scrap type field */}
                     <div>
                         <label htmlFor="request-scrapType" className="block text-sm font-semibold text-gray-700 mb-2">
-                            نوع الخردة <span className="text-red-500">*</span>
+                            Scrap Type <span className="text-red-500">*</span>
                         </label>
                         <input
                             id="request-scrapType"
                             type="text"
                             name="scrapType"
-                            placeholder="مثال: نحاس، ألمنيوم، حديد..."
+                            placeholder="e.g., copper, aluminum, iron..."
                             value={newRequest.scrapType}
                             onChange={(e) => {
                                 setNewRequest({ ...newRequest, scrapType: e.target.value });
@@ -237,8 +237,8 @@ const RequestPopup = ({ onClose, onCreateRequest }) => {
                     {/* Images field */}
                     <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
-                            الصور <span className="text-red-500">*</span> 
-                            <span className="text-xs font-normal text-gray-500"> (حتى 5 صور، 2 ميجابايت لكل صورة)</span>
+                            Images <span className="text-red-500">*</span> 
+                            <span className="text-xs font-normal text-gray-500"> (up to 5 images, 2 MB each)</span>
                         </label>
                         
                         {/* Image previews */}
@@ -248,14 +248,14 @@ const RequestPopup = ({ onClose, onCreateRequest }) => {
                                     <div key={index} className="group relative aspect-square overflow-hidden rounded-lg border-2 border-gray-200">
                                         <img 
                                             src={preview} 
-                                            alt={`معاينة ${index + 1}`} 
+                                            alt={`Preview ${index + 1}`} 
                                             className="h-full w-full object-cover"
                                         />
                                         <button
                                             type="button"
                                             onClick={() => removeImage(index)}
                                             className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition group-hover:opacity-100"
-                                            aria-label={`حذف الصورة ${index + 1}`}
+                                            aria-label={`Delete image ${index + 1}`}
                                         >
                                             <TrashIcon className="h-6 w-6 text-white" />
                                         </button>
@@ -270,9 +270,9 @@ const RequestPopup = ({ onClose, onCreateRequest }) => {
                         }`}>
                             <PhotographIcon className="mb-2 h-10 w-10 text-gray-400" />
                             <span className="text-sm font-medium text-gray-700">
-                                {imagePreviews.length > 0 ? 'إضافة المزيد من الصور' : 'انقر لاختيار الصور'}
+                                {imagePreviews.length > 0 ? 'Add more images' : 'Click to choose images'}
                             </span>
-                            <span className="mt-1 text-xs text-gray-500">PNG, JPG, GIF حتى 2MB</span>
+                            <span className="mt-1 text-xs text-gray-500">PNG, JPG, GIF up to 2MB</span>
                             <input
                                 type="file"
                                 accept="image/*"
@@ -288,7 +288,7 @@ const RequestPopup = ({ onClose, onCreateRequest }) => {
 
                     {/* Map */}
                     <div>
-                        <span className="block text-sm font-semibold text-gray-700 mb-2">الموقع على الخريطة</span>
+                        <span className="block text-sm font-semibold text-gray-700 mb-2">Location on the map</span>
                         <div className="overflow-hidden rounded-lg border-2 border-gray-200">
                             <MapComponent
                                 position={newRequest.position}
@@ -304,7 +304,7 @@ const RequestPopup = ({ onClose, onCreateRequest }) => {
                             disabled={isSubmitting}
                             className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:bg-blue-400 disabled:cursor-not-allowed shadow-sm"
                         >
-                            {isSubmitting ? 'جاري الإرسال...' : 'إرسال الطلب'}
+                            {isSubmitting ? 'Submitting...' : 'Submit Request'}
                         </button>
                         <button
                             type="button"
@@ -312,7 +312,7 @@ const RequestPopup = ({ onClose, onCreateRequest }) => {
                             disabled={isSubmitting}
                             className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            إلغاء
+                            Cancel
                         </button>
                     </div>
                 </form>

@@ -6,13 +6,13 @@ import { ShieldCheckIcon, MailIcon } from '@heroicons/react/solid';
 
 // Section data for table of contents and content
 const SECTIONS = [
-  { id: 'intro', title: 'مقدمة', icon: '📋' },
-  { id: 'collection', title: 'المعلومات التي نجمعها', icon: '📥' },
-  { id: 'usage', title: 'كيف نستخدم معلوماتك', icon: '⚙️' },
-  { id: 'sharing', title: 'مشاركة المعلومات', icon: '🤝' },
-  { id: 'security', title: 'أمان المعلومات', icon: '🔒' },
-  { id: 'updates', title: 'التعديلات', icon: '📝' },
-  { id: 'contact', title: 'التواصل', icon: '✉️' },
+  { id: 'intro', title: 'Introduction', icon: '📋' },
+  { id: 'collection', title: 'Information We Collect', icon: '📥' },
+  { id: 'usage', title: 'How We Use Your Information', icon: '⚙️' },
+  { id: 'sharing', title: 'Sharing of Information', icon: '🤝' },
+  { id: 'security', title: 'Information Security', icon: '🔒' },
+  { id: 'updates', title: 'Updates', icon: '📝' },
+  { id: 'contact', title: 'Contact', icon: '✉️' },
 ];
 
 const Privacypolicy = () => {
@@ -41,7 +41,7 @@ const Privacypolicy = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white" dir="rtl">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-green-600 to-teal-700 text-white">
         <div className="absolute inset-0 bg-black/10" />
@@ -53,13 +53,13 @@ const Privacypolicy = () => {
             </div>
             <div>
               <h1 className="text-4xl sm:text-5xl font-bold mb-4 animate-fadeIn" style={{ animationDelay: '0.1s' }}>
-                سياسة الخصوصية
+                Privacy Policy
               </h1>
               <p className="text-emerald-50 text-lg max-w-2xl animate-fadeIn" style={{ animationDelay: '0.2s' }}>
-                نحن في EcoTrade نلتزم بحماية خصوصيتك وشفافية التعامل مع بياناتك. اطّلع على تفاصيل جمع واستخدام معلوماتك.
+                At EcoTrade, we are committed to protecting your privacy and being transparent about how we handle your data. Read the details of how we collect and use your information.
               </p>
               <p className="text-emerald-100 text-sm mt-4 animate-fadeIn" style={{ animationDelay: '0.3s' }}>
-                آخر تحديث: 16 Feb 2025
+                Last updated: 16 Feb 2025
               </p>
             </div>
           </div>
@@ -76,16 +76,16 @@ const Privacypolicy = () => {
           >
             <nav className="rounded-xl bg-white/80 backdrop-blur p-4 shadow-lg border border-slate-200/60">
               <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2">
-                <span>محتويات الصفحة</span>
+                <span>On this page</span>
               </h3>
               <ul className="space-y-2">
                 {SECTIONS.map(({ id, title, icon }) => (
                   <li key={id}>
                     <button
                       onClick={() => scrollToSection(id)}
-                      className={`w-full text-right flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      className={`w-full text-left flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                         activeSection === id
-                          ? 'bg-emerald-100 text-emerald-800 border-r-3 border-emerald-600'
+                          ? 'bg-emerald-100 text-emerald-800 border-l-3 border-emerald-600'
                           : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                       }`}
                     >
@@ -104,7 +104,7 @@ const Privacypolicy = () => {
             <section id="intro" className="scroll-mt-24">
               <div className="rounded-2xl bg-white p-6 sm:p-8 shadow-xl border border-slate-200/60 card-hover">
                 <p className="text-slate-600 leading-relaxed text-lg">
-                  تحترم EcoTrade خصوصيتك وتلتزم بحمايتها. توضح هذه السياسة كيفية جمع بياناتك واستخدامها ومشاركتها عندما تتفاعل مع خدماتنا.
+                  EcoTrade respects your privacy and is committed to protecting it. This policy explains how your data is collected, used, and shared when you interact with our services.
                 </p>
               </div>
             </section>
@@ -114,10 +114,10 @@ const Privacypolicy = () => {
               <div className="rounded-2xl bg-white p-6 sm:p-8 shadow-xl border border-slate-200/60 card-hover">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-2xl">📥</span>
-                  <h2 className="text-2xl font-bold text-slate-800">المعلومات التي نجمعها</h2>
+                  <h2 className="text-2xl font-bold text-slate-800">Information We Collect</h2>
                 </div>
                 <p className="text-slate-600 leading-relaxed">
-                  نحن نجمع المعلومات التي تقدمها عند التسجيل، مثل الاسم، البريد الإلكتروني، والموقع الجغرافي. نستخدم ملفات تعريف الارتباط لجمع المعلومات حول استخدامك للموقع.
+                  We collect the information you provide when registering, such as your name, email address, and location. We use cookies to gather information about how you use the site.
                 </p>
               </div>
             </section>
@@ -127,10 +127,10 @@ const Privacypolicy = () => {
               <div className="rounded-2xl bg-white p-6 sm:p-8 shadow-xl border border-slate-200/60 card-hover">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-2xl">⚙️</span>
-                  <h2 className="text-2xl font-bold text-slate-800">كيف نستخدم معلوماتك</h2>
+                  <h2 className="text-2xl font-bold text-slate-800">How We Use Your Information</h2>
                 </div>
                 <p className="text-slate-600 leading-relaxed">
-                  تُستخدم معلوماتك لتوفير خدماتنا وتحسين تجربتك. قد نستخدم بياناتك لتحليل استخدام الموقع وتخصيص المحتوى والوظائف.
+                  Your information is used to provide our services and improve your experience. We may use your data to analyze site usage and personalize content and features.
                 </p>
               </div>
             </section>
@@ -140,10 +140,10 @@ const Privacypolicy = () => {
               <div className="rounded-2xl bg-white p-6 sm:p-8 shadow-xl border border-slate-200/60 card-hover">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-2xl">🤝</span>
-                  <h2 className="text-2xl font-bold text-slate-800">مشاركة المعلومات</h2>
+                  <h2 className="text-2xl font-bold text-slate-800">Sharing of Information</h2>
                 </div>
                 <p className="text-slate-600 leading-relaxed">
-                  نحن لا نبيع بياناتك الشخصية. قد نشارك بعض المعلومات مع مزودي الخدمات الذين يساعدوننا في تقديم خدماتنا، مع التزامهم بسرية المعلومات.
+                  We do not sell your personal data. We may share some information with service providers who help us deliver our services, and they are bound to keep it confidential.
                 </p>
               </div>
             </section>
@@ -153,10 +153,10 @@ const Privacypolicy = () => {
               <div className="rounded-2xl bg-white p-6 sm:p-8 shadow-xl border border-slate-200/60 card-hover">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-2xl">🔒</span>
-                  <h2 className="text-2xl font-bold text-slate-800">أمان المعلومات</h2>
+                  <h2 className="text-2xl font-bold text-slate-800">Information Security</h2>
                 </div>
                 <p className="text-slate-600 leading-relaxed">
-                  نعمل بجد لحماية بياناتك من الوصول غير المصرح به. نحن نستخدم تدابير أمان مناسبة لضمان حماية بياناتك.
+                  We work hard to protect your data from unauthorized access. We use appropriate security measures to ensure your data stays safe.
                 </p>
               </div>
             </section>
@@ -166,10 +166,10 @@ const Privacypolicy = () => {
               <div className="rounded-2xl bg-white p-6 sm:p-8 shadow-xl border border-slate-200/60 card-hover">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-2xl">📝</span>
-                  <h2 className="text-2xl font-bold text-slate-800">التعديلات على سياسة الخصوصية</h2>
+                  <h2 className="text-2xl font-bold text-slate-800">Changes to the Privacy Policy</h2>
                 </div>
                 <p className="text-slate-600 leading-relaxed">
-                  قد نقوم بتحديث هذه السياسة بشكل دوري. يُنصح بمراجعتها بانتظام للبقاء على اطلاع بالتغييرات.
+                  We may update this policy periodically. We recommend reviewing it regularly to stay informed about any changes.
                 </p>
               </div>
             </section>
@@ -179,10 +179,10 @@ const Privacypolicy = () => {
               <div className="rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 p-6 sm:p-8 border-2 border-emerald-200/60">
                 <div className="flex items-center gap-3 mb-4">
                   <MailIcon className="w-8 h-8 text-emerald-600" />
-                  <h2 className="text-2xl font-bold text-slate-800">تواصل معنا</h2>
+                  <h2 className="text-2xl font-bold text-slate-800">Contact Us</h2>
                 </div>
                 <p className="text-slate-600 leading-relaxed mb-6">
-                  لمزيد من المعلومات حول سياسة الخصوصية، يرجى الاتصال بنا عبر البريد الإلكتروني:
+                  For more information about the privacy policy, please contact us via email:
                 </p>
                 <a
                   href="mailto:support@ecotrade.com"
@@ -196,7 +196,7 @@ const Privacypolicy = () => {
                     to="/support"
                     className="text-emerald-600 hover:text-emerald-800 font-medium transition-colors"
                   >
-                    ← زيارة صفحة الدعم
+                    → Visit the Support Page
                   </Link>
                 </div>
               </div>

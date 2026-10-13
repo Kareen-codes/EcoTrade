@@ -91,14 +91,14 @@ const AdminScrapItems = () => {
         try {
             const response = await fetch(`${API_BASE_URL}/scrap`);
             if (!response.ok) {
-                throw new Error('فشل في جلب البيانات');
+                throw new Error('Failed to fetch data');
             }
             const data = await response.json();
             setScrapItems(data);
             setError(null);
         } catch (err) {
             setError(err.message);
-            showToast('فشل في تحميل المواد', 'error');
+            showToast('Failed to load materials', 'error');
         } finally {
             setLoading(false);
         }
@@ -112,15 +112,15 @@ const AdminScrapItems = () => {
             });
 
             if (!response.ok) {
-                throw new Error('فشل في إنشاء المادة');
+                throw new Error('Failed to create the material');
             }
 
             const data = await response.json();
             setScrapItems((prevItems) => [...prevItems, data.data]);
-            showToast('تم إضافة المادة بنجاح');
+            showToast('Material added successfully');
         } catch (err) {
             setError(err.message);
-            showToast('فشل في إضافة المادة', 'error');
+            showToast('Failed to add the material', 'error');
         }
     };
 
@@ -132,7 +132,7 @@ const AdminScrapItems = () => {
             });
 
             if (!response.ok) {
-                throw new Error('فشل في تحديث المادة');
+                throw new Error('Failed to update the material');
             }
 
             const updatedItem = await response.json();
@@ -142,10 +142,10 @@ const AdminScrapItems = () => {
             setIsEditing(false);
             setCurrentItemId(null);
             resetForm();
-            showToast('تم تحديث المادة بنجاح');
+            showToast('Material updated successfully');
         } catch (err) {
             setError(err.message);
-            showToast('فشل في تحديث المادة', 'error');
+            showToast('Failed to update the material', 'error');
         }
     };
 
@@ -156,13 +156,13 @@ const AdminScrapItems = () => {
                 method: 'DELETE',
             });
             if (!response.ok) {
-                throw new Error('فشل في حذف المادة');
+                throw new Error('Failed to delete the material');
             }
             setScrapItems((prevItems) => prevItems.filter(item => item._id !== id));
-            showToast('تم حذف المادة بنجاح');
+            showToast('Material deleted successfully');
         } catch (err) {
             setError(err.message);
-            showToast('فشل في حذف المادة', 'error');
+            showToast('Failed to delete the material', 'error');
         } finally {
             setActionLoading(null);
             setModalOpen(false);
@@ -245,28 +245,28 @@ const AdminScrapItems = () => {
 
     if (loading) {
         return (
-            <div className="flex flex-col items-center justify-center py-20 text-gray-500" dir="rtl">
+            <div className="flex flex-col items-center justify-center py-20 text-gray-500">
                 <div className="w-12 h-12 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mb-4" />
-                <p className="text-sm font-medium">جاري تحميل المواد...</p>
+                <p className="text-sm font-medium">Loading materials...</p>
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="text-center p-12 border border-red-200 rounded-2xl bg-red-50 shadow-sm" dir="rtl">
+            <div className="text-center p-12 border border-red-200 rounded-2xl bg-red-50 shadow-sm">
                 <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-red-100 mb-4">
                     <svg className="h-10 w-10 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
                 </div>
-                <h3 className="text-lg font-semibold text-red-800 mb-2">حدث خطأ</h3>
+                <h3 className="text-lg font-semibold text-red-800 mb-2">An error occurred</h3>
                 <p className="text-sm text-red-600 mb-4">{error}</p>
                 <button 
                     onClick={fetchScrapItems}
                     className="bg-red-600 text-white px-5 py-2.5 rounded-xl hover:bg-red-700 transition font-medium text-sm"
                 >
-                    إعادة المحاولة
+                    Try Again
                 </button>
             </div>
         );
@@ -274,14 +274,14 @@ const AdminScrapItems = () => {
 
     if (!user || user.role !== "admin") {
         return (
-            <div className="text-center p-12 border border-gray-200 rounded-2xl bg-white shadow-sm" dir="rtl">
+            <div className="text-center p-12 border border-gray-200 rounded-2xl bg-white shadow-sm">
                 <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gray-100 mb-4">
                     <svg className="h-10 w-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">وصول غير مصرح</h3>
-                <p className="text-sm text-gray-600">لا تملك الصلاحيات اللازمة لعرض هذه الصفحة.</p>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">Unauthorized Access</h3>
+                <p className="text-sm text-gray-600">You do not have the required permissions to view this page.</p>
             </div>
         );
     }
@@ -290,7 +290,7 @@ const AdminScrapItems = () => {
         const isLoading = actionLoading === item._id;
 
         return (
-            <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white hover:shadow-xl transition-all duration-300" dir='rtl'>
+            <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white hover:shadow-xl transition-all duration-300">
                 {/* Status badge */}
                 <div className="absolute top-3 left-3 z-10">
                     <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-semibold ${
@@ -299,10 +299,10 @@ const AdminScrapItems = () => {
                         item.status === 'Processed' ? 'bg-amber-100 text-amber-800' :
                         'bg-gray-100 text-gray-800'
                     }`}>
-                        {item.status === 'Ready for Auction' ? '🔨 جاهز للمزاد' :
-                         item.status === 'Ready for Recycling' ? '♻️ جاهز للتدوير' :
-                         item.status === 'Processed' ? '⚙️ معالج' :
-                         '📥 مستلم'}
+                        {item.status === 'Ready for Auction' ? '🔨 Ready for Auction' :
+                         item.status === 'Ready for Recycling' ? '♻️ Ready for Recycling' :
+                         item.status === 'Processed' ? '⚙️ Processed' :
+                         '📥 Received'}
                     </span>
                 </div>
 
@@ -322,11 +322,11 @@ const AdminScrapItems = () => {
                     </Slider>
                     {/* Category badge */}
                     <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-lg text-xs font-semibold text-blue-600">
-                        {item.category === 'Metals' ? '🔩 معادن' :
-                         item.category === 'Plastics' ? '♻️ بلاستيك' :
-                         item.category === 'Electronics' ? '💻 إلكترونيات' :
-                         item.category === 'Paper and Cardboard' ? '📄 ورق وكرتون' :
-                         '🪑 أثاث'}
+                        {item.category === 'Metals' ? '🔩 Metals' :
+                         item.category === 'Plastics' ? '♻️ Plastics' :
+                         item.category === 'Electronics' ? '💻 Electronics' :
+                         item.category === 'Paper and Cardboard' ? '📄 Paper and Cardboard' :
+                         '🪑 Furniture'}
                     </div>
                 </div>
 
@@ -338,21 +338,21 @@ const AdminScrapItems = () => {
                     {/* Info grid */}
                     <div className="grid grid-cols-2 gap-2 mb-4 text-sm">
                         <div className="bg-gray-50 rounded-lg p-2">
-                            <p className="text-gray-500 text-xs">الكمية</p>
-                            <p className="font-semibold text-gray-800">{item.quantity} طن</p>
+                            <p className="text-gray-500 text-xs">Quantity</p>
+                            <p className="font-semibold text-gray-800">{item.quantity} tons</p>
                         </div>
                         <div className="bg-green-50 rounded-lg p-2">
-                            <p className="text-gray-500 text-xs">السعر التقديري</p>
-                            <p className="font-semibold text-green-700">{item.estimatedPrice.toLocaleString()} ل.س</p>
+                            <p className="text-gray-500 text-xs">Estimated Price</p>
+                            <p className="font-semibold text-green-700">{item.estimatedPrice.toLocaleString()} SYP</p>
                         </div>
                         <div className="bg-blue-50 rounded-lg p-2">
-                            <p className="text-gray-500 text-xs">الباركود</p>
+                            <p className="text-gray-500 text-xs">Barcode</p>
                             <p className="font-semibold text-blue-700 font-mono text-xs">{item.barcode}</p>
                         </div>
                         <div className="bg-purple-50 rounded-lg p-2">
-                            <p className="text-gray-500 text-xs">المصدر</p>
+                            <p className="text-gray-500 text-xs">Source</p>
                             <p className="font-semibold text-purple-700 text-xs">
-                                {item.source === 'User Request' ? '👤 مستخدم' : '✍️ يدوي'}
+                                {item.source === 'User Request' ? '👤 User' : '✍️ Manual'}
                             </p>
                         </div>
                     </div>
@@ -367,7 +367,7 @@ const AdminScrapItems = () => {
                             }`}
                         >
                             <PencilAltIcon className="h-4 w-4" />
-                            تعديل
+                            Edit
                         </button>
                         <button 
                             onClick={() => handleDeleteClick(item._id)}
@@ -375,7 +375,7 @@ const AdminScrapItems = () => {
                             className="flex items-center justify-center gap-1 px-3 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition text-xs font-medium disabled:bg-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed"
                         >
                             <TrashIcon className="h-4 w-4" />
-                            حذف
+                            Delete
                         </button>
                     </div>
                 </div>
@@ -384,7 +384,7 @@ const AdminScrapItems = () => {
     };
 
     return (
-        <div className="space-y-6" dir="rtl">
+        <div className="space-y-6">
             {/* Toast notification */}
             {toast.show && (
                 <div className={`fixed top-4 right-4 z-50 flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg border animate-fadeIn ${
@@ -405,9 +405,9 @@ const AdminScrapItems = () => {
 
             {/* Page header */}
             <div className="mb-6">
-                <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">إدارة المواد</h1>
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">Manage Materials</h1>
                 <p className="mt-1 text-sm text-gray-500">
-                    إضافة وإدارة وتتبع المواد القابلة لإعادة التدوير
+                    Add, manage, and track recyclable materials
                 </p>
             </div>
 
@@ -420,11 +420,11 @@ const AdminScrapItems = () => {
                     {/* Search and buttons */}
                     <div className="flex flex-col sm:flex-row gap-3">
                         <div className="relative flex-1">
-                            <SearchIcon className="absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+                            <SearchIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
                             <input
                                 type="text"
-                                placeholder="ابحث عن مادة..."
-                                className="w-full rounded-xl border border-gray-300 py-2.5 pr-10 pl-3 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                                placeholder="Search for a material..."
+                                className="w-full rounded-xl border border-gray-300 py-2.5 pl-10 pr-3 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
@@ -434,21 +434,21 @@ const AdminScrapItems = () => {
                             className="flex items-center justify-center gap-2 bg-purple-600 text-white px-5 py-2.5 rounded-xl hover:bg-purple-700 transition font-medium text-sm shadow-sm"
                         >
                             <ChartBarIcon className="h-5 w-5" />
-                            {showAnalytics ? 'إخفاء التحليلات' : 'عرض التحليلات'}
+                            {showAnalytics ? 'Hide Analytics' : 'Show Analytics'}
                         </button>
                         <button
                             onClick={() => { resetForm(); setPopupOpen(true); }}
                             className="flex items-center justify-center gap-2 bg-emerald-600 text-white px-5 py-2.5 rounded-xl hover:bg-emerald-700 transition font-medium text-sm shadow-sm"
                         >
                             <PlusIcon className="h-5 w-5" />
-                            إضافة مادة جديدة
+                            Add New Material
                         </button>
                     </div>
 
                     {/* Filters */}
                     <div className="flex flex-wrap items-center gap-2">
                         <FilterIcon className="h-4 w-4 text-gray-500" />
-                        <span className="text-sm text-gray-600 font-medium">الفئة:</span>
+                        <span className="text-sm text-gray-600 font-medium">Category:</span>
                         {['all', 'Metals', 'Plastics', 'Electronics', 'Paper and Cardboard', 'Furniture'].map(cat => (
                             <button
                                 key={cat}
@@ -457,12 +457,12 @@ const AdminScrapItems = () => {
                                     categoryFilter === cat ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                 }`}
                             >
-                                {cat === 'all' ? 'الكل' : cat === 'Metals' ? 'معادن' : cat === 'Plastics' ? 'بلاستيك' : 
-                                 cat === 'Electronics' ? 'إلكترونيات' : cat === 'Paper and Cardboard' ? 'ورق وكرتون' : 'أثاث'}
+                                {cat === 'all' ? 'All' : cat === 'Metals' ? 'Metals' : cat === 'Plastics' ? 'Plastics' : 
+                                 cat === 'Electronics' ? 'Electronics' : cat === 'Paper and Cardboard' ? 'Paper and Cardboard' : 'Furniture'}
                             </button>
                         ))}
                         
-                        <span className="text-sm text-gray-600 font-medium ml-3">الحالة:</span>
+                        <span className="text-sm text-gray-600 font-medium ml-3">Status:</span>
                         {['all', 'Received', 'Processed', 'Ready for Recycling', 'Ready for Auction'].map(status => (
                             <button
                                 key={status}
@@ -471,10 +471,10 @@ const AdminScrapItems = () => {
                                     statusFilter === status ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                 }`}
                             >
-                                {status === 'all' ? 'الكل' : 
-                                 status === 'Received' ? 'مستلم' : 
-                                 status === 'Processed' ? 'معالج' : 
-                                 status === 'Ready for Recycling' ? 'جاهز للتدوير' : 'جاهز للمزاد'}
+                                {status === 'all' ? 'All' : 
+                                 status === 'Received' ? 'Received' : 
+                                 status === 'Processed' ? 'Processed' : 
+                                 status === 'Ready for Recycling' ? 'Ready for Recycling' : 'Ready for Auction'}
                             </button>
                         ))}
                     </div>
@@ -498,11 +498,11 @@ const AdminScrapItems = () => {
                 isOpen={isModalOpen}
                 onClose={() => setModalOpen(false)}
                 onConfirm={() => { deleteScrapItem(itemToDelete); }}
-                title="حذف المادة"
-                message="سيتم حذف هذه المادة نهائياً. هل أنت متأكد؟"
+                title="Delete Material"
+                message="This material will be permanently deleted. Are you sure?"
                 type="danger"
                 loading={!!actionLoading}
-                confirmText="حذف"
+                confirmText="Delete"
             />
 
             {/* Items grid */}
@@ -513,11 +513,11 @@ const AdminScrapItems = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                         </svg>
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">لا توجد مواد</h3>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">No materials</h3>
                     <p className="text-sm text-gray-500">
                         {searchTerm || categoryFilter !== 'all' || statusFilter !== 'all'
-                            ? 'لا توجد نتائج تطابق البحث أو التصفية.' 
-                            : 'لم يتم إضافة أي مواد بعد.'}
+                            ? 'No results match the search or filters.' 
+                            : 'No materials have been added yet.'}
                     </p>
                 </div>
             ) : (

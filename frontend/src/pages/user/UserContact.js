@@ -41,9 +41,9 @@ const UserContact = () => {
 
     return (
         <div className="p-6 bg-white shadow-md rounded-lg max-w-4xl mx-auto mt-10">
-            <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">تواصل معنا</h1>
+            <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">Contact Us</h1>
             <p className="text-center text-gray-600 mb-4">
-                إذا كان لديك أي استفسارات أو تعليقات، فلا تتردد في الاتصال بنا!
+                If you have any questions or comments, feel free to reach out to us!
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
@@ -58,7 +58,7 @@ const UserContact = () => {
                     </div>
                     <div className="flex items-center mb-4">
                         <FaMapMarkerAlt className="text-blue-600 text-2xl mr-2" />
-                        <span className="text-gray-800">سوريا - دمشق</span>
+                        <span className="text-gray-800">Damascus, Syria</span>
                     </div>
                 </div>
 
@@ -70,7 +70,7 @@ const UserContact = () => {
                         />
                         <Marker position={position} icon={icon}>
                             <Popup>
-                                نحن هنا في دمشق!
+                                We are here in Damascus!
                             </Popup>
                         </Marker>
                     </MapContainer>
@@ -78,10 +78,10 @@ const UserContact = () => {
             </div>
 
             <div className="bg-gray-100 p-6 rounded-lg shadow">
-                <h2 className="text-xl font-bold mb-4">أرسل لنا رسالة</h2>
+                <h2 className="text-xl font-bold mb-4">Send us a Message</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label htmlFor="name" className="block text-sm font-medium">الاسم:</label>
+                        <label htmlFor="name" className="block text-sm font-medium">Name:</label>
                         <input
                             type="text"
                             id="name"
@@ -92,7 +92,7 @@ const UserContact = () => {
                         />
                     </div>
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium">البريد الإلكتروني:</label>
+                        <label htmlFor="email" className="block text-sm font-medium">Email Address:</label>
                         <input
                             type="email"
                             id="email"
@@ -103,7 +103,7 @@ const UserContact = () => {
                         />
                     </div>
                     <div>
-                        <label htmlFor="message" className="block text-sm font-medium">رسالتك:</label>
+                        <label htmlFor="message" className="block text-sm font-medium">Your Message:</label>
                         <textarea
                             id="message"
                             value={message}
@@ -117,9 +117,9 @@ const UserContact = () => {
                         type="submit"
                         className="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200"
                     >
-                        إرسال الرسالة
+                        Send Message
                     </button>
-                    {success && <p className="text-green-500 mt-2 text-center">تم إرسال الرسالة بنجاح!</p>}
+                    {success && <p className="text-green-500 mt-2 text-center">Message sent successfully!</p>}
                 </form>
             </div>
         </div>

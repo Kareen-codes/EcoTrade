@@ -22,12 +22,12 @@ const PopupForm = ({ isOpen, onClose, formData, handleInputChange, handleSubmit,
     };
 
     return (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" dir="rtl">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden">
                 {/* Header */}
                 <div className="bg-emerald-600 text-white p-5 flex justify-between items-center">
                     <h2 className="text-xl font-bold">
-                        {isEditing ? 'تعديل المادة' : 'إضافة مادة جديدة'}
+                        {isEditing ? 'Edit Material' : 'Add New Material'}
                     </h2>
                     <button
                         type="button"
@@ -44,12 +44,12 @@ const PopupForm = ({ isOpen, onClose, formData, handleInputChange, handleSubmit,
                         {/* Name */}
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                                اسم المادة <span className="text-red-500">*</span>
+                                Material Name <span className="text-red-500">*</span>
                             </label>
                             <input
                                 type="text"
                                 name="name"
-                                placeholder="مثال: نحاس خردة"
+                                placeholder="e.g., copper scrap"
                                 value={formData.name}
                                 onChange={handleInputChange}
                                 required
@@ -60,11 +60,11 @@ const PopupForm = ({ isOpen, onClose, formData, handleInputChange, handleSubmit,
                         {/* Description */}
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                                الوصف <span className="text-red-500">*</span>
+                                Description <span className="text-red-500">*</span>
                             </label>
                             <textarea
                                 name="description"
-                                placeholder="وصف تفصيلي للمادة..."
+                                placeholder="A detailed description of the material..."
                                 value={formData.description}
                                 onChange={handleInputChange}
                                 required
@@ -77,7 +77,7 @@ const PopupForm = ({ isOpen, onClose, formData, handleInputChange, handleSubmit,
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                                    الفئة <span className="text-red-500">*</span>
+                                    Category <span className="text-red-500">*</span>
                                 </label>
                                 <select
                                     name="category"
@@ -86,18 +86,18 @@ const PopupForm = ({ isOpen, onClose, formData, handleInputChange, handleSubmit,
                                     required
                                     className="w-full px-3 py-2.5 border border-gray-300 rounded-xl focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition"
                                 >
-                                    <option value="">اختر الفئة</option>
-                                    <option value="Metals">🔩 معادن</option>
-                                    <option value="Plastics">♻️ بلاستيك</option>
-                                    <option value="Electronics">💻 إلكترونيات</option>
-                                    <option value="Paper and Cardboard">📄 ورق وكرتون</option>
-                                    <option value="Furniture">🪑 أثاث</option>
+                                    <option value="">Select a category</option>
+                                    <option value="Metals">🔩 Metals</option>
+                                    <option value="Plastics">♻️ Plastics</option>
+                                    <option value="Electronics">💻 Electronics</option>
+                                    <option value="Paper and Cardboard">📄 Paper and Cardboard</option>
+                                    <option value="Furniture">🪑 Furniture</option>
                                 </select>
                             </div>
 
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                                    الحالة <span className="text-red-500">*</span>
+                                    Status <span className="text-red-500">*</span>
                                 </label>
                                 <select
                                     name="status"
@@ -106,11 +106,11 @@ const PopupForm = ({ isOpen, onClose, formData, handleInputChange, handleSubmit,
                                     required
                                     className="w-full px-3 py-2.5 border border-gray-300 rounded-xl focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition"
                                 >
-                                    <option value="">اختر الحالة</option>
-                                    <option value="Received">📥 مستلمة</option>
-                                    <option value="Processed">⚙️ معالجة</option>
-                                    <option value="Ready for Recycling">♻️ جاهزة للتدوير</option>
-                                    <option value="Ready for Auction">🔨 جاهزة للمزاد</option>
+                                    <option value="">Select a status</option>
+                                    <option value="Received">📥 Received</option>
+                                    <option value="Processed">⚙️ Processed</option>
+                                    <option value="Ready for Recycling">♻️ Ready for Recycling</option>
+                                    <option value="Ready for Auction">🔨 Ready for Auction</option>
                                 </select>
                             </div>
                         </div>
@@ -119,7 +119,7 @@ const PopupForm = ({ isOpen, onClose, formData, handleInputChange, handleSubmit,
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                                    الكمية (طن) <span className="text-red-500">*</span>
+                                    Quantity (tons) <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     type="number"
@@ -136,7 +136,7 @@ const PopupForm = ({ isOpen, onClose, formData, handleInputChange, handleSubmit,
 
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                                    السعر التقديري (ل.س) <span className="text-red-500">*</span>
+                                    Estimated Price (SYP) <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     type="number"
@@ -155,7 +155,7 @@ const PopupForm = ({ isOpen, onClose, formData, handleInputChange, handleSubmit,
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                                    الباركود <span className="text-red-500">*</span>
+                                    Barcode <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -170,7 +170,7 @@ const PopupForm = ({ isOpen, onClose, formData, handleInputChange, handleSubmit,
 
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                                    المصدر <span className="text-red-500">*</span>
+                                    Source <span className="text-red-500">*</span>
                                 </label>
                                 <select
                                     name="source"
@@ -179,9 +179,9 @@ const PopupForm = ({ isOpen, onClose, formData, handleInputChange, handleSubmit,
                                     required
                                     className="w-full px-3 py-2.5 border border-gray-300 rounded-xl focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition"
                                 >
-                                    <option value="">اختر المصدر</option>
-                                    <option value="User Request">👤 طلب مستخدم</option>
-                                    <option value="Admin Manual Entry">✍️ إدخال يدوي</option>
+                                    <option value="">Select a source</option>
+                                    <option value="User Request">👤 User Request</option>
+                                    <option value="Admin Manual Entry">✍️ Manual Entry</option>
                                 </select>
                             </div>
                         </div>
@@ -189,7 +189,7 @@ const PopupForm = ({ isOpen, onClose, formData, handleInputChange, handleSubmit,
                         {/* Images Upload */}
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                                صور المادة
+                                Material Images
                             </label>
                             <div className="relative border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-emerald-400 transition">
                                 <input
@@ -202,10 +202,10 @@ const PopupForm = ({ isOpen, onClose, formData, handleInputChange, handleSubmit,
                                 />
                                 <PhotographIcon className="h-10 w-10 mx-auto text-gray-400 mb-2" />
                                 <p className="text-sm text-gray-600 font-medium mb-1">
-                                    انقر أو اسحب الصور هنا
+                                    Click or drag images here
                                 </p>
                                 <p className="text-xs text-gray-500">
-                                    يمكنك تحميل صور متعددة
+                                    You can upload multiple images
                                 </p>
                             </div>
 
@@ -240,13 +240,13 @@ const PopupForm = ({ isOpen, onClose, formData, handleInputChange, handleSubmit,
                             onClick={onClose}
                             className="flex-1 border border-gray-300 text-gray-700 px-4 py-2.5 rounded-xl hover:bg-gray-50 transition font-medium text-sm"
                         >
-                            إلغاء
+                            Cancel
                         </button>
                         <button
                             type="submit"
                             className="flex-1 bg-emerald-600 text-white px-4 py-2.5 rounded-xl hover:bg-emerald-700 transition font-medium text-sm shadow-sm"
                         >
-                            {isEditing ? "تحديث المادة" : "إضافة المادة"}
+                            {isEditing ? "Update Material" : "Add Material"}
                         </button>
                     </div>
                 </form>

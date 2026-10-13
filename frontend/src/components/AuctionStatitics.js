@@ -22,12 +22,12 @@ const AuctionStatistics = ({ auctions }) => {
     // If no auctions, show empty state
     if (totalAuctions === 0) {
         return (
-            <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm" dir='rtl'>
+            <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm">
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 mb-3">
                     <CollectionIcon className="h-8 w-8 text-gray-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">لا توجد إحصائيات</h3>
-                <p className="text-sm text-gray-500">ابدأ بإنشاء مزادات لعرض الإحصائيات</p>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">No statistics</h3>
+                <p className="text-sm text-gray-500">Start creating auctions to see statistics</p>
             </div>
         );
     }
@@ -59,7 +59,7 @@ const AuctionStatistics = ({ auctions }) => {
 
     // Doughnut chart for status
     const statusChartData = {
-        labels: ['نشط', 'مغلق', 'ملغي'],
+        labels: ['Active', 'Closed', 'Canceled'],
         datasets: [{
             data: [openAuctions, closedAuctions, canceledAuctions],
             backgroundColor: ['#10b981', '#6b7280', '#ef4444'].map(c => c + 'cc'),
@@ -92,16 +92,16 @@ const AuctionStatistics = ({ auctions }) => {
     const categoryChartData = {
         labels: categoryLabels.map(cat => {
             const map = {
-                'Metals': 'معادن',
-                'Plastics': 'بلاستيك',
-                'Electronics': 'إلكترونيات',
-                'Paper and Cardboard': 'ورق',
-                'Furniture': 'أثاث',
+                'Metals': 'Metals',
+                'Plastics': 'Plastics',
+                'Electronics': 'Electronics',
+                'Paper and Cardboard': 'Paper and Cardboard',
+                'Furniture': 'Furniture',
             };
             return map[cat] || cat;
         }),
         datasets: [{
-            label: 'عدد المزادات',
+            label: 'Number of Auctions',
             data: categoryData,
             backgroundColor: 'rgba(59, 130, 246, 0.8)',
             borderColor: 'rgba(59, 130, 246, 1)',
@@ -117,7 +117,7 @@ const AuctionStatistics = ({ auctions }) => {
             legend: { display: false },
             tooltip: {
                 callbacks: {
-                    label: (ctx) => `${ctx.label}: ${ctx.raw} مزاد`,
+                    label: (ctx) => `${ctx.label}: ${ctx.raw} auction${ctx.raw !== 1 ? 's' : ''}`,
                 },
             },
         },
@@ -128,7 +128,7 @@ const AuctionStatistics = ({ auctions }) => {
 
     const statCards = [
         {
-            label: 'إجمالي المزادات',
+            label: 'Total Auctions',
             value: totalAuctions,
             icon: CollectionIcon,
             bg: 'bg-blue-100',
@@ -136,7 +136,7 @@ const AuctionStatistics = ({ auctions }) => {
             iconColor: 'text-blue-600',
         },
         {
-            label: 'مزادات نشطة',
+            label: 'Active Auctions',
             value: openAuctions,
             icon: ClockIcon,
             bg: 'bg-emerald-100',
@@ -144,7 +144,7 @@ const AuctionStatistics = ({ auctions }) => {
             iconColor: 'text-emerald-600',
         },
         {
-            label: 'مزادات مغلقة',
+            label: 'Closed Auctions',
             value: closedAuctions,
             icon: CheckCircleIcon,
             bg: 'bg-gray-100',
@@ -152,7 +152,7 @@ const AuctionStatistics = ({ auctions }) => {
             iconColor: 'text-gray-600',
         },
         {
-            label: 'مزادات ملغاة',
+            label: 'Canceled Auctions',
             value: canceledAuctions,
             icon: XCircleIcon,
             bg: 'bg-red-100',
@@ -163,31 +163,31 @@ const AuctionStatistics = ({ auctions }) => {
 
     const priceCards = [
         {
-            label: 'متوسط سعر البداية',
-            value: `${Number(averageStartPrice).toLocaleString()} ل.س`,
+            label: 'Average Starting Price',
+            value: `${Number(averageStartPrice).toLocaleString()} SYP`,
             icon: CurrencyDollarIcon,
             bg: 'bg-amber-50',
             text: 'text-amber-700',
             iconColor: 'text-amber-600',
         },
         {
-            label: 'متوسط العطاءات الحالية',
-            value: `${Number(averageCurrentBid).toLocaleString()} ل.س`,
+            label: 'Average Current Bid',
+            value: `${Number(averageCurrentBid).toLocaleString()} SYP`,
             icon: TrendingUpIcon,
             bg: 'bg-purple-50',
             text: 'text-purple-700',
             iconColor: 'text-purple-600',
         },
         {
-            label: 'أعلى عطاء',
-            value: `${Number(highestBid).toLocaleString()} ل.س`,
+            label: 'Highest Bid',
+            value: `${Number(highestBid).toLocaleString()} SYP`,
             icon: TrendingUpIcon,
             bg: 'bg-green-50',
             text: 'text-green-700',
             iconColor: 'text-green-600',
         },
         {
-            label: 'ينتهي خلال 24 ساعة',
+            label: 'Ending Within 24 Hours',
             value: endingSoonCount,
             icon: ClockIcon,
             bg: 'bg-orange-50',
@@ -197,7 +197,7 @@ const AuctionStatistics = ({ auctions }) => {
     ];
 
     return (
-        <div className="space-y-4" dir='rtl'>
+        <div className="space-y-4">
             {/* Main stats grid */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {statCards.map(({ label, value, icon: Icon, bg, text, iconColor }) => (
@@ -241,7 +241,7 @@ const AuctionStatistics = ({ auctions }) => {
                     onClick={() => setShowCharts(!showCharts)}
                     className="flex w-full items-center justify-between py-2 text-sm font-semibold text-gray-700 hover:text-gray-900"
                 >
-                    <span>الرسوم البيانية التفصيلية</span>
+                    <span>Detailed Charts</span>
                     {showCharts ? <ChevronUpIcon className="h-5 w-5" /> : <ChevronDownIcon className="h-5 w-5" />}
                 </button>
                 
@@ -249,7 +249,7 @@ const AuctionStatistics = ({ auctions }) => {
                     <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Status distribution */}
                         <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
-                            <h3 className="text-sm font-semibold text-gray-700 mb-3">توزيع حالات المزادات</h3>
+                            <h3 className="text-sm font-semibold text-gray-700 mb-3">Auction Status Distribution</h3>
                             <div className="h-56">
                                 <Doughnut data={statusChartData} options={statusChartOptions} />
                             </div>
@@ -257,7 +257,7 @@ const AuctionStatistics = ({ auctions }) => {
 
                         {/* Category distribution */}
                         <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
-                            <h3 className="text-sm font-semibold text-gray-700 mb-3">المزادات حسب الفئة</h3>
+                            <h3 className="text-sm font-semibold text-gray-700 mb-3">Auctions by Category</h3>
                             <div className="h-56">
                                 <Bar data={categoryChartData} options={categoryChartOptions} />
                             </div>
