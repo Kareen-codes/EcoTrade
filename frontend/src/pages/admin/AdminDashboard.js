@@ -103,7 +103,7 @@ const AdminDashboard = () => {
 
         } catch (error) {
             console.error('Error fetching dashboard stats:', error);
-            setError('حدث خطأ في تحميل الإحصائيات');
+            setError('An error occurred while loading the statistics');
         } finally {
             setLoading(false);
         }
@@ -111,7 +111,7 @@ const AdminDashboard = () => {
 
     const StatCard = ({ title, value, subtitle, icon: Icon, color, link }) => (
         <Link to={link} className="block group">
-            <div className={`bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-r-4 ${color}`}>
+            <div className={`bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-l-4 ${color}`}>
                 <div className="flex items-center justify-between mb-4">
                     <div className={`p-3 rounded-lg ${color.replace('border', 'bg').replace('600', '100')} group-hover:scale-110 transition-transform duration-300`}>
                         <Icon className={`h-8 w-8 ${color.replace('border', 'text')}`} />
@@ -128,7 +128,7 @@ const AdminDashboard = () => {
         return (
             <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
                 <div className="spinner"></div>
-                <p className="text-gray-600">جاري تحميل الإحصائيات...</p>
+                <p className="text-gray-600">Loading statistics...</p>
             </div>
         );
     }
@@ -145,7 +145,7 @@ const AdminDashboard = () => {
                         onClick={fetchRealStats}
                         className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                     >
-                        إعادة المحاولة
+                        Try Again
                     </button>
                 </div>
             </div>
@@ -158,12 +158,12 @@ const AdminDashboard = () => {
             <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl shadow-lg p-8 text-white">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
-                        <h1 className="text-3xl font-bold mb-2">مرحباً بك في لوحة التحكم 👋</h1>
-                        <p className="text-blue-100">نظرة عامة على إحصائيات المنصة</p>
+                        <h1 className="text-3xl font-bold mb-2">Welcome to the Dashboard 👋</h1>
+                        <p className="text-blue-100">An overview of platform statistics</p>
                     </div>
                     <div className="flex items-center gap-2 bg-white bg-opacity-20 px-4 py-3 rounded-lg">
                         <ClockIcon className="h-5 w-5" />
-                        <span className="text-sm">{new Date().toLocaleDateString('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                        <span className="text-sm">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
                     </div>
                 </div>
             </div>
@@ -171,41 +171,41 @@ const AdminDashboard = () => {
             {/* Statistics Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
                 <StatCard
-                    title="إجمالي المستخدمين"
+                    title="Total Users"
                     value={stats.users.total}
-                    subtitle="مستخدمي المنصة"
+                    subtitle="Platform users"
                     icon={UsersIcon}
                     color="border-blue-600"
                     link="/users"
                 />
                 <StatCard
-                    title="إجمالي الطلبات"
+                    title="Total Requests"
                     value={stats.requests.total}
-                    subtitle={`${stats.requests.pending} قيد المعالجة`}
+                    subtitle={`${stats.requests.pending} pending`}
                     icon={ShoppingBagIcon}
                     color="border-green-600"
                     link="/orders"
                 />
                 <StatCard
-                    title="المزادات"
+                    title="Auctions"
                     value={stats.auctions.total}
-                    subtitle={`${stats.auctions.active} نشطة`}
+                    subtitle={`${stats.auctions.active} active`}
                     icon={CollectionIcon}
                     color="border-purple-600"
                     link="/auctions"
                 />
                 <StatCard
-                    title="المواد المتاحة"
+                    title="Available Materials"
                     value={stats.scrap.total}
-                    subtitle="مواد قابلة للتدوير"
+                    subtitle="Recyclable materials"
                     icon={CubeIcon}
                     color="border-yellow-600"
                     link="/scrap"
                 />
                 <StatCard
-                    title="الرسائل"
+                    title="Messages"
                     value={stats.messages.total}
-                    subtitle="رسائل العملاء"
+                    subtitle="Customer messages"
                     icon={ChatAlt2Icon}
                     color="border-red-600"
                     link="/contact"
@@ -216,12 +216,12 @@ const AdminDashboard = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Request Status Distribution */}
                 <div className="bg-white rounded-xl shadow-lg p-6">
-                    <h2 className="text-xl font-bold text-gray-800 mb-4">توزيع حالة الطلبات</h2>
+                    <h2 className="text-xl font-bold text-gray-800 mb-4">Request Status Distribution</h2>
                     {stats.requests.total > 0 ? (
                         <div className="h-64 flex items-center justify-center">
                             <Doughnut
                                 data={{
-                                    labels: ['مكتملة', 'قيد المعالجة', 'ملغاة'],
+                                    labels: ['Completed', 'Pending', 'Canceled'],
                                     datasets: [{
                                         data: [
                                             stats.requests.completed, 
@@ -239,11 +239,10 @@ const AdminDashboard = () => {
                                 }}
                                 options={{
                                     responsive: true,
-                                    maintainAspectRatio: false,
-                                    plugins: {
+                                    maintainAspectRatio: false,                                        plugins: {
                                         legend: {
                                             position: 'bottom',
-                                            rtl: true,
+                                            rtl: false,
                                             labels: {
                                                 padding: 15,
                                                 font: {
@@ -268,33 +267,33 @@ const AdminDashboard = () => {
                         </div>
                     ) : (
                         <div className="h-64 flex items-center justify-center text-gray-500">
-                            لا توجد طلبات حالياً
+                            No requests at the moment
                         </div>
                     )}
                     <div className="mt-4 grid grid-cols-3 gap-4 text-center">
                         <div className="p-3 bg-green-50 rounded-lg">
                             <p className="text-2xl font-bold text-green-600">{stats.requests.completed}</p>
-                            <p className="text-xs text-gray-600">مكتملة</p>
+                            <p className="text-xs text-gray-600">Completed</p>
                         </div>
                         <div className="p-3 bg-yellow-50 rounded-lg">
                             <p className="text-2xl font-bold text-yellow-600">{stats.requests.pending}</p>
-                            <p className="text-xs text-gray-600">قيد المعالجة</p>
+                            <p className="text-xs text-gray-600">Pending</p>
                         </div>
                         <div className="p-3 bg-red-50 rounded-lg">
                             <p className="text-2xl font-bold text-red-600">{stats.requests.canceled}</p>
-                            <p className="text-xs text-gray-600">ملغاة</p>
+                            <p className="text-xs text-gray-600">Canceled</p>
                         </div>
                     </div>
                 </div>
 
                 {/* Auction Status */}
                 <div className="bg-white rounded-xl shadow-lg p-6">
-                    <h2 className="text-xl font-bold text-gray-800 mb-4">حالة المزادات</h2>
+                    <h2 className="text-xl font-bold text-gray-800 mb-4">Auction Status</h2>
                     {stats.auctions.total > 0 ? (
                         <div className="h-64 flex items-center justify-center">
                             <Doughnut
                                 data={{
-                                    labels: ['نشطة', 'مغلقة'],
+                                    labels: ['Active', 'Closed'],
                                     datasets: [{
                                         data: [stats.auctions.active, stats.auctions.closed],
                                         backgroundColor: [
@@ -307,11 +306,10 @@ const AdminDashboard = () => {
                                 }}
                                 options={{
                                     responsive: true,
-                                    maintainAspectRatio: false,
-                                    plugins: {
+                                    maintainAspectRatio: false,                                        plugins: {
                                         legend: {
                                             position: 'bottom',
-                                            rtl: true,
+                                            rtl: false,
                                             labels: {
                                                 padding: 15,
                                                 font: {
@@ -336,17 +334,17 @@ const AdminDashboard = () => {
                         </div>
                     ) : (
                         <div className="h-64 flex items-center justify-center text-gray-500">
-                            لا توجد مزادات حالياً
+                            No auctions at the moment
                         </div>
                     )}
                     <div className="mt-4 grid grid-cols-2 gap-4 text-center">
                         <div className="p-3 bg-purple-50 rounded-lg">
                             <p className="text-2xl font-bold text-purple-600">{stats.auctions.active}</p>
-                            <p className="text-xs text-gray-600">مزادات نشطة</p>
+                            <p className="text-xs text-gray-600">Active auctions</p>
                         </div>
                         <div className="p-3 bg-gray-50 rounded-lg">
                             <p className="text-2xl font-bold text-gray-600">{stats.auctions.closed}</p>
-                            <p className="text-xs text-gray-600">مزادات مغلقة</p>
+                            <p className="text-xs text-gray-600">Closed auctions</p>
                         </div>
                     </div>
                 </div>
@@ -354,23 +352,23 @@ const AdminDashboard = () => {
 
             {/* Quick Actions */}
             <div className="bg-white rounded-xl shadow-lg p-6">
-                <h2 className="text-xl font-bold text-gray-800 mb-4">إجراءات سريعة</h2>
+                <h2 className="text-xl font-bold text-gray-800 mb-4">Quick Actions</h2>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <Link to="/users" className="flex flex-col items-center gap-3 p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl hover:from-blue-100 hover:to-blue-200 transition-all duration-300 transform hover:scale-105 border border-blue-200">
                         <UsersIcon className="h-10 w-10 text-blue-600" />
-                        <span className="text-sm font-semibold text-gray-800 text-center">إدارة المستخدمين</span>
+                        <span className="text-sm font-semibold text-gray-800 text-center">Manage Users</span>
                     </Link>
                     <Link to="/auctions" className="flex flex-col items-center gap-3 p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl hover:from-purple-100 hover:to-purple-200 transition-all duration-300 transform hover:scale-105 border border-purple-200">
                         <CollectionIcon className="h-10 w-10 text-purple-600" />
-                        <span className="text-sm font-semibold text-gray-800 text-center">إدارة المزادات</span>
+                        <span className="text-sm font-semibold text-gray-800 text-center">Manage Auctions</span>
                     </Link>
                     <Link to="/scrap" className="flex flex-col items-center gap-3 p-6 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl hover:from-yellow-100 hover:to-yellow-200 transition-all duration-300 transform hover:scale-105 border border-yellow-200">
                         <CubeIcon className="h-10 w-10 text-yellow-600" />
-                        <span className="text-sm font-semibold text-gray-800 text-center">إدارة المواد</span>
+                        <span className="text-sm font-semibold text-gray-800 text-center">Manage Materials</span>
                     </Link>
                     <Link to="/contact" className="flex flex-col items-center gap-3 p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-xl hover:from-red-100 hover:to-red-200 transition-all duration-300 transform hover:scale-105 border border-red-200">
                         <ChatAlt2Icon className="h-10 w-10 text-red-600" />
-                        <span className="text-sm font-semibold text-gray-800 text-center">الرسائل</span>
+                        <span className="text-sm font-semibold text-gray-800 text-center">Messages</span>
                     </Link>
                 </div>
             </div>

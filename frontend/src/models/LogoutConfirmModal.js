@@ -47,10 +47,10 @@ const LogoutConfirmModal = ({ onConfirm, onCancel }) => {
                     </div>
 
                     <h2 id="logout-modal-title" className="text-xl font-bold text-gray-900 mb-2">
-                        تسجيل الخروج
+                        Log Out
                     </h2>
                     <p className="text-gray-600 mb-8 leading-relaxed">
-                        هل أنت متأكد أنك تريد تسجيل الخروج من حسابك؟
+                        Are you sure you want to log out of your account?
                     </p>
 
                     {/* Action buttons */}
@@ -59,13 +59,13 @@ const LogoutConfirmModal = ({ onConfirm, onCancel }) => {
                             onClick={onCancel}
                             className="px-6 py-3 rounded-xl font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 transition-all duration-200"
                         >
-                            إلغاء
+                            Cancel
                         </button>
                         <button
                             onClick={onConfirm}
                             className="px-6 py-3 rounded-xl font-medium text-white bg-red-600 hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 shadow-lg shadow-red-500/30"
                         >
-                            تسجيل الخروج
+                            Log Out
                         </button>
                     </div>
                 </div>

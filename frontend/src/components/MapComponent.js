@@ -7,23 +7,23 @@ const MapComponent = ({ position, setPosition }) => {
     const markerRef = useRef(null);
 
     useEffect(() => {
-        // إنشاء الخريطة مرة واحدة فقط عند تحميل المكون
+        // Create the map only once when the component mounts
         mapRef.current = L.map('map').setView(position, 13);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mapRef.current);
 
-        // إعداد العلامة وجعلها قابلة للسحب
+        // Set up the marker and make it draggable
         markerRef.current = L.marker(position, { draggable: true }).addTo(mapRef.current);
 
-        // تحديث الإحداثيات عند سحب العلامة
+        // Update coordinates when the marker is dragged
         markerRef.current.on('dragend', () => {
             const { lat, lng } = markerRef.current.getLatLng();
             setPosition([lat, lng]);
         });
 
-        // تحديث الإحداثيات عند النقر على الخريطة
+        // Update coordinates when the map is clicked
         mapRef.current.on('click', (e) => {
             const { lat, lng } = e.latlng;
             setPosition([lat, lng]);
@@ -37,7 +37,7 @@ const MapComponent = ({ position, setPosition }) => {
 
     useEffect(() => {
         if (mapRef.current && markerRef.current) {
-            // تحديث العرض وموقع العلامة عند تغيير الموقع
+            // Update the view and marker position when the location changes
             mapRef.current.setView(position, mapRef.current.getZoom());
             markerRef.current.setLatLng(position);
         }

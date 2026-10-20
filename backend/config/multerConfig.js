@@ -19,7 +19,7 @@ const upload = multer({
         if (file.mimetype.startsWith('image/')) {
             cb(null, true);
         } else {
-            cb(new Error('الملف يجب أن يكون صورة (JPEG, PNG, GIF, إلخ.)'));
+            cb(new Error('The file must be an image. (JPEG, PNG, GIF)'));
         }
     },
 

@@ -8,8 +8,8 @@ const ConfirmDialog = ({
     onConfirm, 
     title, 
     message, 
-    confirmText = 'تأكيد', 
-    cancelText = 'إلغاء',
+    confirmText = 'Confirm', 
+    cancelText = 'Cancel',
     type = 'warning' // 'warning', 'danger', 'info'
 }) => {
     // Close on Escape key
@@ -48,7 +48,6 @@ const ConfirmDialog = ({
     return (
         <div 
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
-            dir="rtl"
             role="dialog"
             aria-modal="true"
             aria-labelledby="confirm-dialog-title"
@@ -58,7 +57,7 @@ const ConfirmDialog = ({
                 type="button" 
                 onClick={onClose} 
                 className="absolute inset-0 cursor-default" 
-                aria-label="إغلاق"
+                aria-label="Close"
             />
 
             {/* Dialog */}
@@ -70,8 +69,8 @@ const ConfirmDialog = ({
                 <button
                     type="button"
                     onClick={onClose}
-                    className="absolute left-4 top-4 rounded-lg p-1 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
-                    aria-label="إغلاق"
+                    className="absolute right-4 top-4 rounded-lg p-1 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
+                    aria-label="Close"
                 >
                     <XIcon className="h-5 w-5" />
                 </button>

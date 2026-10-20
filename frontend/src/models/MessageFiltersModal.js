@@ -63,10 +63,10 @@ const MessageFiltersModal = ({
     };
 
     const sortOptions = [
-        { value: 'newest', label: 'الأحدث أولاً' },
-        { value: 'oldest', label: 'الأقدم أولاً' },
-        { value: 'name-asc', label: 'الاسم (أ-ي)' },
-        { value: 'name-desc', label: 'الاسم (ي-أ)' }
+        { value: 'newest', label: 'Newest First' },
+        { value: 'oldest', label: 'Oldest First' },
+        { value: 'name-asc', label: 'Name (A-Z)' },
+        { value: 'name-desc', label: 'Name (Z-A)' }
     ];
 
     return (
@@ -84,14 +84,14 @@ const MessageFiltersModal = ({
                 <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
 
                 {/* Header */}
-                <div className="flex items-center justify-between px-6 pt-8 pb-4 border-b border-gray-100" dir="rtl">
+                <div className="flex items-center justify-between px-6 pt-8 pb-4 border-b border-gray-100">
                     <div className="flex items-center gap-3">
                         <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg">
                             <FilterIcon className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                            <h2 className="text-xl font-bold text-gray-900">فلاتر متقدمة</h2>
-                            <p className="text-sm text-gray-500">حسّن نتائج البحث</p>
+                            <h2 className="text-xl font-bold text-gray-900">Advanced Filters</h2>
+                            <p className="text-sm text-gray-500">Refine your search results</p>
                         </div>
                     </div>
                     <button
@@ -104,20 +104,20 @@ const MessageFiltersModal = ({
                 </div>
 
                 {/* Filter Content */}
-                <div className="px-6 py-6 space-y-5 max-h-[60vh] overflow-y-auto" dir="rtl">
+                <div className="px-6 py-6 space-y-5 max-h-[60vh] overflow-y-auto">
                     {/* Search Query */}
                     <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
-                            البحث في الرسائل
+                            Search Messages
                         </label>
                         <div className="relative">
-                            <SearchIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                            <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                             <input
                                 type="text"
                                 value={filters.searchQuery}
                                 onChange={(e) => handleFilterChange('searchQuery', e.target.value)}
-                                placeholder="ابحث بالاسم، البريد الإلكتروني، أو محتوى الرسالة..."
-                                className="w-full pr-10 pl-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                placeholder="Search by name, email, or message content..."
+                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                             />
                         </div>
                     </div>
@@ -125,12 +125,12 @@ const MessageFiltersModal = ({
                     {/* Date Range */}
                     <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
-                            <CalendarIcon className="inline w-4 h-4 ml-1" />
-                            نطاق التاريخ
+                            <CalendarIcon className="inline w-4 h-4 mr-1" />
+                            Date Range
                         </label>
                         <div className="grid grid-cols-2 gap-3">
                             <div>
-                                <label className="block text-xs text-gray-600 mb-1">من تاريخ</label>
+                                <label className="block text-xs text-gray-600 mb-1">From date</label>
                                 <input
                                     type="date"
                                     value={filters.dateFrom}
@@ -139,7 +139,7 @@ const MessageFiltersModal = ({
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs text-gray-600 mb-1">إلى تاريخ</label>
+                                <label className="block text-xs text-gray-600 mb-1">To date</label>
                                 <input
                                     type="date"
                                     value={filters.dateTo}
@@ -153,7 +153,7 @@ const MessageFiltersModal = ({
                     {/* Sort Options */}
                     <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
-                            ترتيب حسب
+                            Sort By
                         </label>
                         <select
                             value={filters.sortBy}
@@ -171,16 +171,16 @@ const MessageFiltersModal = ({
                     {/* Active Filters Summary */}
                     {(filters.searchQuery || filters.dateFrom || filters.dateTo) && (
                         <div className="p-4 bg-indigo-50 border border-indigo-200 rounded-xl">
-                            <p className="text-sm font-semibold text-indigo-900 mb-2">الفلاتر النشطة:</p>
+                            <p className="text-sm font-semibold text-indigo-900 mb-2">Active Filters:</p>
                             <div className="flex flex-wrap gap-2">
                                 {filters.searchQuery && (
                                     <span className="px-3 py-1 bg-white text-indigo-700 text-xs font-medium rounded-full border border-indigo-300">
-                                        بحث: {filters.searchQuery}
+                                        Search: {filters.searchQuery}
                                     </span>
                                 )}
                                 {(filters.dateFrom || filters.dateTo) && (
                                     <span className="px-3 py-1 bg-white text-indigo-700 text-xs font-medium rounded-full border border-indigo-300">
-                                        نطاق التاريخ
+                                        Date Range
                                     </span>
                                 )}
                             </div>
@@ -189,20 +189,20 @@ const MessageFiltersModal = ({
                 </div>
 
                 {/* Actions Footer */}
-                <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 flex gap-3" dir="rtl">
+                <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 flex gap-3">
                     <button
                         onClick={handleReset}
                         className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium text-gray-700 bg-white border-2 border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-all duration-200"
                     >
                         <RefreshIcon className="w-5 h-5" />
-                        إعادة تعيين
+                        Reset
                     </button>
                     <button
                         onClick={handleApply}
                         className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-medium text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-lg shadow-indigo-500/30"
                     >
                         <FilterIcon className="w-5 h-5" />
-                        تطبيق الفلاتر
+                        Apply Filters
                     </button>
                 </div>
             </div>

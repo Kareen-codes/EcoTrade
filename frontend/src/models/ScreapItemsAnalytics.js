@@ -24,16 +24,16 @@ export default function ScreapItemsAnalytics({ scrapItems }) {
     const categoryChartData = {
         labels: categories.map(cat => {
             const emoji = {
-                'Metals': '🔩 معادن',
-                'Plastics': '♻️ بلاستيك',
-                'Electronics': '💻 إلكترونيات',
-                'Paper and Cardboard': '📄 ورق وكرتون',
-                'Furniture': '🪑 أثاث'
+                'Metals': '🔩 Metals',
+                'Plastics': '♻️ Plastics',
+                'Electronics': '💻 Electronics',
+                'Paper and Cardboard': '📄 Paper and Cardboard',
+                'Furniture': '🪑 Furniture'
             };
             return emoji[cat] || cat;
         }),
         datasets: [{
-            label: 'عدد المواد',
+            label: 'Number of Materials',
             data: categoryDistribution,
             backgroundColor: [
                 'rgba(59, 130, 246, 0.8)',
@@ -56,9 +56,9 @@ export default function ScreapItemsAnalytics({ scrapItems }) {
 
     // Status chart data
     const statusChartData = {
-        labels: ['📥 مستلم', '⚙️ معالج', '♻️ جاهز للتدوير', '🔨 جاهز للمزاد'],
+        labels: ['📥 Received', '⚙️ Processed', '♻️ Ready for Recycling', '🔨 Ready for Auction'],
         datasets: [{
-            label: 'عدد المواد',
+            label: 'Number of Materials',
             data: statusDistribution,
             backgroundColor: [
                 'rgba(156, 163, 175, 0.8)',
@@ -114,20 +114,20 @@ export default function ScreapItemsAnalytics({ scrapItems }) {
     };
 
     return (
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5" dir="rtl">
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
             {/* Statistics Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                 <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-4 text-white">
-                    <div className="text-sm opacity-90 mb-1">إجمالي المواد</div>
+                    <div className="text-sm opacity-90 mb-1">Total Materials</div>
                     <div className="text-3xl font-bold">{scrapItems.length}</div>
                 </div>
                 <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-4 text-white">
-                    <div className="text-sm opacity-90 mb-1">القيمة الإجمالية</div>
-                    <div className="text-2xl font-bold">{totalValue.toLocaleString()} ل.س</div>
+                    <div className="text-sm opacity-90 mb-1">Total Value</div>
+                    <div className="text-2xl font-bold">{totalValue.toLocaleString()} SYP</div>
                 </div>
                 <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl p-4 text-white">
-                    <div className="text-sm opacity-90 mb-1">الكمية الإجمالية</div>
-                    <div className="text-2xl font-bold">{totalQuantity.toFixed(1)} طن</div>
+                    <div className="text-sm opacity-90 mb-1">Total Quantity</div>
+                    <div className="text-2xl font-bold">{totalQuantity.toFixed(1)} tons</div>
                 </div>
             </div>
 
@@ -135,13 +135,13 @@ export default function ScreapItemsAnalytics({ scrapItems }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {/* Category Distribution */}
                 <div className="bg-gray-50 rounded-xl p-4">
-                    <h3 className="text-sm font-bold text-gray-800 mb-3">التوزيع حسب الفئات</h3>
+                    <h3 className="text-sm font-bold text-gray-800 mb-3">Distribution by Category</h3>
                     <Bar data={categoryChartData} options={chartOptions} />
                 </div>
 
                 {/* Status Distribution */}
                 <div className="bg-gray-50 rounded-xl p-4">
-                    <h3 className="text-sm font-bold text-gray-800 mb-3">التوزيع حسب الحالة</h3>
+                    <h3 className="text-sm font-bold text-gray-800 mb-3">Distribution by Status</h3>
                     <Doughnut data={statusChartData} options={doughnutOptions} />
                 </div>
             </div>
